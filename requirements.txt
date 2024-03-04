@@ -1,7 +1,6 @@
 Flask 
 selenium 
-requests 
-BeautifulSoup 
+requests
 spacy 
 markdown 
 docx 

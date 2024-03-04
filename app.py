@@ -1,19 +1,22 @@
-from flask import Flask, render_template, send_file, request, jsonify, render_template_string, redirect, url_for, g, send_from_directory, Response
+from flask import (
+    Flask, 
+    render_template, 
+    send_file, 
+    request, 
+    jsonify, 
+    redirect, url_for, g, send_from_directory, 
+    Response,
+)
 from flask import session
-from selenium import webdriver
-import io
 import random
 import smtplib
 from threading import Thread
 from email.mime.text import MIMEText
-from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 import threading
 import time
 import requests
-from bs4 import BeautifulSoup
 import os
-import spacy
 import markdown
 from docx import Document
 import openai
@@ -21,7 +24,6 @@ from docx.shared import Pt
 from twilio.rest import Client
 import pyautogui
 import keyboard
-import atexit
 import cv2
 import mysql.connector
 from flask_cors import CORS
@@ -29,7 +31,6 @@ from flask_socketio import SocketIO
 from functools import wraps
 import datetime
 from datetime import datetime
-from PIL import Image
 app = Flask(__name__)
 # # Define the website to block (e.g., Facebook)
 # website_to_block = "www.facebook.com"
