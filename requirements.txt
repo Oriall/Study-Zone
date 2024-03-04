@@ -3,7 +3,7 @@ selenium
 requests
 spacy 
 markdown 
-docx 
+python-docx 
 openai 
 twilio 
 pyautogui 
