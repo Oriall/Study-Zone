@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/*-------------------------scrollbar-------------------*/
+body::-webkit-scrollbar
+
+/*SIZE*/
+    {
+    width: 7px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #1f2028;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #161C24;
+    border-radius: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*-----------------------Body-------------------------*/
+.box {
+    display: flex;
+}
+
+/*-----------LEFT-----------*/
+.box section-left {
+    background-color: #282B30;
+    width: 20%;
+    min-height: 100vh;
+}
+
+.box-pt1 {
+    height: 92%;
+}
+
+.pt1 {
+    padding: 15px 20px;
+}
+
+.box section-left .back {
+    padding-left: 10px;
+    width: 47px;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    cursor: pointer;
+}
+
+section-left i {
+    color: #D9D9D9;
+}
+
+section-left .back p {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 14px;
+    color: #D9D9D9;
+}
+
+section-left .logo {
+    width: 192px;
+    height: 115px;
+    display: flex;
+    align-items: center;
+}
+
+.logo .container {
+    position: relative;
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+section-left .logo img {
+    width: 47px;
+    height: 44px;
+}
+
+.logo .text {
+    height: 100%;
+    padding-top: 10px;
+}
+
+.logo .text p {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+    /* identical to box height */
+    color: #D9D9D9;
+}
+
+.logo .check {
+    position: absolute;
+    right: -20px;
+    top: 6px;
+    background: #295BF3;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo .check i {
+    color: #F8F8F8;
+}
+
+section-left .app {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    padding-left: 10px;
+
+}
+
+section-left .my-home {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+}
+
+section-left .my-home p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+    color: #D9D9D9;
+}
+
+section-left .line {
+    margin: auto;
+    margin-top: 30px;
+    width: 90%;
+    border: 1px solid #D9D9D9;
+}
+
+.box-pt2 {
+    height: 8%;
+    background: rgba(0, 0, 0, 0.26);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box-pt2 .acc {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.box-pt2 img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+}
+
+.box-pt2 .acc .name {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: #D9D9D9;
+}
+
+.box-pt2 .acc .number {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 13px;
+
+    color: rgba(255, 255, 255, 0.62);
+
+}
+
+/*-----------RIGHT--------------*/
+.box section-right {
+    background-color: #36393E;
+    width: 80%;
+    min-height: 100vh;
+    padding: 72px 120px 20px;
+}
+
+section-right .text {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+
+section-right .text .head-tile {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.03em;
+
+    color: #FFFFFF;
+}
+
+section-right .text .mid-tile {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+section-right .text .mid {
+    display: flex;
+    column-gap: 25px;
+    align-items: center;
+}
+
+section-right .text .mid .on {
+    width: 47px;
+    height: 17px;
+    border: 1px solid rgba(138, 103, 239, 0.58);
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section-right .text .mid .on p {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 8px;
+    line-height: 9px;
+    /* identical to box height */
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #8A67EF;
+}
+
+section-right .room {
+    padding-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 30px;
+    justify-content: space-between;
+}
+
+.room .mini {
+    width: 325px;
+    height: 256px;
+    border-radius: 6px;
+}
+
+.room .mini .img {
+    height: 162px;
+    width: 325px;
+}
+
+.room .mini .container {
+    position: relative;
+    background: rgba(40, 43, 48, 0.8);
+    height: 94px;
+    width: 325px;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 9px;
+    border-radius: 0px 0px 6px 6px;
+}
+
+.room .mini img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px 6px 0px 0px;
+}
+
+.room .mini .container .head-text p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+}
+
+.mini .container .text p {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 14px;
+    letter-spacing: 0.01em;
+
+    color: rgba(255, 255, 255, 0.53);
+}
+
+.container .point {
+    display: flex;
+    column-gap: 10px;
+}
+
+.container .point .circle {
+    width: 9px;
+    height: 10px;
+    border-radius: 50%;
+    background: #3FF12F;
+}
+
+.container .point .text p {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: 0.01em;
+    color: rgba(255, 255, 255, 0.9);
+
+}
+
+.container .logo {
+    top: -10px;
+    width: 30px;
+    height: 26px;
+    position: absolute;
+}
+.container .logo img
+{
+    width: 100%;
+    height: 100%;
+}

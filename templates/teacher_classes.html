@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='teacher_classes.css') }}">
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/logo.png')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Study Zone</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <!------------------------LOADER--------------------------->
+    <!----------------------------Chat MESS-------------------------------->
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div class="ct" style="display: none;">
+        <div class="it" onclick="tro_chuyen()">
+            <p>Nhắn Tin</p>
+        </div>
+        <div class="it" onclick="thong_ke()">
+            <p>Phân Tích</p>
+        </div>
+        <div class="it" onclick="cam_change_bg()">
+            <p>Xem Cam</p>
+        </div>
+        <a href="login">
+            <div class="it">
+                <p>Đăng Xuất</p>
+            </div>
+        </a>
+    </div>
+    <div id="wrapper" style="display: none;">
+        <div class="bg_mid">
+            <div class="chat_box">
+                <div class="box_find">
+                    <div class="find_1">
+                        <img src="/static/img/find.svg" alt="">
+                        <input type="text" name="" id="" placeholder="Tìm Kiếm...">
+                    </div>
+                </div>
+                <div class="box_find2">
+                    <div class="tro_chuyen" onclick="tro_chuyen()">
+                        <img src="/static/img/phong_chung.svg" alt="">
+                        <p>Phòng Học</p>
+                    </div>
+                    <div class="phong_chung" onclick="phong_chung()">
+                        <img src="/static/img/tro_chuyen.svg" alt="">
+                        <p>Thông Báo</p>
+                    </div>
+                    <div class="thong_ke" onclick="thong_ke()">
+                        <img src="/static/img/thong_ke.svg" alt="">
+                        <p>Thống Kê</p>
+                    </div>
+                </div>
+            </div>
+            <div class="acc_box">
+                <div class="acc_box_img">
+                    <img src="/static/img/storm.jpg" alt="">
+                    <div class="status_item2">
+                        <div class="st_it2">
+                        </div>
+                    </div>
+                </div>
+                <div class="info_user">
+                    <p id="info1">
+                        {{ teacher_name }}
+                    </p>
+                    <p id="info2">
+                        Đang hoạt động
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="bg_right">
+            <div class="nav_right">
+                <div class="nav_r1">
+                    <img src="/static/img/storm.jpg" alt="">
+                    <p class="user_right">Phòng Học</p>
+                </div>
+                <div class="nav_r2">
+                    <img src="/static/img/r3.svg" alt="" onclick="cam_change_bg()">
+                    <div class="find_r2">
+                        <input type="text" name="" id="searchInput" placeholder="Tìm Kiếm..." oninput="filterItems()">
+                        <img src="/static/img/find2.svg" alt="">
+                    </div>
+                    <img src="/static/img/r2.svg" alt="">
+                    <a href="add_student">
+                        <img src="/static/img/r1.svg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="thong_ke_right">
+                {% for class_name in teacher_classes %}
+                    <a href="{{ url_for('control2', class_id = class_name[0]) }}">
+                        <div class="item_class" title="{{ class_name }}">
+                            <div class="icon_box">
+                                <img src="/static/img/more.svg" alt="">
+                            </div>
+                            <div class="content_tkr">
+                                <div class="item_ctktr">
+                                    {{ class_name[1] }}
+                                </div>
+                            </div>
+                            <div class="content_phu_tkr">
+                                {{ class_name[1] }} - DHV
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            
+
+
+
+            <script>
+                function filterItems() {
+                    // Get the value entered in the search input
+                    var keyword = document.getElementById('searchInput').value.toLowerCase();
+
+                    // Get all items in the box
+                    var items = document.getElementsByClassName('key_item');
+
+                    // Loop through each item and hide or show based on the keyword
+                    for (var i = 0; i < items.length; i++) {
+                        var itemText = items[i].textContent.toLowerCase();
+                        if (itemText.includes(keyword)) {
+                            items[i].style.display = 'block';
+                        } else {
+                            items[i].style.display = 'none';
+                        }
+                    }
+                }
+            </script>
+            <script src="/static/js/teacher_classes.js"></script>
+        </div>
+    </div>
+
+    <script>
+        function screen_f() {
+            var elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        window.onload = function () {
+            var preloader = document.querySelector(".loader");
+            var mainContent = document.querySelector("#wrapper");
+
+            setTimeout(function () {
+                // Ẩn preloader khi tải xong
+                preloader.style.display = "none";
+                // Hiển thị nội dung chính của trang
+                mainContent.style.display = "flex";
+                mainContent.classList.add('animation-status6');
+                // Added missing class name, assuming you want to toggle a class named "hidden"
+            }, 1000);
+        };
+
+    </script>
+    <script>
+        let menu = document.querySelector('.ct')
+        document.addEventListener('contextmenu', function (event) {
+            menu.style.display = 'flex';
+            menu.style.top = event.y + 'px';
+            menu.style.left = event.x + 'px';
+            event.preventDefault();
+        })
+        document.addEventListener('click', function (event) {
+            menu.style.display = 'none';
+        })
+    </script>
+</body>

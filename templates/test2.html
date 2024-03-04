@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+</head>
+<body>
+    <div class="chua-co-tb">
+        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="49" viewBox="0 0 44 49" fill="none">
+            <path
+                d="M22 49C23.5138 49.0019 24.9907 48.5311 26.2252 47.6529C27.4597 46.7747 28.3906 45.5329 28.8884 44.1H15.1116C15.6094 45.5329 16.5403 46.7747 17.7748 47.6529C19.0093 48.5311 20.4862 49.0019 22 49ZM39.1111 30.8357V19.6C39.1111 11.7183 33.77 5.07885 26.5344 3.0821C25.8182 1.274 24.068 0 22 0C19.932 0 18.1818 1.274 17.4656 3.0821C10.23 5.0813 4.88889 11.7183 4.88889 19.6V30.8357L0.716225 35.0178C0.488787 35.245 0.308417 35.5149 0.185498 35.8122C0.0625781 36.1095 -0.000463098 36.4282 2.56098e-06 36.75V39.2C2.56098e-06 39.8498 0.257541 40.4729 0.715964 40.9324C1.17439 41.3919 1.79614 41.65 2.44445 41.65H41.5556C42.2039 41.65 42.8256 41.3919 43.284 40.9324C43.7425 40.4729 44 39.8498 44 39.2V36.75C44.0005 36.4282 43.9374 36.1095 43.8145 35.8122C43.6916 35.5149 43.5112 35.245 43.2838 35.0178L39.1111 30.8357Z"
+                fill="white" fill-opacity="0.698039" />
+        </svg>
+        <p id="tb_control">Chưa có Thông Báo</p>
+    </div>
+
+    <script>
+        var controlData = localStorage.getItem("ControlData2");
+        if (controlData) {
+            document.getElementById("tb_control").innerText = controlData;
+        } else {
+            document.getElementById("tb_control").innerText = "Chưa có Thông Báo";
+        }
+    </script>
+</body>
+</html>

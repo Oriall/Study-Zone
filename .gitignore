@@ -1,0 +1,4 @@
+*.docx
+.vscode
+static/uploads
+screenshots

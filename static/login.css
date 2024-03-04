@@ -1,0 +1,462 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Fira Code";
+}
+
+body {
+    background-color: rgb(1, 0, 1);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#wrapper {
+    width: 100%;
+    overflow: hidden;
+    background: #242324;
+    height: 100vh;
+    width: 100%;
+    padding-top: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transform: scale(0.8);
+    opacity: 0;
+}
+
+/*-------------------------scrollbar-------------------*/
+body::-webkit-scrollbar
+
+/*SIZE*/
+    {
+    width: 7px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #1f2028;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #161C24;
+    border-radius: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.time {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.time p {
+    color: rgba(239, 241, 245, 0.92);
+    font-family: Fira Code;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.main-acc {
+    cursor: pointer;
+    width: 199px;
+    height: 46px;
+    border-radius: 8px;
+    background: #3584E5;
+    display: flex;
+    align-items: center;
+    padding-left: 3px;
+    padding-right: 3px;
+    column-gap: 11px;
+    transition: all 0.2s ease-in-out;
+}
+
+.main-acc:hover {
+    background: #54A0FD;
+}
+
+.main-acc:active {
+    background: rgba(53, 132, 229, 0.79);
+}
+
+.main-acc .img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #D9D9D9;
+}
+
+.main-acc img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.name_account {
+    color: #FFF;
+    font-family: Fira Code;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.acc-name {
+    padding-left: 3px;
+    padding-top: 8px;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: Fira Code;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+    cursor: pointer;
+}
+
+/*--------------Load----------*/
+.loader {
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid rgba(202, 166, 249, 0.85);
+    ;
+    border-top-color: transparent;
+    animation: rot1 1.2s linear infinite;
+}
+
+@keyframes rot1 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes ZoomIn {
+    from {
+
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+
+        transform: scale(1);
+        opacity: 1;
+    }
+
+}
+
+.animation-status6 {
+    animation: ZoomIn 0.3s ease-out forwards;
+}
+
+.acc2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 10px;
+    transform: scale(0.8);
+    opacity: 0;
+}
+
+.img2 {
+    width: 158px;
+    height: 158px;
+    border-radius: 50%;
+    border: 1px solid #D9D9D9;
+}
+
+.img2 img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+#name {
+    color: rgba(255, 255, 255, 0.62);
+    font-family: Fira Code;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+#hello {
+    color: #D9D9D9;
+    font-family: Fira Code;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+@-webkit-keyframes BackIn {
+    from {
+        background: #242324;
+    }
+
+    to {
+        background: #12101C;
+    }
+
+}
+
+.animation-status7 {
+    animation: BackIn 0.5s ease-out forwards;
+}
+
+.acc3 {
+    width: 555px;
+    height: 319px;
+    border-radius: 2px;
+    background: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px;
+}
+
+.acc3_head {
+    color: #FFF;
+    font-family: Fira Code;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+#log_in input {
+    width: 426px;
+    height: 39px;
+    border-radius: 2px;
+    background: #4C4B4B;
+    color: rgba(255, 255, 255, 0.53);
+    font-family: Fira Code;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    padding-left: 11px;
+    padding-right: 11px;
+    border: none;
+    outline: none;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+color: rgba(255, 255, 255, 0.53) !important;
+background-color: #4C4B4B !important;
+}
+#log_in input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.53);
+    font-family: Fira Code;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#password {
+    margin-top: 25px;
+}
+
+#log_in{
+    display: flex;
+    flex-direction: column;
+}
+#log_up_t {
+    margin-top: 8px;
+    color: #8095D4;
+    font-family: Comfortaa;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+}
+
+#log_in button {
+    width: 426px;
+    height: 38px;
+    border-radius: 2px;
+    background: rgba(97, 132, 237, 0.78);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-family: Comfortaa;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 18px;
+    cursor: pointer;
+}
+
+#log_up_t2 {
+    color: rgba(255, 255, 255, 0.27);
+    font-family: Comfortaa;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 8px;
+    
+
+}
+
+.log_up_t3 {
+    color: rgba(149, 175, 255, 0.79);
+    text-align: center;
+    font-family: Comfortaa;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.acc4 {
+    width: 555px;
+    height: 490px;
+    border-radius: 2px;
+    background: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 29px;
+    padding-top: 25px;
+}
+
+.acc4_head {
+    color: #FFF;
+    font-family: Fira Code;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+#log_in2 input {
+    width: 426px;
+    height: 39px;
+    border-radius: 2px;
+    background: #4C4B4B;
+    color: rgba(255, 255, 255, 0.53);
+    font-family: Fira Code;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    padding-left: 11px;
+    padding-right: 11px;
+    border: none;
+    outline: none;
+}
+
+#log_in2 input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.53);
+    font-family: Fira Code;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#password {
+    margin-top: 25px;
+}
+#email {
+    margin-top: 25px;
+}
+#emailphuhuynh{
+    margin-top: 25px;
+}
+#phonenumber{
+    margin-top: 25px;
+}
+
+#log_in2{
+    display: flex;
+    flex-direction: column;
+}
+#log_up_t {
+    margin-top: 8px;
+    color: #8095D4;
+    font-family: Comfortaa;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+}
+
+#log_in2 button {
+    width: 426px;
+    height: 38px;
+    border-radius: 2px;
+    background: rgba(97, 132, 237, 0.78);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-family: Comfortaa;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+#log_up_t2 {
+    color: rgba(255, 255, 255, 0.27);
+    font-family: Comfortaa;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 8px;
+    
+
+}
+
+.log_up_t3 {
+    color: rgba(149, 175, 255, 0.79);
+    text-align: center;
+    font-family: Comfortaa;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+}
+

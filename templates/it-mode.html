@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='it-mode.css') }}">
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/logo.png')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Study Zone</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="ct" style="display: none;">
+        <a href="main">
+            <div class="it">
+                <p>Phòng Học</p>
+            </div>
+        </a>
+        <a href="">
+            <div class="it">
+                <p>Đổi Chương</p>
+            </div>
+        </a>
+        <a href="">
+            <div class="it">
+                <p>Chuyển Bài</p>
+            </div>
+        </a>
+        <a href="login">
+            <div class="it">
+                <p>Rời Phòng</p>
+            </div>
+        </a>
+    </div>
+    <div id="root"></div>
+    <div id="wrapper">
+        <div class="nav">
+            <div class="box-icon1">
+
+            </div>
+            <div class="search" onclick="open_file()">
+                <p>
+                    Compiler For Website
+                </p>
+                <div class="open_file_box" style="display: none;">
+                    <div class="search_file1">
+                        <div class="box_sfile1">
+                            <input type="text" name="" id="" placeholder="Tìm tên bài ...">
+                        </div>
+                    </div>
+                    <div class="search_file2">
+                        {% for file in files %}
+                        <div class="sfile_item" onclick="close_file2(event),openFile({{ file[0] }})"
+                            title="{{ file[1] }}">
+                            <p>{{ file[1] }}</p>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                function openFile(fileId) {
+                    fetch('/open/' + fileId)
+                        .then(response => response.json())
+                        .then(data => {
+
+                            document.querySelector('.code4').value = data.code;
+
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            </script>
+            <div class="box-icon2">
+                <div class="box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16" fill="none">
+                        <path
+                            d="M0.5 1.21875V0.71875C0.367392 0.71875 0.240215 0.771428 0.146447 0.865197C0.0526784 0.958965 0 1.08614 0 1.21875H0.5ZM0.5 14.2188H0C0 14.3514 0.0526784 14.4785 0.146447 14.5723C0.240215 14.6661 0.367392 14.7188 0.5 14.7188V14.2188ZM3 0.71875V15.7188H4V0.71875H3ZM0.5 1.71875H10.5V0.71875H0.5V1.71875ZM12 3.21875V12.2188H13V3.21875H12ZM10.5 13.7188H0.5V14.7188H10.5V13.7188ZM1 14.2188V1.21875H0V14.2188H1ZM12 12.2188C12 12.6166 11.842 12.9981 11.5607 13.2794C11.2794 13.5607 10.8978 13.7187 10.5 13.7188V14.7188C11.163 14.7188 11.7989 14.4554 12.2678 13.9865C12.7366 13.5177 13 12.8818 13 12.2188H12ZM10.5 1.71875C10.8978 1.71875 11.2794 1.87679 11.5607 2.15809C11.842 2.43939 12 2.82093 12 3.21875H13C13 2.55571 12.7366 1.91982 12.2678 1.45098C11.7989 0.982142 11.163 0.71875 10.5 0.71875V1.71875ZM6 5.71875H10V4.71875H6V5.71875Z"
+                            fill="#9D9D9D" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="17" viewBox="0 0 14 17" fill="none">
+                        <path
+                            d="M12.0311 10.3188C12.2897 10.3188 12.5457 10.3653 12.7846 10.4558C13.0235 10.5462 13.2405 10.6788 13.4233 10.846C13.6062 11.0131 13.7512 11.2115 13.8501 11.4299C13.9491 11.6483 14 11.8824 14 12.1188V12.8419C14.0001 13.2744 13.898 13.7017 13.7006 14.0947C13.5032 14.4877 13.2152 14.837 12.8563 15.1188C11.4868 16.194 9.52584 16.7188 6.99694 16.7188C4.46803 16.7188 2.50966 16.194 1.14282 15.1188C0.784453 14.8372 0.496815 14.4883 0.299576 14.0957C0.102337 13.7032 0.000148792 13.2763 0 12.8443V12.118C0.000232012 11.6407 0.207768 11.1831 0.576978 10.8457C0.946189 10.5083 1.44685 10.3188 1.96887 10.3188H12.0311ZM12.0311 11.5188H1.968C1.79394 11.5188 1.62701 11.582 1.50393 11.6945C1.38085 11.807 1.31171 11.9596 1.31171 12.1188V12.8443C1.31171 13.3683 1.56285 13.8668 1.99775 14.2092C3.09857 15.0748 4.75767 15.5188 6.99694 15.5188C9.23708 15.5188 10.8979 15.0732 12.0022 14.2068C12.2173 14.0377 12.3899 13.8281 12.5081 13.5924C12.6264 13.3567 12.6875 13.1005 12.6874 12.8412V12.1171C12.6874 11.958 12.6183 11.8054 12.4952 11.6929C12.3721 11.5804 12.2052 11.5172 12.0311 11.5172V11.5188ZM6.90943 0.72355L6.99694 0.71875C7.15553 0.718756 7.30876 0.771264 7.42828 0.866564C7.5478 0.961863 7.62553 1.09351 7.6471 1.23715L7.65323 1.31875L7.65235 1.91795H10.715C11.2372 1.91795 11.738 2.10759 12.1072 2.44516C12.4765 2.78272 12.6839 3.24056 12.6839 3.71795V7.32195C12.6839 7.79934 12.4765 8.25718 12.1072 8.59474C11.738 8.93231 11.2372 9.12195 10.715 9.12195H3.27708C2.7549 9.12195 2.25411 8.93231 1.88488 8.59474C1.51564 8.25718 1.30821 7.79934 1.30821 7.32195V3.71875C1.30821 3.4823 1.35916 3.24817 1.45816 3.02974C1.55716 2.8113 1.70227 2.61283 1.88519 2.44567C2.0681 2.27852 2.28526 2.14595 2.52423 2.05554C2.76321 1.96513 3.01932 1.91864 3.27795 1.91875L6.34065 1.91795V1.31875C6.34068 1.17364 6.39824 1.03346 6.50266 0.92417C6.60707 0.814881 6.75128 0.743891 6.90856 0.72435L6.99694 0.71875L6.90768 0.72435L6.90943 0.72355ZM10.7159 3.11875H3.27795C3.1039 3.11875 2.93697 3.18196 2.81389 3.29449C2.69081 3.40701 2.62166 3.55962 2.62166 3.71875V7.32195C2.62166 7.65315 2.91568 7.92195 3.27795 7.92195H10.7159C10.89 7.92195 11.0569 7.85874 11.18 7.74621C11.3031 7.63369 11.3722 7.48108 11.3722 7.32195V3.71875C11.3722 3.55962 11.3031 3.40701 11.18 3.29449C11.0569 3.18196 10.89 3.11875 10.7159 3.11875ZM5.02806 4.31875C5.17527 4.31336 5.32215 4.33522 5.45989 4.38301C5.59763 4.43079 5.72339 4.50353 5.82963 4.59684C5.93587 4.69016 6.02039 4.80213 6.07813 4.92605C6.13586 5.04996 6.16563 5.18326 6.16563 5.31795C6.16563 5.45264 6.13586 5.58594 6.07813 5.70985C6.02039 5.83377 5.93587 5.94574 5.82963 6.03906C5.72339 6.13237 5.59763 6.20511 5.45989 6.25289C5.32215 6.30068 5.17527 6.32254 5.02806 6.31715C4.74576 6.30682 4.47879 6.19703 4.28305 6.01077C4.08731 5.82452 3.97799 5.57624 3.97799 5.31795C3.97799 5.05966 4.08731 4.81138 4.28305 4.62513C4.47879 4.43887 4.74576 4.32908 5.02806 4.31875ZM8.95881 4.31875C9.10602 4.31336 9.2529 4.33522 9.39064 4.38301C9.52838 4.43079 9.65414 4.50353 9.76038 4.59684C9.86661 4.69016 9.95114 4.80213 10.0089 4.92605C10.0666 5.04996 10.0964 5.18326 10.0964 5.31795C10.0964 5.45264 10.0666 5.58594 10.0089 5.70985C9.95114 5.83377 9.86661 5.94574 9.76038 6.03906C9.65414 6.13237 9.52838 6.20511 9.39064 6.25289C9.2529 6.30068 9.10602 6.32254 8.95881 6.31715C8.67651 6.30682 8.40953 6.19703 8.21379 6.01077C8.01805 5.82452 7.90874 5.57624 7.90874 5.31795C7.90874 5.05966 8.01805 4.81138 8.21379 4.62513C8.40953 4.43887 8.67651 4.32908 8.95881 4.31875Z"
+                            fill="#9D9D9D" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path
+                            d="M7.31332 5.22867C7.17365 5.32468 7.06169 5.45573 6.98865 5.60867C6.92669 5.72243 6.82299 5.8077 6.6994 5.84652C6.57581 5.88534 6.44197 5.87468 6.32609 5.81678C6.2102 5.75888 6.12131 5.65827 6.07814 5.53613C6.03497 5.41399 6.04089 5.27986 6.09465 5.162C6.22798 4.894 6.43665 4.61134 6.75932 4.39667C7.08465 4.17867 7.49598 4.052 7.99998 4.052C8.43865 4.052 8.91265 4.182 9.28932 4.46467C9.49931 4.61818 9.66961 4.81962 9.78603 5.05223C9.90245 5.28484 9.96163 5.5419 9.95865 5.802C9.95865 6.49067 9.61665 6.94867 9.27398 7.27867C9.14732 7.40067 9.00798 7.51733 8.88798 7.61733L8.78998 7.69933C8.68716 7.78344 8.59026 7.87455 8.49998 7.972V8.88533C8.49998 9.01794 8.44731 9.14512 8.35354 9.23889C8.25977 9.33266 8.13259 9.38533 7.99998 9.38533C7.86738 9.38533 7.7402 9.33266 7.64643 9.23889C7.55266 9.14512 7.49998 9.01794 7.49998 8.88533V7.90334C7.49998 7.74534 7.54465 7.56734 7.66465 7.41267C7.81132 7.226 7.98865 7.068 8.14332 6.93667L8.26532 6.83467L8.26598 6.834C8.38065 6.73867 8.48198 6.654 8.57932 6.55933C8.82465 6.32267 8.95865 6.10867 8.95865 5.802C8.96159 5.69717 8.93854 5.59323 8.89154 5.49947C8.84455 5.40571 8.77507 5.32505 8.68932 5.26467C8.51065 5.13067 8.25598 5.052 7.99998 5.052C7.67065 5.052 7.45732 5.13267 7.31332 5.22867ZM8.66665 11.052C8.66665 11.2288 8.59641 11.3984 8.47139 11.5234C8.34636 11.6484 8.17679 11.7187 7.99998 11.7187C7.82317 11.7187 7.6536 11.6484 7.52858 11.5234C7.40356 11.3984 7.33332 11.2288 7.33332 11.052C7.33332 10.8752 7.40356 10.7056 7.52858 10.5806C7.6536 10.4556 7.82317 10.3853 7.99998 10.3853C8.17679 10.3853 8.34636 10.4556 8.47139 10.5806C8.59641 10.7056 8.66665 10.8752 8.66665 11.052Z"
+                            fill="#9D9D9D" />
+                        <path
+                            d="M8.00008 0.385498C12.0501 0.385498 15.3334 3.66883 15.3334 7.71883C15.3334 11.7688 12.0501 15.0522 8.00008 15.0522C3.95008 15.0522 0.666748 11.7688 0.666748 7.71883C0.666748 3.66883 3.95008 0.385498 8.00008 0.385498ZM1.66675 7.71883C1.66675 9.39854 2.33401 11.0094 3.52174 12.1972C4.70947 13.3849 6.32038 14.0522 8.00008 14.0522C9.67979 14.0522 11.2907 13.3849 12.4784 12.1972C13.6662 11.0094 14.3334 9.39854 14.3334 7.71883C14.3334 6.03913 13.6662 4.42822 12.4784 3.24049C11.2907 2.05276 9.67979 1.3855 8.00008 1.3855C6.32038 1.3855 4.70947 2.05276 3.52174 3.24049C2.33401 4.42822 1.66675 6.03913 1.66675 7.71883Z"
+                            fill="#9D9D9D" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                        <path
+                            d="M13.0392 0H0.960784C0.705969 0 0.461589 0.106526 0.281407 0.296145C0.101225 0.485763 1.84819e-08 0.74294 1.84819e-08 1.0111V12.5665C-2.10049e-05 12.6404 0.0178941 12.713 0.0520447 12.7775C0.0861954 12.8421 0.135448 12.8963 0.195128 12.9352C0.254807 12.974 0.322933 12.9962 0.393037 12.9996C0.463142 13.0029 0.532899 12.9874 0.595686 12.9544L2.60784 11.8956L4.62 12.9544C4.67712 12.9844 4.74008 13 4.80392 13C4.86776 13 4.93073 12.9844 4.98784 12.9544L7 11.8956L9.01216 12.9544C9.06927 12.9844 9.13224 13 9.19608 13C9.25992 13 9.32288 12.9844 9.38 12.9544L11.3922 11.8956L13.4043 12.9544C13.4614 12.9843 13.5244 12.9999 13.5882 12.9999C13.6647 13 13.7396 12.9775 13.8044 12.9349C13.8641 12.8961 13.9135 12.8419 13.9477 12.7775C13.9819 12.713 13.9999 12.6404 14 12.5665V1.0111C14 0.74294 13.8988 0.485763 13.7186 0.296145C13.5384 0.106526 13.294 0 13.0392 0ZM13.1765 11.8653L11.5761 11.0232C11.519 10.9932 11.456 10.9775 11.3922 10.9775C11.3283 10.9775 11.2654 10.9932 11.2082 11.0232L9.19608 12.0819L7.18392 11.0232C7.1268 10.9932 7.06384 10.9775 7 10.9775C6.93616 10.9775 6.8732 10.9932 6.81608 11.0232L4.80392 12.0819L2.79176 11.0232C2.73465 10.9932 2.67168 10.9775 2.60784 10.9775C2.544 10.9775 2.48104 10.9932 2.42392 11.0232L0.823529 11.8653V1.0111C0.823529 0.972792 0.83799 0.936053 0.86373 0.908964C0.889471 0.881876 0.924382 0.866658 0.960784 0.866658H13.0392C13.0756 0.866658 13.1105 0.881876 13.1363 0.908964C13.162 0.936053 13.1765 0.972792 13.1765 1.0111V11.8653ZM5.17245 3.70424C5.1383 3.63213 5.08572 3.57147 5.02062 3.52907C4.95552 3.48667 4.88048 3.46421 4.80392 3.46421C4.72736 3.46421 4.65232 3.48667 4.58722 3.52907C4.52212 3.57147 4.46954 3.63213 4.43539 3.70424L2.23931 8.32642C2.21516 8.37735 2.20078 8.43279 2.19698 8.48957C2.19319 8.54635 2.20006 8.60336 2.2172 8.65734C2.23434 8.71133 2.26142 8.76124 2.29689 8.80421C2.33236 8.84718 2.37553 8.88238 2.42392 8.9078C2.47232 8.93322 2.525 8.94835 2.57895 8.95235C2.63291 8.95634 2.68708 8.94911 2.73838 8.93107C2.78968 8.91303 2.8371 8.88453 2.87794 8.84721C2.91877 8.80988 2.95222 8.76445 2.97637 8.71352L3.41147 7.79992H6.19637L6.63147 8.71569C6.68025 8.81855 6.76586 8.8968 6.86946 8.93324C6.97307 8.96967 7.08618 8.9613 7.18392 8.90997C7.28166 8.85863 7.35602 8.76854 7.39064 8.65951C7.42526 8.55048 7.41731 8.43144 7.36853 8.32858L5.17245 3.70424ZM3.82324 6.93326L4.80392 4.86917L5.78461 6.93326H3.82324ZM11.8039 6.21105C11.8039 6.32598 11.7605 6.43619 11.6833 6.51746C11.6061 6.59872 11.5014 6.64438 11.3922 6.64438H10.1569V7.94437C10.1569 8.05929 10.1135 8.16951 10.0363 8.25078C9.95904 8.33204 9.85431 8.37769 9.7451 8.37769C9.63589 8.37769 9.53116 8.33204 9.45394 8.25078C9.37672 8.16951 9.33333 8.05929 9.33333 7.94437V6.64438H8.09804C7.98883 6.64438 7.8841 6.59872 7.80688 6.51746C7.72966 6.43619 7.68627 6.32598 7.68627 6.21105C7.68627 6.09612 7.72966 5.9859 7.80688 5.90464C7.8841 5.82337 7.98883 5.77772 8.09804 5.77772H9.33333V4.47773C9.33333 4.36281 9.37672 4.25259 9.45394 4.17132C9.53116 4.09006 9.63589 4.0444 9.7451 4.0444C9.85431 4.0444 9.95904 4.09006 10.0363 4.17132C10.1135 4.25259 10.1569 4.36281 10.1569 4.47773V5.77772H11.3922C11.5014 5.77772 11.6061 5.82337 11.6833 5.90464C11.7605 5.9859 11.8039 6.09612 11.8039 6.21105Z"
+                            fill="#9D9D9D" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="nav-left">
+                <div class="open-nav">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 17" fill="none">
+                        <path
+                            d="M16 5.57897H8H0V4H16V5.57897ZM16 14H8H0V12.421H16V14ZM16 9.78949H8H0V8.21051H16V9.78949Z"
+                            fill="#5F5C7C" />
+                    </svg>
+                </div>
+
+                <div class="item">
+                    <img src="/static/img/it_mode_new.svg" alt="" title="New File">
+                </div>
+                <div class="item2" onclick="compileCode(),anicode()" id="vs_btn">
+                    <img src="/static/img/it_mode_run.svg" alt="" title="Run And Debug (Ctrl + Alt + N)">
+                </div>
+                <div class="item2">
+                    <img src="/static/img/it_mode_save2.svg" alt="" title="Save Code">
+                </div>
+                <div class="item2" onclick="nav_bar_search()" id="item2_search">
+                    <img src="/static/img/it_mode_search.svg" alt="" title="Search (Ctrl + F)">
+                </div>
+                <div class="item2">
+                    <img src="/static/img/it_mode_open.svg" alt="" title="Open Code (Ctrl + O)">
+                </div>
+                <div class="item2"></div>
+                <div class="space">
+                </div>
+                <div class="item2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <g clip-path="url(#clip0_477_135)">
+                            <path
+                                d="M24 12C24 9.81333 23.4667 7.8 22.4 5.96C21.3333 4.12 19.88 2.66667 18.04 1.6C16.2 0.533335 14.1867 0 12 0C9.81333 0 7.8 0.533335 5.96 1.6C4.12 2.66667 2.66667 4.12 1.6 5.96C0.533333 7.8 0 9.81333 0 12C0 13.76 0.373333 15.44 1.12 17.04C1.86667 18.64 2.90667 20 4.24 21.12L5.28 21.92C7.30667 23.3067 9.54667 24 12 24C14.4533 24 16.6933 23.3067 18.72 21.92L19.84 21.12C21.12 20 22.1333 18.64 22.88 17.04C23.6267 15.44 24 13.76 24 12ZM12 22.48C9.81333 22.48 7.81333 21.84 6 20.56L6.08 20C6.24 19.4667 6.45333 18.9733 6.72 18.52C6.98667 18.0667 7.30667 17.6533 7.68 17.28C8.05333 16.9067 8.45333 16.5867 8.88 16.32C9.30667 16.0533 9.8 15.8533 10.36 15.72C10.92 15.5867 11.4667 15.52 12 15.52C12.8 15.52 13.5867 15.6667 14.36 15.96C15.1333 16.2533 15.8 16.68 16.36 17.24C16.92 17.8 17.36 18.4533 17.68 19.2C17.84 19.6267 17.9733 20.08 18.08 20.56C16.2667 21.84 14.24 22.48 12 22.48ZM8.32 11.36C8.10667 10.88 8 10.3733 8 9.84C8 9.30667 8.10667 8.8 8.32 8.32C8.53333 7.84 8.81333 7.42667 9.16 7.08C9.50667 6.73333 9.92 6.44 10.4 6.2C10.88 5.96 11.4133 5.84 12 5.84C12.5867 5.84 13.1067 5.94667 13.56 6.16C14.0133 6.37333 14.4267 6.66667 14.8 7.04C15.1733 7.41333 15.4667 7.84 15.68 8.32C15.8933 8.8 16 9.32 16 9.88C16 10.44 15.8933 10.9467 15.68 11.4C15.4667 11.8533 15.1733 12.2667 14.8 12.64C14.4267 13.0133 14 13.3067 13.52 13.52C12.5067 13.9467 11.4667 13.9467 10.4 13.52C9.97333 13.3067 9.57333 13.0133 9.2 12.64C8.82667 12.2667 8.53333 11.84 8.32 11.36ZM19.44 19.36C19.44 19.36 19.44 19.3333 19.44 19.28V19.2C19.2267 18.4533 18.8933 17.76 18.44 17.12C17.9867 16.48 17.44 15.92 16.8 15.44C16.32 15.0667 15.7867 14.7467 15.2 14.48C15.4667 14.32 15.7067 14.1333 15.92 13.92C16.2933 13.5467 16.6133 13.1467 16.88 12.72C17.4133 11.8667 17.6533 10.9067 17.6 9.84C17.6533 9.09333 17.5333 8.37333 17.24 7.68C16.9467 6.98667 16.5333 6.37333 16 5.84C15.4667 5.30667 14.8533 4.90667 14.16 4.64C13.4667 4.37333 12.7333 4.24 11.96 4.24C11.1867 4.24 10.4533 4.37333 9.76 4.64C9.06667 4.90667 8.46667 5.30667 7.96 5.84C7.45333 6.37333 7.05333 6.98667 6.76 7.68C6.46667 8.37333 6.32 9.09333 6.32 9.84C6.32 10.3733 6.4 10.8933 6.56 11.4C6.72 11.9067 6.90667 12.3467 7.12 12.72C7.33333 13.0933 7.65333 13.4933 8.08 13.92C8.29333 14.1333 8.53333 14.3467 8.8 14.56C8.26667 14.7733 7.76 15.0667 7.28 15.44C6.64 15.92 6.09333 16.48 5.64 17.12C5.18667 17.76 4.82667 18.48 4.56 19.28V19.36C3.6 18.4 2.85333 17.28 2.32 16C1.78667 14.72 1.52 13.3867 1.52 12C1.52 10.08 1.98667 8.32 2.92 6.72C3.85333 5.12 5.12 3.85333 6.72 2.92C8.32 1.98667 10.08 1.52 12 1.52C13.92 1.52 15.68 1.98667 17.28 2.92C18.88 3.85333 20.1467 5.12 21.08 6.72C22.0133 8.32 22.48 10.08 22.48 12C22.48 13.3867 22.2267 14.72 21.72 16C21.2133 17.28 20.4533 18.4 19.44 19.36Z"
+                                fill="#5F5C7C" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_477_135">
+                                <rect width="24" height="24" fill="white" transform="matrix(1 0 0 -1 0 24)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="item2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <g clip-path="url(#clip0_477_140)">
+                            <path
+                                d="M19.84 8.72L24 9.6V14.4L19.84 15.28L22.24 18.8L18.8 22.16L15.28 19.84L14.4 24H9.6L8.72 19.84L5.2 22.24L1.84 18.8L4.16 15.28L0 14.4V9.6L4.16 8.72L1.84 5.2L5.2 1.76L8.72 4.16L9.6 0H14.4L15.28 4.16L18.8 1.76L22.24 5.2L19.84 8.72ZM18.32 13.84L22.32 13.04V11.04L18.32 10.16L17.76 8.88L20 5.44L18.64 4L15.2 6.32L13.84 5.76L13.04 1.76H11.04L10.24 5.76L8.96 6.32L5.52 4L4.08 5.44L6.4 8.88L5.84 10.16L1.84 11.04V13.04L5.84 13.84L6.4 15.12L4.08 18.56L5.52 20L8.96 17.68L10.24 18.24L11.04 22.24H13.04L13.84 18.24L15.2 17.68L18.64 20L20 18.56L17.76 15.12L18.32 13.84ZM10.08 9.12C10.6667 8.74667 11.3067 8.56 12 8.56C12.96 8.56 13.7733 8.89333 14.44 9.56C15.1067 10.2267 15.44 11.04 15.44 12C15.44 12.8 15.1733 13.52 14.64 14.16C14.1067 14.8 13.44 15.2 12.64 15.36C11.84 15.52 11.08 15.4133 10.36 15.04C9.64 14.6667 9.13333 14.0933 8.84 13.32C8.54667 12.5467 8.50667 11.7733 8.72 11C8.93333 10.2267 9.38667 9.6 10.08 9.12ZM11.04 13.44C11.36 13.6 11.68 13.68 12 13.68C12.48 13.68 12.88 13.52 13.2 13.2C13.52 12.88 13.68 12.4933 13.68 12.04C13.68 11.5867 13.56 11.2133 13.32 10.92C13.08 10.6267 12.76 10.44 12.36 10.36C11.96 10.28 11.5733 10.3333 11.2 10.52C10.8267 10.7067 10.56 10.9867 10.4 11.36C10.24 11.7333 10.2267 12.12 10.36 12.52C10.4933 12.92 10.72 13.2267 11.04 13.44Z"
+                                fill="#5F5C7C" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_477_140">
+                                <rect width="24" height="24" fill="white" transform="matrix(1 0 0 -1 0 24)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            <div class="box-code">
+                <div class="nav-code">
+                    <div class="united" onclick="html_box()" id="bg-uni">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="35" viewBox="0 0 16 35" fill="none">
+                            <g clip-path="url(#clip0_477_173)">
+                                <path
+                                    d="M0 17.004L3.008 14.204V15.5L0.752 17.5L3.008 19.5V20.796L0 17.996V17.004ZM8 18.044L5.008 20.844V19.5L7.296 17.5L5.008 15.5V14.156L8 16.956V18.044Z"
+                                    fill="#E37933" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_477_173">
+                                    <rect width="16" height="35" fill="white" transform="matrix(1 0 0 -1 0 35)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p style="color: #FFF;
+                        font-family: Segoe UI;
+                        font-size: 13px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 35px; /* 269.231% */
+                       ">
+                            ST.html
+                        </p>
+                    </div>
+
+                    <div class="united2" onclick="css_box()" id="bg-uni2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="12" viewBox="0 0 10 12" fill="none">
+                            <path
+                                d="M0.213222 10.2004L-0.629028 0.75H8.62897L7.7856 10.1989L3.99435 11.25L0.213222 10.2004Z"
+                                fill="#1572B6" />
+                            <path d="M4 10.4467L7.06375 9.59733L7.7845 1.52283H4V10.4467Z" fill="#33A9DC" />
+                            <path
+                                d="M4 4.94659H5.53375L5.6395 3.75971H4V2.60059H6.90625L6.8785 2.91146L6.59387 6.10571H4V4.94659Z"
+                                fill="white" />
+                            <path
+                                d="M4.00709 7.95681L4.00184 7.95831L2.71109 7.60956L2.62859 6.68518H1.46497L1.62734 8.50506L4.00147 9.16431L4.00709 9.16281V7.95681Z"
+                                fill="#EBEBEB" />
+                            <path
+                                d="M5.43518 6.05664L5.29568 7.60877L4.00305 7.95752V9.16352L6.37905 8.50502L6.39668 8.30927L6.59805 6.05664H5.43518Z"
+                                fill="white" />
+                            <path
+                                d="M4.00409 2.60059V3.75971H1.20434L1.18109 3.49909L1.12821 2.91146L1.10046 2.60059H4.00409ZM3.99996 4.94659V6.10571H2.72534L2.70209 5.84509L2.64959 5.25746L2.62184 4.94659H3.99996Z"
+                                fill="#EBEBEB" />
+                        </svg>
+                        <p style="color: #FFF;
+                        font-family: Segoe UI;
+                        font-size: 13px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 35px; /* 269.231% */
+                       ">
+                            ST.css
+                        </p>
+                    </div>
+
+                    <div class="united3" onclick="js_box()" id="bg-uni3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
+                            <g clip-path="url(#clip0_495_73)">
+                                <path d="M0 0H11V11H0V0Z" fill="#F7DF1E" />
+                                <path
+                                    d="M2.89225 9.19241L3.73401 8.68297C3.89643 8.9709 4.04416 9.21454 4.39852 9.21454C4.73819 9.21454 4.95239 9.08168 4.95239 8.56485V5.05009H5.98609V8.57946C5.98609 9.65011 5.35849 10.1375 4.44283 10.1375C3.61589 10.1375 3.13589 9.70919 2.89221 9.19232M6.54756 9.08163L7.38924 8.59433C7.61083 8.95617 7.8988 9.22197 8.40824 9.22197C8.8366 9.22197 9.1097 9.00781 9.1097 8.71245C9.1097 8.35804 8.82912 8.23249 8.35655 8.02581L8.09818 7.91495C7.35237 7.59754 6.85767 7.19879 6.85767 6.35703C6.85767 5.5817 7.44836 4.99097 8.37137 4.99097C9.02854 4.99097 9.50111 5.2199 9.84073 5.81799L9.03584 6.3349C8.85859 6.0174 8.6667 5.89189 8.37133 5.89189C8.06857 5.89189 7.87659 6.08388 7.87659 6.3349C7.87659 6.64501 8.06857 6.7706 8.51158 6.96259L8.76999 7.07332C9.6487 7.44994 10.1434 7.83387 10.1434 8.69771C10.1434 9.62815 9.41242 10.1376 8.43037 10.1376C7.47049 10.1376 6.85024 9.6798 6.54752 9.08168"
+                                    fill="black" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_495_73">
+                                    <rect width="11" height="11" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p style="color: #FFF;
+                        font-family: Segoe UI;
+                        font-size: 13px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 35px; /* 269.231% */
+                       ">
+                            ST.js
+                        </p>
+                    </div>
+
+                    <div class="united4" onclick="vs_box()" id="bg-uni4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                            <path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.3361 16.3904C11.4634 16.44 11.5996 16.4629 11.7361 16.4577C11.8727 16.4524 12.0067 16.4192 12.1298 16.3599L15.4239 14.7748C15.5936 14.6931 15.7368 14.5652 15.8369 14.4058C15.9371 14.2464 15.9903 14.0619 15.9902 13.8736V3.12577C15.9902 2.7414 15.7701 2.39115 15.424 2.22452L12.1298 0.639522C11.9437 0.549966 11.7343 0.52048 11.5307 0.555147C11.3271 0.589814 11.1393 0.686919 10.9932 0.833022L4.687 6.58633L1.94013 4.50127C1.81622 4.40721 1.6633 4.35949 1.50788 4.36639C1.35247 4.3733 1.20438 4.4344 1.08931 4.53908L0.208313 5.3404C-0.0821873 5.60465 -0.0824998 6.06165 0.207625 6.32633L2.58975 8.49965L0.207625 10.673C-0.0824998 10.9376 -0.0821873 11.3946 0.208313 11.6589L1.08938 12.4603C1.20444 12.565 1.35254 12.6261 1.50797 12.633C1.66339 12.6399 1.81633 12.5922 1.94025 12.4981L4.68713 10.413L10.9933 16.1663C11.0908 16.264 11.2075 16.3403 11.3361 16.3904ZM11.9927 4.86746L7.20769 8.49965L11.9927 12.1318V4.86746Z"
+                                fill="url(#paint0_linear_1442_167)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_1442_167" x1="7.99025" y1="0.540897" x2="7.99025"
+                                    y2="16.4584" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="white" />
+                                    <stop offset="1" stop-color="white" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <p style="color: #FFF;
+                        font-family: Segoe UI;
+                        font-size: 13px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 35px; /* 269.231% */
+                       ">
+                            ST.code
+                        </p>
+                    </div>
+                </div>
+                <textarea class="code" id="html-code" onkeyup="run()"></textarea>
+                <textarea class="code2" id="css-code" onkeyup="run()"></textarea>
+                <textarea class="code3" id="js-code" onkeyup="run()"></textarea>
+                <select name="language" style="display: none;" id="language">
+                    <!-- Add more language options as needed -->
+                    <option value="python3">Python 3</option>
+                    <option value="java">Java</option>
+                    <option value="c">C</option>
+                </select>
+                <textarea name="code" class="code4" id="vs-code" onkeyup="run()" oninput="countLines()"></textarea>
+                <!-- <script src="/static/js/color_text_ide.js"></script> -->
+                <!-- <button type="button" onclick="compileCode()" style="display: none;" id="vs_btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path
+                            d="M15.3544 6.88625L15.3491 6.88356L1.11177 0.0702667C0.992019 0.0124373 0.861712 -0.0102427 0.732504 0.00425552C0.603296 0.0187538 0.479218 0.069978 0.371368 0.153346C0.257422 0.239491 0.163826 0.356968 0.0990009 0.495209C0.0341756 0.63345 0.000155046 0.788117 1.82021e-07 0.945294V5.30274C6.34988e-05 5.51761 0.0650925 5.72573 0.183879 5.89122C0.302665 6.0567 0.467767 6.1692 0.650728 6.20931L8.41579 7.8659C8.4463 7.87257 8.47384 7.89132 8.49365 7.91892C8.51346 7.94652 8.5243 7.98122 8.5243 8.01706C8.5243 8.05289 8.51346 8.0876 8.49365 8.11519C8.47384 8.14279 8.4463 8.16154 8.41579 8.16821L0.651061 9.82481C0.468152 9.86481 0.303059 9.97716 0.18422 10.1425C0.0653802 10.3078 0.000233362 10.5158 1.82021e-07 10.7306V15.0888C-8.83517e-05 15.2389 0.0321211 15.3867 0.0937382 15.5189C0.155355 15.651 0.244452 15.7635 0.353033 15.8461C0.483645 15.9463 0.636928 15.9998 0.793741 16C0.902758 15.9999 1.01066 15.9747 1.1111 15.9258L15.3481 9.15132L15.3544 9.14786C15.5461 9.05284 15.7094 8.89507 15.8241 8.69409C15.9388 8.49311 16 8.25772 16 8.01706C16 7.77639 15.9388 7.54101 15.8241 7.34002C15.7094 7.13904 15.5461 6.98128 15.3544 6.88625Z"
+                            fill="#25222C" />
+                    </svg>
+                </button> -->
+                <div class="line-number-container">
+                    <div id="lineNumbers"></div>
+                </div>
+                <script>
+                    function countLines() {
+                        var text = document.querySelector('.code4').value;
+                        var lines = text.split('\n');
+                        var lineNumbers = '';
+
+                        for (var i = 1; i <= lines.length; i++) {
+                            lineNumbers += i + '<br>';
+                        }
+
+                        document.getElementById('lineNumbers').innerHTML = lineNumbers;
+                    }
+                </script>
+            </div>
+            <script>
+                function compileCode() {
+                    var language = document.getElementById('language').value;
+                    var code = document.getElementById('vs-code').value;
+                    var stdin = document.getElementById('stdin').value;
+
+                    // Send a POST request to the Flask server for compilation
+                    fetch('/compile', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams({ 'code': code, 'language': language, 'stdin': stdin }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Display only the output in the result div
+                            document.getElementById('result').innerHTML = `<pre>${data.output}</pre>`;
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            </script>
+            <!-- <script>
+                const searchInput = document.getElementById('search_text');
+                const editContent = document.getElementById('vs-code');
+
+                searchInput.addEventListener('input', highlightText);
+                editContent.addEventListener('input', highlightText);
+
+                function highlightText() {
+                    const searchTerm = searchInput.value.trim();
+                    const text = editContent.innerText;
+                    const regex = new RegExp(searchTerm, 'gi');
+
+                    const highlightedText = text.replace(regex, match => `<span class="highlight">${match}</span>`);
+
+                    editContent.innerHTML = highlightedText;
+                }
+            </script> -->
+            <script>
+                $(document).ready(function () {
+                    var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+                    $("#vs_btn").click(function () {
+                        var code = $("#vs-code").val();
+
+                        // Đặt độ trễ 3 giây trước khi lấy nội dung từ #result và gửi dữ liệu
+                        setTimeout(function () {
+                            var result = $("#result").text();
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/it_mode",
+                                data: {
+                                    code: code,
+                                    result: result
+                                }
+                            });
+                        }, 3000); // 3000 milliseconds = 3 seconds
+                    });
+                });
+
+            </script>
+            <script>
+                function html_box() {
+                    document.getElementById("bg-uni").style.background = "#1E1E2E";
+                    document.getElementById("bg-uni2").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni3").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni4").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni").style.borderTop = "#9783F5 1px solid";
+                    document.getElementById("bg-uni2").style.borderTop = "none";
+                    document.getElementById("bg-uni3").style.borderTop = "none";
+                    document.getElementById("bg-uni4").style.borderTop = "none";
+                    document.getElementById("html-code").style.display = "block";
+                    document.getElementById("css-code").style.display = "none";
+                    document.getElementById("js-code").style.display = "none";
+                    document.getElementById("vs-code").style.display = "none";
+                    document.getElementById("language").style.display = "none";
+                    document.getElementById("result").style.display = "none";
+                    document.querySelector(".show").style.display = "block";
+                    document.getElementById("in_new").style.display = "none";
+                }
+                function css_box() {
+                    document.getElementById("bg-uni2").style.background = "#1E1E2E";
+                    document.getElementById("bg-uni").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni3").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni4").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni2").style.borderTop = "#9783F5 1px solid";
+                    document.getElementById("bg-uni").style.borderTop = "none";
+                    document.getElementById("bg-uni3").style.borderTop = "none";
+                    document.getElementById("bg-uni4").style.borderTop = "none";
+                    document.getElementById("html-code").style.display = "none";
+                    document.getElementById("css-code").style.display = "block";
+                    document.getElementById("js-code").style.display = "none";
+                    document.getElementById("vs-code").style.display = "none";
+                    document.getElementById("language").style.display = "none";
+                    document.getElementById("result").style.display = "none";
+                    document.querySelector(".show").style.display = "block";
+                    document.getElementById("in_new").style.display = "none";
+
+                }
+                function js_box() {
+                    document.getElementById("bg-uni3").style.background = "#1E1E2E";
+                    document.getElementById("bg-uni").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni2").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni4").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni3").style.borderTop = "#9783F5 1px solid";
+                    document.getElementById("bg-uni").style.borderTop = "none";
+                    document.getElementById("bg-uni2").style.borderTop = "none";
+                    document.getElementById("bg-uni4").style.borderTop = "none";
+                    document.getElementById("html-code").style.display = "none";
+                    document.getElementById("css-code").style.display = "none";
+                    document.getElementById("vs-code").style.display = "none";
+                    document.getElementById("js-code").style.display = "block";
+                    document.getElementById("language").style.display = "none";
+                    document.getElementById("result").style.display = "none";
+                    document.querySelector(".show").style.display = "block";
+                    document.getElementById("in_new").style.display = "none";
+                }
+                function vs_box() {
+                    document.getElementById("bg-uni4").style.background = "#1E1E2E";
+                    document.getElementById("bg-uni").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni2").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni3").style.background = "rgba(202, 166, 249, 0.06)";
+                    document.getElementById("bg-uni4").style.borderTop = "#9783F5 1px solid";
+                    document.getElementById("bg-uni").style.borderTop = "none";
+                    document.getElementById("bg-uni2").style.borderTop = "none";
+                    document.getElementById("bg-uni3").style.borderTop = "none";
+                    document.getElementById("html-code").style.display = "none";
+                    document.getElementById("css-code").style.display = "none";
+                    document.getElementById("js-code").style.display = "none";
+                    document.getElementById("vs-code").style.display = "block";
+                    document.getElementById("language").style.display = "block";
+
+                    document.getElementById("result").style.display = "block";
+                    document.querySelector(".show").style.display = "none";
+                    document.getElementById("in_new").style.display = "flex";
+                }
+                function output_box() {
+                    document.getElementById("out_new").style.borderTop = "#9783F5 1px solid";
+                    document.getElementById("in_new").style.borderTop = "none";
+                    document.getElementById("result").style.display = "block";
+                    document.getElementById("stdin").style.display = "none";
+                }
+                function input_box() {
+                    document.getElementById("in_new").style.borderTop = "#9783F5 1px solid";
+                    document.getElementById("out_new").style.borderTop = "none";
+                    document.getElementById("result").style.display = "none";
+                    document.getElementById("stdin").style.display = "block";
+
+                }
+            </script>
+            <div class="nav-right">
+                <div class="nav-code">
+                    <div class="item" onclick="output_box()" id="out_new">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="35" viewBox="0 0 16 35" fill="none">
+                            <g clip-path="url(#clip0_477_227)">
+                                <path
+                                    d="M0 18.0067H5.49333V18.7267H0V18.0067ZM0 16.2601H3.06667V16.9934H0V16.2601ZM0 14.5267H5.49333V15.2601H0V14.5267ZM0 19.7401H4.08V20.4734H0V19.7401Z"
+                                    fill="#D4D7D6" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_477_227">
+                                    <rect width="16" height="35" fill="white" transform="matrix(1 0 0 -1 0 35)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p class="item-text">
+                            Output.web
+                        </p>
+                        <p class="item-text2">
+                            Untited-1
+                        </p>
+                    </div>
+
+                    <div class="item" onclick="input_box()" id="in_new" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="35" viewBox="0 0 16 35" fill="none">
+                            <g clip-path="url(#clip0_477_227)">
+                                <path
+                                    d="M0 18.0067H5.49333V18.7267H0V18.0067ZM0 16.2601H3.06667V16.9934H0V16.2601ZM0 14.5267H5.49333V15.2601H0V14.5267ZM0 19.7401H4.08V20.4734H0V19.7401Z"
+                                    fill="#D4D7D6" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_477_227">
+                                    <rect width="16" height="35" fill="white" transform="matrix(1 0 0 -1 0 35)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p class="item-text">
+                            Input.web
+                        </p>
+                        <p class="item-text2">
+                            Untited-1
+                        </p>
+                    </div>
+                </div>
+                <iframe class="show" id="output">
+
+                </iframe>
+                <div id="result" style="display: none;"></div>
+                <textarea name="stdin" id="stdin" placeholder="//Nhập Input..."></textarea>
+            </div>
+            <div class="notifications"></div>
+            <div class="nav-bar-demo" style="display: none;" id="nav-bar-demo">
+                <div style="display: flex; justify-content: center; align-items: center; column-gap: 7px;">
+                    <div class="search-demo">
+                        <div class="src-text">
+                            <input type="text" class="search-text" id="search_text" placeholder="Tìm kiếm...."
+                                style="width: 100%; margin-left: 12px; margin-right: 12px;">
+                        </div>
+                        <div class="btn-search2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"
+                                fill="none">
+                                <path
+                                    d="M13.0195 13.1709L9.30859 9.39033M1.88672 6.23982C1.88672 6.81904 1.9987 7.39259 2.21628 7.92772C2.43385 8.46286 2.75275 8.94909 3.15478 9.35866C3.5568 9.76823 4.03408 10.0931 4.55935 10.3148C5.08462 10.5364 5.6476 10.6505 6.21615 10.6505C6.78469 10.6505 7.34768 10.5364 7.87295 10.3148C8.39822 10.0931 8.87549 9.76823 9.27751 9.35866C9.67954 8.94909 9.99844 8.46286 10.216 7.92772C10.4336 7.39259 10.5456 6.81904 10.5456 6.23982C10.5456 5.66059 10.4336 5.08704 10.216 4.55191C9.99844 4.01678 9.67954 3.53054 9.27751 3.12097C8.87549 2.7114 8.39822 2.38651 7.87295 2.16485C7.34768 1.94319 6.78469 1.8291 6.21615 1.8291C5.6476 1.8291 5.08462 1.94319 4.55935 2.16485C4.03408 2.38651 3.5568 2.7114 3.15478 3.12097C2.75275 3.53054 2.43385 4.01678 2.21628 4.55191C1.9987 5.08704 1.88672 5.66059 1.88672 6.23982Z"
+                                    stroke="#1E1E2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="bell-demo" onclick="cancel_search()">
+                        <img src="/static/img/it_mode_cancel.svg" alt="">
+                    </div>
+                    <div class="avt-demo">
+                        <img src="/static/img/AVT.jfif" alt="">
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="start_full" id="start_full">
+                <div class="ct_full">
+                    <p class="text_full1">
+                        Điều Lưu Ý
+                    </p>
+                    <p class="text_full2">
+                        Dự án vẫn còn đang phát triển và vẫn còn được nâng cấp nên sẽ còn một vài chức năng chưa thể
+                        chạy được hoặc chạy lỗi. Mong người dùng có thể thông cảm!!
+                    </p>
+                    <div class="box_btn_full">
+                        <div class="btn_full" onclick="btn_full2()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="59" height="62" viewBox="0 0 59 62"
+                                fill="none">
+                                <path
+                                    d="M54.0833 20.6667H44.25V13.7778C44.25 10.1237 42.696 6.61925 39.9298 4.03542C37.1637 1.45158 33.4119 0 29.5 0C25.5881 0 21.8363 1.45158 19.0702 4.03542C16.304 6.61925 14.75 10.1237 14.75 13.7778V20.6667H4.91667C3.61269 20.6667 2.36211 21.1505 1.44006 22.0118C0.518004 22.8731 0 24.0412 0 25.2593V57.4074C0 58.6254 0.518004 59.7936 1.44006 60.6549C2.36211 61.5161 3.61269 62 4.91667 62H54.0833C55.3873 62 56.6379 61.5161 57.5599 60.6549C58.482 59.7936 59 58.6254 59 57.4074V25.2593C59 24.0412 58.482 22.8731 57.5599 22.0118C56.6379 21.1505 55.3873 20.6667 54.0833 20.6667ZM19.6667 13.7778C19.6667 11.3417 20.7027 9.00543 22.5468 7.28287C24.3909 5.56031 26.892 4.59259 29.5 4.59259C32.108 4.59259 34.6091 5.56031 36.4532 7.28287C38.2973 9.00543 39.3333 11.3417 39.3333 13.7778V20.6667H19.6667V13.7778ZM54.0833 57.4074H4.91667V25.2593H54.0833V57.4074ZM33.1875 41.3333C33.1875 42.0146 32.9712 42.6805 32.566 43.247C32.1609 43.8134 31.5849 44.2549 30.9111 44.5156C30.2373 44.7763 29.4959 44.8445 28.7806 44.7116C28.0653 44.5787 27.4082 44.2506 26.8925 43.7689C26.3768 43.2872 26.0256 42.6735 25.8834 42.0053C25.7411 41.3372 25.8141 40.6446 26.0932 40.0152C26.3723 39.3858 26.8449 38.8479 27.4513 38.4694C28.0577 38.0909 28.7707 37.8889 29.5 37.8889C30.478 37.8889 31.4159 38.2518 32.1075 38.8977C32.799 39.5437 33.1875 40.4198 33.1875 41.3333Z"
+                                    fill="#7D7798" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function btn_full2() {
+                    document.querySelector('.ct_full').classList.add('animation-status7');
+                    document.getElementById('start_full').classList.add('animation-status9');
+                    setTimeout(function () {
+                        document.getElementById('start_full').style.opacity = "0";
+                        document.getElementById('start_full').style.display = "none";
+                    }, 300);
+                    // Chuyển sang chế độ toàn màn hình
+                    document.documentElement.requestFullscreen();
+                }
+            </script>
+
+            <script src="/static/js/notifi.js"></script>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.28.0/ace.js"></script>
+        <script>
+            let edior = document.querySelector('#editor')
+            ace.edit(edior, {
+                theme: "ace/theme/dracula",
+                mode: "ace/mode/javascript",
+            });
+            function run() {
+                let editor = document.getElementById("html-code").value;
+                let editor2 = document.getElementById("css-code").value;
+                let editor3 = document.getElementById("js-code").value;
+                let output = document.getElementById("output");
+                output.contentDocument.body.innerHTML = editor + "<style>" + editor2 + "</style>";
+                output.contentWindow.eval(editor3);
+            }
+        </script>
+    </div>
+    </div>
+    </div>
+    <script>
+        function cs_main() {
+            document.getElementById('cs_time').style.display = ('block');
+            document.getElementById('demo-block').style.display = ('flex');
+        }
+        function cs1() {
+            document.getElementById('cs_time').style.display = ('none');
+            const myTimeout = setTimeout(myGreeting, 300000);
+            function myGreeting() {
+                document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML.replace("BEGIN", "TIME OUT");
+                document.getElementById("MyAudio").play();
+            }
+        }
+        function cs2() {
+            document.getElementById('cs_time').style.display = ('none');
+            const myTimeout = setTimeout(myGreeting, 2700000);
+            function myGreeting() {
+                document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML.replace("BEGIN", "TIME OUT");
+                document.getElementById("MyAudio").play();
+            }
+        }
+        function cs3() {
+            document.getElementById('cs_time').style.display = ('none');
+            const myTimeout = setTimeout(myGreeting, 63000000);
+            function myGreeting() {
+                document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML.replace("BEGIN", "TIME OUT");
+                document.getElementById("MyAudio").play();
+            }
+        }
+
+    </script>
+    </div>
+    <!-- <script>
+        window.onload = function () {
+            var preloader = document.querySelector(".loader");
+            var mainContent = document.querySelector("#wrapper");
+
+            setTimeout(function () {
+                // Ẩn preloader khi tải xong
+                preloader.style.display = "none";
+                // Hiển thị nội dung chính của trang
+                mainContent.style.display = "flex";
+                mainContent.classList.add('animation-status6');
+                // Added missing class name, assuming you want to toggle a class named "hidden"
+            }, 1000);
+        };
+
+    </script> -->
+    <script>
+        let menu = document.querySelector('.ct')
+        document.addEventListener('contextmenu', function (event) {
+            menu.style.display = 'flex';
+            menu.style.top = event.y + 'px';
+            menu.style.left = event.x + 'px';
+            event.preventDefault();
+        })
+        document.addEventListener('click', function (event) {
+            menu.style.display = 'none';
+        })
+    </script>
+    <script>
+        var fileBox = document.querySelector(".open_file_box");
+        function open_file() {
+            document.querySelector(".open_file_box").style.display = "block";
+        }
+        document.addEventListener('keydown', function (event) {
+            // Check if Ctrl key and O key are pressed simultaneously
+            if (event.ctrlKey && event.key === 'o') {
+                event.preventDefault(); // Prevent default browser behavior
+                // Perform your custom action here
+                document.querySelector(".open_file_box").style.display = "block";
+            }
+        });
+        function close_file2(event) {
+            event.stopPropagation();
+            document.querySelector(".open_file_box").style.display = "none";
+        }
+        document.addEventListener('keydown', function (event) {
+            // Check if Ctrl key and O key are pressed simultaneously
+            if (event.ctrlKey && event.key === 'f') {
+                event.preventDefault(); // Prevent default browser behavior
+                // Perform your custom action here
+                document.querySelector(".nav-bar-demo").classList.add('animation-status2');
+                document.querySelector(".nav-bar-demo ").style.display = "flex";
+                document.getElementById("item2_search").style.borderLeft = "#9783F5 1px solid";
+                document.getElementById("vs_btn").style.borderLeft = "none";
+            }
+        });
+        function nav_bar_search() {
+
+            document.querySelector(".nav-bar-demo").classList.add('animation-status2');
+            document.querySelector(".nav-bar-demo ").style.display = "flex";
+            document.getElementById("item2_search").style.borderLeft = "#9783F5 1px solid";
+            document.getElementById("vs_btn").style.borderLeft = "none";
+        }
+        function cancel_search() {
+            document.querySelector(".nav-bar-demo ").style.display = "none";
+            document.getElementById("item2_search").style.borderLeft = "none";
+        }
+        document.addEventListener('keydown', function (event) {
+            // Check if Ctrl key and O key are pressed simultaneously
+            if (event.ctrlKey && event.altKey && event.key === 'n') {
+                event.preventDefault(); // Prevent default browser behavior
+                // Perform your custom action here
+                compileCode()
+                document.getElementById("vs_btn").style.borderLeft = "#9783F5 1px solid";
+                document.getElementById("item2_search").style.borderLeft = "none";
+            }
+        });
+    </script>
+
+</body>
+
+<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+<script>
+    window.onload = function () {
+        function getUrlParams(url) {
+            let urlStr = url.split('?')[1];
+            const urlSearchParams = new URLSearchParams(urlStr);
+            const result = Object.fromEntries(urlSearchParams.entries());
+            return result;
+        }
+
+
+        // Generate a Token by calling a method.
+        // @param 1: appID
+        // @param 2: serverSecret
+        // @param 3: Room ID
+        // @param 4: User ID
+        // @param 5: Username
+        const roomID = getUrlParams(window.location.href)['roomID'] || (Math.floor(Math.random() * 10000) + "");
+        const userID = Math.floor(Math.random() * 10000) + "";
+        const userName = "{{username}}";
+        const appID = 157371176;
+        const serverSecret = "55a270f35689efc551ad40aa416ba0a8";
+        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
+
+
+        const zp = ZegoUIKitPrebuilt.create(kitToken);
+        zp.joinRoom({
+            container: document.querySelector("#root"),
+            sharedLinks: [{
+                name: 'Personal link',
+                url: window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomID,
+            }],
+            scenario: {
+                mode: ZegoUIKitPrebuilt.VideoConference,
+            },
+
+            turnOnMicrophoneWhenJoining: false,
+            turnOnCameraWhenJoining: true,
+            showMyCameraToggleButton: true,
+            showMyMicrophoneToggleButton: true,
+            showAudioVideoSettingsButton: true,
+            showScreenSharingButton: true,
+            showTextChat: true,
+            showUserList: true,
+            maxUsers: 50,
+            layout: "Sidebar",
+            showLayoutButton: true,
+
+        });
+    }
+</script>
+<script>
+    if (window.location.href.includes('?roomID')) {
+        document.querySelector("#root").style.zIndex = "-1";
+        document.querySelector(".btn_full").addEventListener("click", function () {
+            var buttons = document.querySelectorAll("button");
+            buttons.forEach(function (button) {
+                if (button.innerText === "Join") {
+                    button.click();
+                }
+            });
+        });
+    }
+</script>
+
+</html>

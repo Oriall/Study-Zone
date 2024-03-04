@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color:#12101C;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+#root {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Remove the outline from the video embed */
+#root video {
+    outline: none;
+}

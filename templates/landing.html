@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Zone</title>
+  <link rel="shortcut icon" href="{{url_for('static',filename='img/logo.png')}}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@200;300&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <!-- <script src="/static/javascript/app.js"></script> -->
+</head>
+
+<body>
+  <div class="container">
+    <section class="top">
+      <div class="container top">
+        <div class="std">
+          STUDY ZONE
+        </div>
+        <div>
+          <a href="http://127.0.0.1:5001/" download="test.html"><button class="btn btn-primary lgn-btn">Tải
+              Về</button></a>
+        </div>
+      </div>
+    </section>
+    <section class="mid">
+      <div class="container">
+        <h1>Học tập hiệu quả, chinh phục kiến thức.</h1>
+        <p class="mid-para">
+          Ứng dụng tập trung học tập, giúp bạn tổ chức thời gian và theo dõi tiến trình học tập một cách
+          linh hoạt.
+        </p>
+        <img src="/static/img/Paper Plus.svg" alt="" />
+      </div>
+    </section>
+    <section class="bottom">
+      <h2>Why <span style="color: #882dff">StudyZone</span></h2>
+      <p class="bottom-para">
+        Study Zone - Ứng dụng độc đáo, tích hợp chế độ tập trung và quản lý thời gian thông minh, giúp bạn nâng cao khả
+        năng học tập
+        và đạt được mục tiêu một cách dễ dàng.
+      </p>
+    </section>
+    <section class="lower">
+      <div class="left">
+        <img src="/static/img/Calendar.svg" alt="" />
+        <h2>Kỹ thuật Pomodoro</h2>
+        <p>
+          Ứng dụng tích hợp kỹ thuật Pomodoro để quản lý thời gian học tập một cách hiệu quả.
+        </p>
+      </div>
+      <div class="right">
+        <img src="/static/img/Edit.svg" alt="" />
+        <h2>Theo dõi Tiến trình Chi tiết</h2>
+        <p class="right">
+          Với bảng điều khiển tiến độ và báo cáo chi tiết, người dùng có khả năng theo dõi sát sao sự tiến triển của
+          mình.
+        </p>
+      </div>
+      <div class="left">
+        <img src="/static/img/Search.svg" alt="" />
+        <h2>Hỗ trợ Học tập Cá nhân hóa</h2>
+        <p>
+          Ứng dụng cung cấp các phương pháp học tập cá nhân hóa dựa trên sở thích và phong cách học của người dùng, giúp
+          họ tận dụng tối đa từ quá trình học.
+        </p>
+      </div>
+      <div class="right">
+        <img src="/static/img/Folder.svg" alt="" />
+        <h2>Sự kết hợp PP học tập </h2>
+        <p class="right">
+          Sự kết hợp giữa giáo dục truyền thống và công nghệ mới tạo ra một ứng dụng mạnh mẽ.
+        </p>
+      </div>
+      <div class="left">
+        <img src="/static/img/Shield.svg" alt="" />
+        <h2>Giao diện thân thiện</h2>
+        <p>
+          3. Giao diện người dùng của StudyZone được thiết kế tinh tế và hiện đại, tạo ra môi trường học tập thân thiện
+          và dễ sử dụng.
+        </p>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>

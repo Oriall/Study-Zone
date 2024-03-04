@@ -1,0 +1,395 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Fira Code", sans-serif;
+}
+
+body {
+    background-color: rgb(1, 0, 1);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#wrapper {
+    width: 100%;
+    overflow: hidden;
+    background: #12101C;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    padding-top: 14px;
+    padding-bottom: 20px;
+}
+
+/*-------------------------scrollbar-------------------*/
+body::-webkit-scrollbar
+
+/*SIZE*/
+    {
+    width: 7px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #1f2028;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #161C24;
+    border-radius: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*----------------------Top----------------------------*/
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 45px;
+    padding-right: 45px;
+    align-items: center;
+}
+
+nav .time-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 6px;
+    user-select: none;
+}
+
+.time-box p {
+    color: rgba(239, 241, 245, 0.69);
+    font-family: Fira Code;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.choose-bg {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 9px;
+    padding-left: 60px;
+}
+
+.choose-bg .item {
+    width: 18px;
+    height: 19px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choose-bg .item p {
+    color: rgba(239, 241, 245, 0.69);
+    font-family: Fira Code;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.box-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 45px;
+}
+
+.intro-box {
+    outline: none;
+    margin: auto;
+    margin-top: 38px;
+    width: 234px;
+    height: 24px;
+    border-radius: 4px;
+    background: #201E2F;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-right: 10px;
+    padding-left: 10px;
+    column-gap: 9px;
+    cursor: text;
+    user-select: none;
+    transition: 0.2s;
+    border: 0.75px solid #CAA6F9;
+    color: #7D7798;
+    font-family: Fira Code;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+}
+
+.intro-box p {
+    color: #7D7798;
+    font-family: Fira Code;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+}
+
+.intro-box:hover {
+    border: 0.75px solid #CAA6F9;
+}
+
+.intro-box:active {
+    border: 0.75px solid #A16CE7;
+}
+
+
+.footer {
+    margin: auto;
+    width: 262px;
+    height: 53px;
+    border-radius: 12px;
+    background: #201E2F;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer svg {
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    transform: scale(1);
+
+}
+
+.footer svg:hover {
+    transform: scale(1.16);
+    fill: rgba(125, 119, 152, 0.53);
+}
+
+.footer svg:active {
+    transform: scale(1);
+    fill: #7366B0;
+}
+
+@-webkit-keyframes BackIn {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(68%);
+    }
+
+}
+
+.animation-status7 {
+    animation: BackIn 0.5s ease-out forwards;
+}
+
+@-webkit-keyframes BackIn2 {
+    from {
+        transform: translateX(68%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+
+}
+
+.animation-status8 {
+    animation: BackIn2 0.5s ease-out forwards;
+}
+
+/*--------------Load----------*/
+.loader {
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid rgba(202, 166, 249, 0.85);
+    ;
+    border-top-color: transparent;
+    animation: rot1 1.2s linear infinite;
+}
+
+@keyframes rot1 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes ZoomIn {
+    from {
+
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+
+        transform: scale(1);
+        opacity: 1;
+    }
+
+}
+
+.animation-status6 {
+    animation: ZoomIn 0.3s ease-out forwards;
+}
+
+.main-bg img:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+    opacity: 0.8;
+
+}
+
+.main-bg img:active {
+    cursor: pointer;
+    transform: scale(1);
+    opacity: 0.8;
+
+}
+
+.ct {
+    position: absolute;
+    z-index: 999;
+    width: 82px;
+    height: 90px;
+    border-radius: 6px;
+    border: 1px solid rgba(217, 217, 217, 0.13);
+    background: #201E2F;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
+    padding: 3px 4px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+}
+
+.ct .it {
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 75px;
+    height: 19px;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.ct .it:hover {
+    border-radius: 3px;
+    background: #433F56;
+
+}
+
+.ct .it:active {
+    background: #3A3747;
+}
+
+.ct .it p {
+    color: rgba(255, 255, 255, 0.53);
+    font-family: Fira Code;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+}
+
+.up_tile {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 455px;
+    height: 72px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    column-gap: 43px;
+
+}
+
+.up_tile_i {
+    transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 3px;
+    transform: scale(1);
+}
+
+.up_tile_i:hover {
+    opacity: 0.8;
+}
+
+.up_tile_i:active {
+    opacity: 0.8;
+    transform: scale(0.9);
+}
+
+.up_tile_i p {
+    color: rgba(125, 119, 152, 0.92);
+    font-family: Fira Code;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.line {
+
+    width: 756.009px;
+    height: 1px;
+    background: rgba(46, 44, 55, 0.80);
+    margin: auto;
+
+}
+
+.up_file {
+    width: 136px;
+    height: 127px;
+    border-radius: 5px;
+    background: rgba(46, 44, 55, 0.37);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+}
+
+.key_item {
+    color: rgba(255, 255, 255, 0.65);
+    font-family: Fira Code;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.key_item span {
+    color: #FFF;
+    font-family: Fira Code;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.key_box_3{
+    overflow: auto;
+}
+.key_box_3::-webkit-scrollbar{
+    display: none;
+}

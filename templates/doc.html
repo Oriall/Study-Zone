@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>Chuyển đổi DOC sang HTML</title>
+    <style>
+        .custom-markdown {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .custom-markdown h1 {
+            font-size: 24px;
+        }
+        .custom-markdown h2 {
+            font-size: 20px;
+        }
+        .custom-markdown h3 {
+            font-size: 18px;
+        }
+        .custom-markdown p {
+            font-size: 16px;
+        }
+        /* Add more custom styles as needed */
+    </style>
+</head>
+<body>
+    <h1>Nội dung đã chuyển đổi</h1>
+    <div class="custom-markdown">
+        {{ html_content | safe }}
+    </div>
+</body>
+</html>

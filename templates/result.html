@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+</head>
+<body>
+    <!-- Display the raw Markdown content -->
+    <pre>{{ markdown_content }}</pre>
+
+    <!-- Display the rendered HTML content -->
+    <div>{{ html_content | safe }}</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook Access Statistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Facebook Access Statistics</h1>
+    <button id="showChartButton">Show Pie Chart</button>
+    <div id="chartContainer" style="display: none;">
+        <!-- Set the width and height of the canvas -->
+        <canvas id="accessChart" width="322" height="322"></canvas>
+    </div>
+    <script>
+        var accessData = {{ access_data | tojson | safe }};
+        var labels = Object.keys(accessData);
+        var values = Object.values(accessData);
+
+        document.getElementById("showChartButton").addEventListener("click", function() {
+            // Get the canvas for the chart
+            var canvas = document.getElementById("accessChart");
+            var chartContainer = document.getElementById("chartContainer");
+
+            // Show the chart container
+            chartContainer.style.display = "block";
+
+            // Create the pie chart
+            var ctx = canvas.getContext('2d');
+            var data = {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: ['gold', 'lightcoral', 'lightskyblue', 'lightgreen']
+                }]
+            };
+            new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: false, // Prevent chart from resizing
+                }
+            });
+        });
+    </script>
+</body>
+</html>
