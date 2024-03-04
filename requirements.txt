@@ -1,0 +1,16 @@
+Flask 
+selenium 
+requests 
+BeautifulSoup 
+spacy 
+markdown 
+docx 
+openai 
+twilio 
+pyautogui 
+keyboard
+opencv-python 
+mysql-connector-python 
+flask_cors 
+flask_socketio 
+Pillow 
