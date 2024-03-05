@@ -21,7 +21,6 @@ import openai
 from docx.shared import Pt
 from twilio.rest import Client
 import keyboard
-import cv2
 import mysql.connector
 from flask_cors import CORS
 from flask_socketio import SocketIO
@@ -1242,22 +1241,6 @@ def paraphrase():
     # Return the result as JSON
     return jsonify({'original_text': request.form['text'], 'paraphrased_text': paraphrased_text})
 
-def generate_frames():
-    camera = cv2.VideoCapture(0)
-    while True:
-        success, frame = camera.read()
-        if not success:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-
-@app.route('/video_feed')
-def video_feed():
-    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # Classes Table
 mycursor.execute("SHOW TABLES LIKE 'Screenshots'")
