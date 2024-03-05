@@ -120,10 +120,10 @@ def download():
 
 ####### DATABSE ############
 mydb = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="khanhtoan123",
-    database="test"
+    host=os.environ.get('DATABASE_HOST'),
+    user=os.environ.get('DATABASE_USER'),
+    password=os.environ.get('DATABASE_PASS'),
+    database=os.environ.get('DATABASE'),
 )
 
 # Tạo cursor
@@ -1305,10 +1305,10 @@ CORS(app)
 
 ########### DATABASE ##############
 db = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="khanhtoan123",
-    database="test"
+    host=os.environ.get('DATABASE_HOST'),
+    user=os.environ.get('DATABASE_USER'),
+    password=os.environ.get('DATABASE_PASS'),
+    database=os.environ.get('DATABASE'),
 )
 cursor = db.cursor()
 
