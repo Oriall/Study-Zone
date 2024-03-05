@@ -4,17 +4,15 @@ from flask import (
     send_file, 
     request, 
     jsonify, 
-    redirect, url_for, g, send_from_directory, 
+    redirect, url_for, 
     Response,
 )
+from pathlib import Path
 from flask import session
-import random
 import smtplib
-from threading import Thread
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import threading
-import time
 import requests
 import os
 import markdown
@@ -22,7 +20,6 @@ from docx import Document
 import openai
 from docx.shared import Pt
 from twilio.rest import Client
-import pyautogui
 import keyboard
 import cv2
 import mysql.connector
@@ -487,7 +484,7 @@ def download_report():
             return 'Không thể tạo báo cáo.'
 ####### DATABSE ############
 app.config['SECRET_KEY'] = 'khanhtoan123'
-openai.api_key = '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'
+openai.api_key = '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'
 socketio = SocketIO(app)
 results = []
 
@@ -497,7 +494,7 @@ def get_result(class_id):
 #     # Sử dụng API của ChatGPT để phân tích đề của code
     prompt = f"Đưa ra đề bài cho code(1 dòng)(bằng tiếng việt):\n\n{code}\n\n"
 
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo", 
         messages=[
             {"role": "system", "content": prompt},
@@ -590,7 +587,7 @@ def get_result2():
     # Sử dụng API của ChatGPT để phân tích đề của code
     prompt = f"Đưa ra đề bài cho code sau đây(1 dòng)(bằng tiếng việt):\n\n{code}\n\n"
 
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo", 
         messages=[
             {"role": "system", "content": prompt},
@@ -646,7 +643,7 @@ def it_mode():
         
         prompt = f"Phân tích ra đề bài của code sau (chỉ 1 dòng) (bằng tiếng việt):\n\n{code}\n\n"
 
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-3.5-turbo", 
             messages=[
                 {"role": "system", "content": prompt},
@@ -794,7 +791,7 @@ def pie_chart_data(learner_id):
     except Exception as e:
         return str(e)
 
-openai.api_key = "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"
+openai.api_key = "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"
 @app.route('/get_advice2', methods=['POST'])
 def get_advice2():
     data = request.json
@@ -806,7 +803,7 @@ def get_advice2():
     prompt =  f"Đưa ra lời nhận xét với học viên '{fullname}' với số bài làm được là '{type0Count}' cùng số lỗi nhận được là '{type1Count}', cùng với tốc độ trung bình để hoàn thành là '{averageTime}'"
 
     # Use the OpenAI ChatGPT API to get a response
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo", 
         messages=[
 			{"role": "system", "content": prompt},
@@ -1057,11 +1054,11 @@ def upload2():
     #     return "Vui Lòng Chọn File"
 
 # Set your OpenAI GPT API key here
-openai.api_key = "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"
+openai.api_key = "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"
 # Chat history
 def get_completion(prompt): 
     print(prompt) 
-    query = openai.ChatCompletion.create(
+    query = openai.chat.completions.create(
         model="gpt-3.5-turbo", 
         messages=[
 			{"role": "system", "content": prompt},
@@ -1127,14 +1124,6 @@ def compile_code():
 # -------------------------------------------------------Vô lý ----------------------------------
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 run_threads = False
-def check_and_handle_mouse_position():
-    while run_threads:
-        x, y = pyautogui.position()
-
-        if y <= 36:
-            print("Mouse position is less than or equal to 36. Blocking left mouse click.")
-            pyautogui.mouseUp(button='left')
-            pyautogui.moveTo(x, 167)
 
 def block_keys():
     blocked_keys = {'alt+tab', 'f11'}
@@ -1182,7 +1171,7 @@ def stop_threads():
     return jsonify({'message': 'Threads stopped successfully'})
 
 # -------------------------------------------------------Vô lý ----------------------------------
-openai.api_key = "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"
+openai.api_key = "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"
 @app.route('/get_advice', methods=['POST'])
 def get_advice():
     score = int(request.form['score'])
@@ -1195,7 +1184,7 @@ def get_advice():
         prompt = "cho lời khen ngợi dài cho người có sự tập trung học cao và khuyên cố gắng phát huy"
 
     # Use the OpenAI ChatGPT API to get a response
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo", 
         messages=[
 			{"role": "system", "content": prompt},
@@ -1218,7 +1207,7 @@ def submit():
     else:
         return redirect('/default')
 
-openai.api_key = "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"
+openai.api_key = "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"
 @app.route('/paraphrase', methods=['POST'])
 def paraphrase():
     text = request.form['text']
@@ -1290,23 +1279,23 @@ else:
 UPLOAD_FOLDER2 = 'screenshots'
 app.config['UPLOAD_FOLDER2'] = UPLOAD_FOLDER2
 
-def create_screenshots_directory():
-    if not os.path.exists(app.config['UPLOAD_FOLDER2']):
-        os.makedirs(app.config['UPLOAD_FOLDER2'])
+# def create_screenshots_directory():
+#     if not os.path.exists(app.config['UPLOAD_FOLDER2']):
+#         os.makedirs(app.config['UPLOAD_FOLDER2'])
 
-def capture_screenshot():
-    screenshot = pyautogui.screenshot()
-    screenshot = screenshot.resize((960, 540)) 
-    timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-    filename = f'screenshot_{timestamp}.png'
-    screenshot_path = os.path.join(app.config['UPLOAD_FOLDER2'], filename)
-    screenshot.save(screenshot_path)
+# def capture_screenshot():
+#     screenshot = pyautogui.screenshot()
+#     screenshot = screenshot.resize((960, 540)) 
+#     timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+#     filename = f'screenshot_{timestamp}.png'
+#     screenshot_path = os.path.join(app.config['UPLOAD_FOLDER2'], filename)
+#     screenshot.save(screenshot_path)
     # return screenshot_path
-    cursor.execute("INSERT INTO screenshots (learnerid, image_path, capture_time) VALUES (%s, %s, %s)", (learner_id_2, screenshot_path, timestamp))
-    db.commit()
+    # cursor.execute("INSERT INTO screenshots (learnerid, image_path, capture_time) VALUES (%s, %s, %s)", (learner_id_2, screenshot_path, timestamp))
+    # db.commit()
 
-def get_screenshot_filenames():
-    return os.listdir(app.config['UPLOAD_FOLDER2'])
+# def get_screenshot_filenames():
+#     return os.listdir(app.config['UPLOAD_FOLDER2'])
 
 @app.route("/test2")
 def test2():
@@ -1319,14 +1308,15 @@ def control():
     return render_template("control.html", filenames=filenames)
 
 
-@app.route('/screenshots/<filename>')
-def get_screenshot(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER2'], filename)
+# @app.route('/screenshots/<filename>')
+# def get_screenshot(filename):
+#     return send_from_directory(app.config['UPLOAD_FOLDER2'], filename)
 
-def auto_capture():
-    while True:
-        time.sleep(random.randint(120, 600))
-        capture_screenshot()
+# def auto_capture():
+#     while True:
+#         time.sleep(30)
+#         capture_screenshot()
+#         get_image(URL, SCREENSHOT)
 CORS(app)
 
 
@@ -1382,11 +1372,22 @@ def get_messages():
                 messagess.pop()
     return Response(generate(), content_type='text/event-stream')
 
+BASE_DIR = Path(__file__).resolve().parent
+
+URL = 'http://localhost:5000/api/upload_image'
+
+SCREENSHOT = BASE_DIR / 'screenshots'
+
+def get_image(url, directory):
+    screenshot_files = os.listdir(directory)
+    for filename in screenshot_files:
+        with open(directory / filename, 'rb') as img:
+            response = requests.post(url, files={'image': img})
+
 @app.route("/join", methods=["GET", "POST"])
 def join():
-    create_screenshots_directory()
-    capture_thread = Thread(target=auto_capture)
-    capture_thread.start()
+    # capture_thread = Thread(target=auto_capture)
+    # capture_thread.start()
     if request.method == "POST":
         room_id = request.form.get("roomID")
         cursor.execute("INSERT INTO screenshots (learnerID, roomID) VALUES (%s, %s)", (learner_id_2, room_id,))
@@ -1407,9 +1408,17 @@ def join2():
         return redirect(f"/meeting2_test?roomID={room_id}")
     return render_template("join2.html")
 
+@app.route('/api/upload_image', methods=['POST'])
+def get_image():
+    img = request.files.get('image')
+    filename=img.filename
+    screenshot_path = os.path.join(app.config['UPLOAD_FOLDER2'], filename)
+    img.save(screenshot_path)
+    timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+    cursor.execute("INSERT INTO screenshots (image_path, capture_time) VALUES (%s, %s)", (screenshot_path, timestamp))
+    db.commit()
+
 
 if __name__ == '__main__':
-    # create_screenshots_directory()
-    # capture_thread = Thread(target=auto_capture)
-    # capture_thread.start()
-    app.run(debug=True, port=5001)
+    app.run(debug=True)
+    

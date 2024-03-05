@@ -2,3 +2,5 @@
 .vscode
 static/uploads
 screenshots
+*.py[co]
+venv
