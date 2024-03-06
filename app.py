@@ -27,6 +27,9 @@ from flask_socketio import SocketIO
 from functools import wraps
 import datetime
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 app = Flask(__name__)
 # # Define the website to block (e.g., Facebook)
 # website_to_block = "www.facebook.com"
@@ -273,8 +276,7 @@ def login():
         if account:
             session['email2'] = email
             session['fullname'] = account[2]
-            learner_id = account[0]
-            learner_id_2 = learner_id
+            session['acc'] = account[0]
             return redirect(url_for('join'))
         #PHỤ HUYNH
         sql_parent = "SELECT * FROM Learners WHERE ParentEmail = %s AND ParentPsw = %s"
@@ -285,8 +287,7 @@ def login():
         if parent_account:
             session['email3'] = email
             session['fullname'] = parent_account[5]
-            learner_id = parent_account[0]
-            learner_id_2 = learner_id
+            session['acc'] = parent_account[0]
             return redirect(url_for('control'))
         #THẦY CO GIÁO
         sql_teacher = "SELECT * FROM Teachers WHERE Email = %s AND Password = %s"
@@ -297,8 +298,7 @@ def login():
         if teacher_account:
             session['email'] = email
             session['fullname'] = teacher_account[1]
-            learner_id = teacher_account[0]
-            learner_id_2 = learner_id
+            session['acc'] = teacher_account[0]
             return redirect(url_for('teacher_classes'))
         
         return 'Email hoặc mật khẩu không chính xác!'
@@ -620,6 +620,7 @@ def check_for_file_jdoodle(result):
     
 @app.route("/it_mode", methods=['GET', 'POST'])
 def it_mode():
+    learner_id_2 = session.get('acc', '')
     sql_get_code = "SELECT ID, Message FROM code_results WHERE LearnerId = %s AND Type = 0"
     mycursor.execute(sql_get_code, (learner_id_2,))
     files = mycursor.fetchall()
@@ -816,6 +817,7 @@ def get_advice2():
 
 @app.route("/main", methods=['GET', 'POST'])
 def main():
+    learner_id_2 = session.get('acc', '')
     if request.method == 'POST':
         code = request.form['code']
         session['code'] = code
@@ -1286,6 +1288,7 @@ def test2():
 @app.route("/control")
 @login_required
 def control():
+    learner_id_2 = session.get('acc', '')
     cursor.execute("SELECT * FROM screenshots WHERE LearnerId = %s", (learner_id_2,))
     filenames = cursor.fetchall()
     return render_template("control.html", filenames=filenames)
@@ -1371,6 +1374,7 @@ def get_image(url, directory):
 def join():
     # capture_thread = Thread(target=auto_capture)
     # capture_thread.start()
+    learner_id_2 = session.get('acc', '')
     if request.method == "POST":
         room_id = request.form.get("roomID")
         cursor.execute("INSERT INTO screenshots (learnerID, roomID) VALUES (%s, %s)", (learner_id_2, room_id,))
