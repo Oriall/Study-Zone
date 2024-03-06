@@ -483,7 +483,7 @@ def download_report():
             return 'Không thể tạo báo cáo.'
 ####### DATABSE ############
 app.config['SECRET_KEY'] = 'khanhtoan123'
-openai.api_key = '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'
+openai.api_key = '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'
 socketio = SocketIO(app)
 results = []
 
@@ -791,7 +791,7 @@ def pie_chart_data(learner_id):
     except Exception as e:
         return str(e)
 
-openai.api_key = "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"
+openai.api_key = "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"
 @app.route('/get_advice2', methods=['POST'])
 def get_advice2():
     data = request.json
@@ -1055,7 +1055,7 @@ def upload2():
     #     return "Vui Lòng Chọn File"
 
 # Set your OpenAI GPT API key here
-openai.api_key = "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"
+openai.api_key = "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"
 # Chat history
 def get_completion(prompt): 
     print(prompt) 
@@ -1172,7 +1172,7 @@ def stop_threads():
     return jsonify({'message': 'Threads stopped successfully'})
 
 # -------------------------------------------------------Vô lý ----------------------------------
-openai.api_key = "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"
+openai.api_key = "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"
 @app.route('/get_advice', methods=['POST'])
 def get_advice():
     score = int(request.form['score'])
@@ -1208,7 +1208,7 @@ def submit():
     else:
         return redirect('/default')
 
-openai.api_key = "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"
+openai.api_key = "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"
 @app.route('/paraphrase', methods=['POST'])
 def paraphrase():
     text = request.form['text']
