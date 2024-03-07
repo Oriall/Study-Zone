@@ -173,8 +173,8 @@ mycursor.execute("SELECT COUNT(*) FROM Classes")
 count = mycursor.fetchone()[0]
 #------------------------ DATA----------------------
 if count < 6:
-    classNames = ["10A1", "10A2", "10A3", "11A1", "11A2", "12A1"]
-    teacherIDs = [1, 1, 1, 2, 2, 3]
+    classNames = ["10A1", "10A2", "10A3", "11A1", "11A2", "11A3"]
+    teacherIDs = [1, 1, 1, 2, 2, 1]
     notes = ["", "", "", "", "", ""]
 
     for i in range(len(classNames)):
@@ -375,7 +375,7 @@ def teacher_classes():
 
 
 def generate_report(email):
-    sql = "SELECT Fullname, ClassID FROM Learners WHERE Email = %s"
+    sql = "SELECT Fullname, LearnerID FROM Learners WHERE Email = %s"
     val = (email,)
     mycursor.execute(sql, val)
     learner_info = mycursor.fetchone()
@@ -852,8 +852,8 @@ def key_word_page():
 @app.route("/control2/<class_id>", methods=['GET', 'POST'])
 @login_required
 def control2(class_id):
-    fromdate="2024-02-21"
-    todate="2024-02-28"
+    fromdate="2024-02-20"
+    todate="2024-03-20"
     if request.method == 'POST':
         fromdate = request.form['fromdate']
         todate = request.form['todate']

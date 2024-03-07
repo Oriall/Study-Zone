@@ -62,7 +62,7 @@ function createToast2(type, icon, title, text) {
 //     let text = 'This is a info toast.';
 //     createToast(type, icon, title, text);
 // }
-const eventSource = new EventSource("http://127.0.0.1:5001/get_messages");
+const eventSource = new EventSource("http://gs.tmath.vn/get_messages");
 eventSource.onmessage = function (event) {
     let type = 'error';
     let icon = 'fa-solid fa-circle-exclamation';
@@ -90,7 +90,7 @@ function updateCountdown() {
         warningShown = true;
     }
     if (countdown === 0) {
-        window.location.href = 'http://127.0.0.1:5001/login'; // Redirect to login page after 5 minutes
+        window.location.href = 'http://gs.tmath.vn/login'; // Redirect to login page after 5 minutes
     } else {
         let minutes = Math.floor(countdown / 60);
         let seconds = countdown % 60;
