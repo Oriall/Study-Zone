@@ -483,7 +483,7 @@ def download_report():
             return 'Không thể tạo báo cáo.'
 ####### DATABSE ############
 app.config['SECRET_KEY'] = 'khanhtoan123'
-openai.api_key = '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'
+openai.api_key = os.environ.get('OPEN_AI_KEY')
 socketio = SocketIO(app)
 results = []
 
@@ -791,7 +791,6 @@ def pie_chart_data(learner_id):
     except Exception as e:
         return str(e)
 
-openai.api_key = "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"
 @app.route('/get_advice2', methods=['POST'])
 def get_advice2():
     data = request.json
@@ -1055,7 +1054,6 @@ def upload2():
     #     return "Vui Lòng Chọn File"
 
 # Set your OpenAI GPT API key here
-openai.api_key = "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"
 # Chat history
 def get_completion(prompt): 
     print(prompt) 
@@ -1172,30 +1170,6 @@ def stop_threads():
     return jsonify({'message': 'Threads stopped successfully'})
 
 # -------------------------------------------------------Vô lý ----------------------------------
-openai.api_key = "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"
-@app.route('/get_advice', methods=['POST'])
-def get_advice():
-    score = int(request.form['score'])
-
-    if score > 900 and score < 990:
-        prompt = "cho lời khuyên dài khi khen ngợi người có kết quả học tập tốt và tập trung học bài"
-    elif score <= 900:
-        prompt = "cho lời khuyên dài khi phê phán người đạt điểm thấp và không tập trung học bài"
-    elif score >= 990:
-        prompt = "cho lời khen ngợi dài cho người có sự tập trung học cao và khuyên cố gắng phát huy"
-
-    # Use the OpenAI ChatGPT API to get a response
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo", 
-        messages=[
-			{"role": "system", "content": prompt},
-		],
-        max_tokens=1024
-    )
-
-    advice = response.choices[0].message.content.strip()
-
-    return jsonify({'advice': advice})
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -1208,40 +1182,6 @@ def submit():
     else:
         return redirect('/default')
 
-openai.api_key = "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"
-@app.route('/paraphrase', methods=['POST'])
-def paraphrase():
-    text = request.form['text']
-    prompt_type = request.form.get('promptType', 'default')
-
-    if prompt_type == 'creative':
-        prompt = "Paraphrase this text creatively:" + text
-    elif prompt_type == 'default':
-        prompt = "paraphrase this text:" + text
-    elif prompt_type == 'fluency':
-        prompt = "paraphrase this text a way fluency:" + text
-    elif prompt_type == 'shorten':
-        prompt = "paraphrase this text a way shorten:" + text
-    elif prompt_type == 'simple':
-        prompt = "paraphrase this text a way simple:" + text
-    elif prompt_type == 'academy':
-        prompt = "paraphrase this text a way academy:" + text
-    elif prompt_type == 'formal':
-        prompt = "paraphrase this text a way formal:" + text
-    elif prompt_type == 'check':
-        prompt = "check the grammar in the text and fix it" + text
-
-    # Make a request to the OpenAI API
-    response = openai.Completion.create(
-        engine="text-davinci-003",  # You can choose a different engine if needed
-        prompt=prompt,
-        max_tokens=1024  # Adjust max_tokens as needed
-    )
-
-    paraphrased_text = response['choices'][0]['text'].strip()
-
-    # Return the result as JSON
-    return jsonify({'original_text': request.form['text'], 'paraphrased_text': paraphrased_text})
 
 
 # Classes Table
