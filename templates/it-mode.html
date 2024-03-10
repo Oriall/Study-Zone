@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <link rel="stylesheet" href="{{ url_for('static', filename='it-mode.css') }}">
     <link rel="shortcut icon" href="{{url_for('static',filename='img/logo.png')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}">
@@ -116,8 +117,8 @@
                     </svg>
                 </div>
 
-                <div class="item">
-                    <img src="/static/img/it_mode_new.svg" alt="" title="New File">
+                <div class="item" onclick="Mydivclick()" id="item_time">
+                    <img src="/static/img/it_mode_new.svg" alt="" title="Time Box">
                 </div>
                 <div class="item2" onclick="compileCode(),anicode()" id="vs_btn">
                     <img src="/static/img/it_mode_run.svg" alt="" title="Run And Debug (Ctrl + Alt + N)">
@@ -126,7 +127,7 @@
                     <img src="/static/img/it_mode_save2.svg" alt="" title="Save Code">
                 </div>
                 <div class="item2" onclick="nav_bar_search()" id="item2_search">
-                    <img src="/static/img/it_mode_search.svg" alt="" title="Search (Ctrl + F)">
+                    <img src="/static/img/it_mode_search.svg" alt="" title="Search Key (Ctrl + F)">
                 </div>
                 <div class="item2">
                     <img src="/static/img/it_mode_open.svg" alt="" title="Open Code (Ctrl + O)">
@@ -162,6 +163,7 @@
                         </defs>
                     </svg>
                 </div>
+
             </div>
             <div class="box-code">
                 <div class="nav-code">
@@ -530,9 +532,360 @@
                     </div>
                 </div>
             </div>
+            <div class="time-box" id="myDiv" style="display: none;">
+                <p id="timer"></p>
+                <p id="day">
+                    2023-03-02
+                </p>
+            </div>
+            <div class="music-box" id="myDiv2" style=" display: none;">
+                <div id="img">
+                </div>
+                <div class="name">
+                    <p id="name_music">
+                        Dangerous Bitch
+                    </p>
+                    <div id="nameauthor">
+                        Bernnan Story
+                    </div>
+                    <p id="name_music_mini">
+                        Dangerous Bitch
+                    </p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="99" height="52" viewBox="0 0 99 52" fill="none">
+                    <path
+                        d="M71.7177 0.00880537C70.8795 0.124795 70.132 0.42843 69.6073 0.865975C69.0826 1.30352 68.8147 1.84676 68.8509 2.39956V49.2771C68.7657 49.6125 68.7946 49.9559 68.9355 50.2833C69.0764 50.6108 69.326 50.9146 69.6669 51.1736C70.0078 51.4326 70.4318 51.6407 70.9097 51.7834C71.3876 51.9261 71.9078 52 72.4344 52C72.9609 52 73.4811 51.9261 73.959 51.7834C74.4369 51.6407 74.861 51.4326 75.2019 51.1736C75.5428 50.9146 75.7923 50.6108 75.9332 50.2833C76.0741 49.9559 76.103 49.6125 76.0179 49.2771V2.39956C76.03 2.07005 75.9343 1.74259 75.7371 1.43857C75.5398 1.13454 75.2455 0.860787 74.8732 0.635172C74.501 0.409557 74.0592 0.237156 73.5767 0.129226C73.0942 0.0212958 72.5819 -0.0197376 72.0731 0.00880537C71.9547 0.00505941 71.8361 0.00505941 71.7177 0.00880537ZM25.8489 2.47605C25.0108 2.59204 24.2632 2.89567 23.7386 3.33322C23.2139 3.77076 22.946 4.314 22.9821 4.8668V46.8099C22.897 47.1453 22.9259 47.4886 23.0668 47.8161C23.2077 48.1436 23.4572 48.4473 23.7981 48.7064C24.139 48.9654 24.5631 49.1735 25.041 49.3161C25.5189 49.4588 26.0391 49.5328 26.5656 49.5328C27.0922 49.5328 27.6124 49.4588 28.0903 49.3161C28.5682 49.1735 28.9923 48.9654 29.3331 48.7064C29.674 48.4473 29.9236 48.1436 30.0645 47.8161C30.2054 47.4886 30.2343 47.1453 30.1491 46.8099V4.8668C30.1613 4.53729 30.0656 4.20984 29.8684 3.90581C29.6711 3.60179 29.3768 3.32803 29.0045 3.10241C28.6322 2.8768 28.1904 2.7044 27.708 2.59647C27.2255 2.48854 26.7131 2.4475 26.2044 2.47605C26.086 2.4723 25.9674 2.4723 25.8489 2.47605ZM60.2505 9.87777C59.4123 9.99376 58.6648 10.2974 58.1401 10.7349C57.6154 11.1725 57.3475 11.7157 57.3837 12.2685V39.4082C57.2967 39.744 57.3242 40.0881 57.4641 40.4164C57.604 40.7447 57.8531 41.0493 58.194 41.3092C58.5349 41.5691 58.9594 41.7779 59.438 41.9211C59.9166 42.0643 60.4377 42.1385 60.9653 42.1385C61.4928 42.1385 62.014 42.0643 62.4926 41.9211C62.9712 41.7779 63.3957 41.5691 63.7366 41.3092C64.0774 41.0493 64.3265 40.7447 64.4665 40.4164C64.6064 40.0881 64.6338 39.744 64.5469 39.4082V12.2685C64.5589 11.9395 64.4634 11.6125 64.2666 11.3088C64.0698 11.0052 63.7762 10.7317 63.4048 10.5061C63.0334 10.2806 62.5925 10.1081 62.111 9.9998C61.6294 9.89154 61.1179 9.84996 60.6098 9.87777C60.4888 9.87386 60.3714 9.87386 60.2505 9.87777ZM14.3818 12.345C13.5436 12.461 12.7961 12.7646 12.2714 13.2022C11.7467 13.6397 11.4788 14.183 11.515 14.7358V36.9409C11.428 37.2768 11.4554 37.6208 11.5954 37.9491C11.7353 38.2774 11.9844 38.5821 12.3253 38.842C12.6661 39.1018 13.0906 39.3106 13.5692 39.4538C14.0478 39.5971 14.569 39.6712 15.0965 39.6712C15.6241 39.6712 16.1453 39.5971 16.6239 39.4538C17.1024 39.3106 17.527 39.1018 17.8678 38.842C18.2087 38.5821 18.4578 38.2774 18.5977 37.9491C18.7377 37.6208 18.7651 37.2768 18.6781 36.9409V14.7358C18.6901 14.4067 18.5947 14.0797 18.3979 13.7761C18.2011 13.4724 17.9075 13.1989 17.536 12.9734C17.1646 12.7478 16.7238 12.5753 16.2422 12.467C15.7607 12.3588 15.2492 12.3172 14.7411 12.345C14.6201 12.3411 14.5027 12.3411 14.3818 12.345ZM37.3161 14.8123C36.478 14.9282 35.7304 15.2319 35.2057 15.6694C34.6811 16.107 34.4131 16.6502 34.4493 17.203V34.4737C34.3624 34.8095 34.3898 35.1536 34.5297 35.4819C34.6697 35.8102 34.9187 36.1149 35.2596 36.3747C35.6005 36.6346 36.025 36.8434 36.5036 36.9866C36.9822 37.1298 37.5034 37.204 38.0309 37.204C38.5584 37.204 39.0796 37.1298 39.5582 36.9866C40.0368 36.8434 40.4613 36.6346 40.8022 36.3747C41.1431 36.1149 41.3922 35.8102 41.5321 35.4819C41.672 35.1536 41.6995 34.8095 41.6125 34.4737V17.203C41.6245 16.874 41.529 16.5469 41.3323 16.2433C41.1355 15.9396 40.8418 15.6661 40.4704 15.4406C40.099 15.2151 39.6582 15.0425 39.1766 14.9343C38.695 14.826 38.1835 14.7844 37.6754 14.8123C37.5545 14.8083 37.4371 14.8083 37.3161 14.8123ZM83.1848 14.8123C82.3467 14.9282 81.5991 15.2319 81.0745 15.6694C80.5498 16.107 80.2819 16.6502 80.318 17.203V34.4737C80.2329 34.8091 80.2618 35.1524 80.4027 35.4799C80.5436 35.8074 80.7931 36.1111 81.134 36.3702C81.4749 36.6292 81.899 36.8372 82.3769 36.9799C82.8548 37.1226 83.375 37.1966 83.9015 37.1966C84.4281 37.1966 84.9483 37.1226 85.4262 36.9799C85.9041 36.8372 86.3282 36.6292 86.669 36.3702C87.0099 36.1111 87.2595 35.8074 87.4004 35.4799C87.5413 35.1524 87.5702 34.8091 87.485 34.4737V17.203C87.4972 16.8735 87.4015 16.546 87.2043 16.242C87.007 15.938 86.7127 15.6642 86.3404 15.4386C85.9682 15.213 85.5264 15.0406 85.0439 14.9327C84.5614 14.8247 84.049 14.7837 83.5403 14.8123C83.4219 14.8085 83.3033 14.8085 83.1848 14.8123ZM2.91458 19.7467C2.07643 19.8627 1.32887 20.1664 0.804204 20.6039C0.279537 21.0415 0.0115891 21.5847 0.0477801 22.1375V29.5392C-0.0373541 29.8746 -0.00846988 30.2179 0.13243 30.5454C0.273331 30.8729 0.522876 31.1767 0.863768 31.4357C1.20466 31.6947 1.62874 31.9028 2.10662 32.0455C2.5845 32.1882 3.10474 32.2621 3.63127 32.2621C4.15781 32.2621 4.67805 32.1882 5.15593 32.0455C5.6338 31.9028 6.05789 31.6947 6.39878 31.4357C6.73967 31.1767 6.98922 30.8729 7.13012 30.5454C7.27102 30.2179 7.2999 29.8746 7.21477 29.5392V22.1375C7.2269 21.808 7.13123 21.4805 6.93399 21.1765C6.73676 20.8725 6.44241 20.5987 6.07014 20.3731C5.69788 20.1475 5.25609 19.9751 4.7736 19.8672C4.29111 19.7592 3.77878 19.7182 3.27006 19.7467C3.15036 19.7429 3.03045 19.7429 2.91075 19.7467H2.91458ZM48.7833 19.7467C47.9452 19.8627 47.1976 20.1664 46.6729 20.6039C46.1483 21.0415 45.8803 21.5847 45.9165 22.1375V29.5392C45.8295 29.8751 45.857 30.2191 45.9969 30.5474C46.1368 30.8757 46.3859 31.1804 46.7268 31.4402C47.0677 31.7001 47.4922 31.9089 47.9708 32.0521C48.4494 32.1953 48.9706 32.2695 49.4981 32.2695C50.0256 32.2695 50.5468 32.1953 51.0254 32.0521C51.504 31.9089 51.9285 31.7001 52.2694 31.4402C52.6103 31.1804 52.8593 30.8757 52.9993 30.5474C53.1392 30.2191 53.1666 29.8751 53.0797 29.5392V22.1375C53.0917 21.8084 52.9962 21.4814 52.7994 21.1778C52.6027 20.8741 52.309 20.6006 51.9376 20.3751C51.5662 20.1495 51.1253 19.977 50.6438 19.8688C50.1622 19.7605 49.6507 19.7189 49.1426 19.7467C49.0216 19.7428 48.9043 19.7428 48.7833 19.7467ZM94.652 19.7467C93.8139 19.8627 93.0663 20.1664 92.5417 20.6039C92.017 21.0415 91.749 21.5847 91.7852 22.1375V29.5392C91.7001 29.8746 91.729 30.2179 91.8699 30.5454C92.0108 30.8729 92.2603 31.1767 92.6012 31.4357C92.9421 31.6947 93.3662 31.9028 93.8441 32.0455C94.3219 32.1882 94.8422 32.2621 95.3687 32.2621C95.8953 32.2621 96.4155 32.1882 96.8934 32.0455C97.3713 31.9028 97.7953 31.6947 98.1362 31.4357C98.4771 31.1767 98.7267 30.8729 98.8676 30.5454C99.0085 30.2179 99.0374 29.8746 98.9522 29.5392V22.1375C98.9643 21.808 98.8687 21.4805 98.6714 21.1765C98.4742 20.8725 98.1799 20.5987 97.8076 20.3731C97.4353 20.1475 96.9935 19.9751 96.511 19.8672C96.0286 19.7592 95.5162 19.7182 95.0075 19.7467C94.8891 19.743 94.7704 19.743 94.652 19.7467Z"
+                        fill="white" fill-opacity="0.72" />
+                </svg>
+                <div class="btn_play">
+                    <div id="prev_sound">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                            <path d="M10 0V7L5.625 3.5M1.25 0V7H0V0M5.625 0V7L1.25 3.5" fill="#D9D9D9" />
+                        </svg>
+                    </div>
+                    <div id="play_sound" onclick="playPause()">
+                        <i id="ctrlIcon" id="icon" style="color: #D9D9D9;font-size: 10px;" class="fa-solid fa-play"></i>
+                    </div>
+                    <audio id="song">
+                        <source src="/static/audio/Better day.mp3" id="song-audio" type="audio/mpeg">
+                    </audio>
+                    <div id="next_sound">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
+                            <path d="M0 7V0L3.5 3.5M7 7L7 0H8L8 7M3.5 7L3.5 0L7 3.5" fill="#D9D9D9" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="set_sound">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+                        <g clip-path="url(#clip0_673_41)">
+                            <path
+                                d="M9.21832 7.61665C9.13939 7.61762 9.06228 7.59469 8.9988 7.55136C8.93532 7.50804 8.88897 7.4467 8.86685 7.37675C8.84473 7.30679 8.84806 7.23207 8.87632 7.16403C8.90458 7.09598 8.95621 7.03836 9.02332 6.99998C9.35191 6.81066 9.62178 6.54601 9.80662 6.2318C9.99147 5.91759 10.085 5.56454 10.0781 5.20705C10.0712 4.84956 9.96407 4.49981 9.7672 4.19189C9.57033 3.88397 9.29041 3.62836 8.95471 3.44998C8.91156 3.42915 8.87342 3.40046 8.84258 3.36567C8.81175 3.33087 8.78886 3.29067 8.77529 3.2475C8.76172 3.20432 8.75775 3.15906 8.76362 3.11443C8.76949 3.0698 8.78509 3.02673 8.80946 2.98781C8.83383 2.94889 8.86648 2.91492 8.90545 2.88795C8.94441 2.86097 8.98888 2.84156 9.03618 2.83086C9.08349 2.82016 9.13265 2.81841 9.18071 2.82571C9.22876 2.833 9.27472 2.8492 9.31582 2.87332C9.75779 3.10988 10.126 3.44786 10.3848 3.85447C10.6436 4.26108 10.7842 4.72253 10.7929 5.19406C10.8017 5.66559 10.6782 6.13119 10.4346 6.54572C10.191 6.96025 9.83546 7.30963 9.40249 7.55998C9.34786 7.59404 9.28417 7.61363 9.21832 7.61665Z"
+                                fill="#EFF1F5" fill-opacity="0.39" />
+                            <path
+                                d="M10.0163 9.59341C9.93545 9.59297 9.85709 9.56749 9.79379 9.52105C9.73048 9.47461 9.68589 9.4099 9.66716 9.33729C9.64843 9.26468 9.65665 9.18837 9.69049 9.12058C9.72433 9.05279 9.78185 8.99744 9.85381 8.96341C10.6113 8.61886 11.2483 8.08418 11.6917 7.4207C12.135 6.75722 12.3668 5.99182 12.3604 5.2123C12.354 4.43279 12.1096 3.67072 11.6554 3.01353C11.2012 2.35634 10.5555 1.83064 9.79242 1.49675C9.7484 1.47848 9.70879 1.45226 9.67593 1.41962C9.64307 1.38698 9.61764 1.34859 9.60113 1.30672C9.58462 1.26486 9.57737 1.22036 9.57981 1.17586C9.58225 1.13136 9.59433 1.08777 9.61533 1.04765C9.63634 1.00754 9.66584 0.971716 9.7021 0.942307C9.73836 0.912897 9.78064 0.890496 9.82643 0.876428C9.87223 0.862359 9.92062 0.856909 9.96874 0.860399C10.0169 0.863889 10.0637 0.876248 10.1066 0.896747C10.993 1.28302 11.7435 1.89209 12.272 2.65411C12.8005 3.41612 13.0857 4.30022 13.0947 5.20499C13.1038 6.10976 12.8364 6.99856 12.3232 7.76945C11.81 8.54034 11.0718 9.1621 10.1933 9.56341C10.138 9.58703 10.0771 9.59735 10.0163 9.59341Z"
+                                fill="#EFF1F5" fill-opacity="0.39" />
+                            <path
+                                d="M7.38387 0.533219L4.03998 3.19989H1.87332C1.77755 3.19989 1.6857 3.23501 1.61797 3.29752C1.55025 3.36003 1.51221 3.44481 1.51221 3.53322V6.83989C1.51221 6.92829 1.55025 7.01308 1.61797 7.07559C1.6857 7.1381 1.77755 7.17322 1.87332 7.17322H3.97137L7.38749 9.91989C7.43916 9.96181 7.50273 9.98924 7.57072 9.99895C7.63871 10.0087 7.70829 10.0002 7.77127 9.97466C7.83424 9.9491 7.888 9.90746 7.92621 9.85464C7.96441 9.80183 7.98548 9.74004 7.98693 9.67655V0.773219C7.9854 0.709379 7.96403 0.647288 7.92538 0.594332C7.88672 0.541376 7.8324 0.499784 7.76887 0.474503C7.70535 0.449221 7.63529 0.441315 7.56704 0.451724C7.49879 0.462133 7.43521 0.49042 7.38387 0.533219Z"
+                                fill="#EFF1F5" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_673_41">
+                                <rect width="13" height="12" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
 
 
+                    <input type="range" value="0" id="progress">
 
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+                        <g clip-path="url(#clip0_673_46)">
+                            <path
+                                d="M9.21832 7.61665C9.13939 7.61762 9.06228 7.59469 8.9988 7.55136C8.93532 7.50804 8.88897 7.4467 8.86685 7.37675C8.84473 7.30679 8.84806 7.23207 8.87632 7.16403C8.90458 7.09598 8.95621 7.03836 9.02332 6.99998C9.35191 6.81066 9.62178 6.54601 9.80662 6.2318C9.99147 5.91759 10.085 5.56454 10.0781 5.20705C10.0712 4.84956 9.96407 4.49981 9.7672 4.19189C9.57033 3.88397 9.29041 3.62836 8.95471 3.44998C8.91156 3.42915 8.87342 3.40046 8.84258 3.36567C8.81175 3.33087 8.78886 3.29067 8.77529 3.2475C8.76172 3.20432 8.75775 3.15906 8.76362 3.11443C8.76949 3.0698 8.78509 3.02673 8.80946 2.98781C8.83383 2.94889 8.86648 2.91492 8.90545 2.88795C8.94441 2.86097 8.98888 2.84156 9.03618 2.83086C9.08349 2.82016 9.13265 2.81841 9.18071 2.82571C9.22876 2.833 9.27472 2.8492 9.31582 2.87332C9.75779 3.10988 10.126 3.44786 10.3848 3.85447C10.6436 4.26108 10.7842 4.72253 10.7929 5.19406C10.8017 5.66559 10.6782 6.13119 10.4346 6.54572C10.191 6.96025 9.83546 7.30963 9.40249 7.55998C9.34786 7.59404 9.28417 7.61363 9.21832 7.61665Z"
+                                fill="#EFF1F5" />
+                            <path
+                                d="M10.0163 9.59341C9.93545 9.59297 9.85709 9.56749 9.79379 9.52105C9.73048 9.47461 9.68589 9.4099 9.66716 9.33729C9.64843 9.26468 9.65665 9.18837 9.69049 9.12058C9.72433 9.05279 9.78185 8.99744 9.85381 8.96341C10.6113 8.61886 11.2483 8.08418 11.6917 7.4207C12.135 6.75722 12.3668 5.99182 12.3604 5.2123C12.354 4.43279 12.1096 3.67072 11.6554 3.01353C11.2012 2.35634 10.5555 1.83064 9.79242 1.49675C9.7484 1.47848 9.70879 1.45226 9.67593 1.41962C9.64307 1.38698 9.61764 1.34859 9.60113 1.30672C9.58462 1.26486 9.57737 1.22036 9.57981 1.17586C9.58225 1.13136 9.59433 1.08777 9.61533 1.04765C9.63634 1.00754 9.66584 0.971716 9.7021 0.942307C9.73836 0.912897 9.78064 0.890496 9.82643 0.876428C9.87223 0.862359 9.92062 0.856909 9.96874 0.860399C10.0169 0.863889 10.0637 0.876248 10.1066 0.896747C10.993 1.28302 11.7435 1.89209 12.272 2.65411C12.8005 3.41612 13.0857 4.30022 13.0947 5.20499C13.1038 6.10976 12.8364 6.99856 12.3232 7.76945C11.81 8.54034 11.0718 9.1621 10.1933 9.56341C10.138 9.58703 10.0771 9.59735 10.0163 9.59341Z"
+                                fill="#EFF1F5" />
+                            <path
+                                d="M7.38387 0.533219L4.03998 3.19989H1.87332C1.77755 3.19989 1.6857 3.23501 1.61797 3.29752C1.55025 3.36003 1.51221 3.44481 1.51221 3.53322V6.83989C1.51221 6.92829 1.55025 7.01308 1.61797 7.07559C1.6857 7.1381 1.77755 7.17322 1.87332 7.17322H3.97137L7.38749 9.91989C7.43916 9.96181 7.50273 9.98924 7.57072 9.99895C7.63871 10.0087 7.70829 10.0002 7.77127 9.97466C7.83424 9.9491 7.888 9.90746 7.92621 9.85464C7.96441 9.80183 7.98548 9.74004 7.98693 9.67655V0.773219C7.9854 0.709379 7.96403 0.647288 7.92538 0.594332C7.88672 0.541376 7.8324 0.499784 7.76887 0.474503C7.70535 0.449221 7.63529 0.441315 7.56704 0.451724C7.49879 0.462133 7.43521 0.49042 7.38387 0.533219Z"
+                                fill="#EFF1F5" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_673_46">
+                                <rect width="13" height="12" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+
+                </div>
+                <div class="set_btn">
+                    <div class="right">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10"
+                                fill="none">
+                                <path
+                                    d="M7.95536 0C6.94129 0 6.05344 0.462609 5.5 1.24456C4.94656 0.462609 4.05871 0 3.04464 0C2.23743 0.000965195 1.46354 0.34157 0.89276 0.94709C0.321976 1.55261 0.000909826 2.37359 0 3.22993C0 6.87662 5.09683 9.82836 5.31388 9.95026C5.37109 9.98291 5.43504 10 5.5 10C5.56496 10 5.62891 9.98291 5.68612 9.95026C5.90317 9.82836 11 6.87662 11 3.22993C10.9991 2.37359 10.678 1.55261 10.1072 0.94709C9.53646 0.34157 8.76257 0.000965195 7.95536 0ZM5.5 9.10631C4.6033 8.55202 0.785714 6.02694 0.785714 3.22993C0.786494 2.59462 1.02474 1.98557 1.4482 1.53633C1.87166 1.0871 2.44578 0.834357 3.04464 0.83353C3.99978 0.83353 4.8017 1.37324 5.13661 2.24011C5.16621 2.31655 5.21656 2.38193 5.28126 2.42794C5.34597 2.47395 5.4221 2.49852 5.5 2.49852C5.5779 2.49852 5.65403 2.47395 5.71874 2.42794C5.78344 2.38193 5.83379 2.31655 5.86339 2.24011C6.1983 1.37168 7.00022 0.83353 7.95536 0.83353C8.55422 0.834357 9.12834 1.0871 9.5518 1.53633C9.97526 1.98557 10.2135 2.59462 10.2143 3.22993C10.2143 6.02277 6.39571 8.5515 5.5 9.10631Z"
+                                    fill="white" />
+                            </svg>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14"
+                                fill="none">
+                                <path
+                                    d="M2.70837 11.6667H10.2917V10.5H2.70837V11.6667ZM10.2917 5.25H8.12504V1.75H4.87504V5.25H2.70837L6.50004 9.33333L10.2917 5.25Z"
+                                    fill="white" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="left">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"
+                                fill="none">
+                                <circle cx="11.5" cy="11.5" r="11.5" fill="#303041" />
+                                <path
+                                    d="M6.79273 6L16.2073 17M14.1478 14.7698C13.3517 15.2709 12.452 15.625 11.5 15.625C9.42292 15.625 7.5965 13.9393 6.54972 12.7231C6.27317 12.402 6.13489 12.2418 6.04722 11.9262C5.98426 11.7014 5.98426 11.2986 6.04722 11.0738C6.13548 10.7582 6.27376 10.5973 6.55031 10.2763C7.07811 9.663 7.80362 8.9315 8.65916 8.35606M15.9131 13.3109C16.109 13.1094 16.2885 12.9107 16.4497 12.7237L16.4515 12.7217C16.7268 12.4013 16.8651 12.2404 16.9528 11.9269C17.0157 11.7021 17.0157 11.2986 16.9528 11.0738C16.8645 10.7589 16.7268 10.598 16.4503 10.2769C15.4029 9.06075 13.5771 7.375 11.5 7.375C11.3011 7.375 11.1052 7.39013 10.9116 7.419M12.2785 12.5312C12.0506 12.7664 11.7536 12.8893 11.4498 12.8743C11.146 12.8593 10.859 12.7075 10.6489 12.4508C10.4388 12.194 10.3219 11.8521 10.3227 11.4969C10.3235 11.1416 10.442 10.8005 10.6533 10.5451"
+                                    stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="3" height="13" viewBox="0 0 3 13"
+                                fill="none">
+                                <path
+                                    d="M1.64801 2.34375C2.0059 2.34375 2.29602 2.04294 2.29602 1.67188C2.29602 1.30081 2.0059 1 1.64801 1C1.29012 1 1 1.30081 1 1.67188C1 2.04294 1.29012 2.34375 1.64801 2.34375Z"
+                                    stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M1.64801 6.64355C2.0059 6.64355 2.29602 6.34275 2.29602 5.97168C2.29602 5.60061 2.0059 5.2998 1.64801 5.2998C1.29012 5.2998 1 5.60061 1 5.97168C1 6.34275 1.29012 6.64355 1.64801 6.64355Z"
+                                    stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M1.64801 11.75C2.0059 11.75 2.29602 11.4492 2.29602 11.0781C2.29602 10.7071 2.0059 10.4062 1.64801 10.4062C1.29012 10.4062 1 10.7071 1 11.0781C1 11.4492 1.29012 11.75 1.64801 11.75Z"
+                                    stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var keywordInput = document.getElementById('search_text');
+                var myDiv = document.getElementById('myDiv');
+                var myDiv2 = document.getElementById('myDiv2');
+                var myDiv3 = document.getElementById('draggableDiv');
+                var myDiv4 = document.querySelector('.ct_box');
+                var myDiv5 = document.querySelector('.bigb');
+                var myDiv7 = document.querySelector('.setting_box');
+                var myDiv8 = document.getElementById('wrapper2')
+                var myDiv9 = document.getElementById('wrapper3')
+                var myDiv10 = document.getElementById('wrapper5')
+                keywordInput.addEventListener('input', function () {
+                    var keyword = keywordInput.value.trim().toLowerCase(); // Convert the input value to lowercase
+
+                    // Define your keyword here, for example, "showdiv"
+                    var targetKeyword = "time";
+                    var targetKeyword2 = "hidetime";
+                    var musickeyword = "music";
+                    var musickeyword2 = "hidemusic";
+                    var codekeyword = "text";
+                    var codekeyword2 = "hidetext";
+                    var codekeyword3 = "box";
+                    var codekeyword4 = "full";
+                    var codekeyword5 = "hidefull";
+                    var codekeyword6 = "quiz";
+                    var codekeyword7 = "setting";
+                    var codekeyword8 = "hidesetting";
+                    var codekeyword9 = "library";
+                    var codekeyword10 = "hidelibrary";
+                    var codekeyword11 = "key";
+                    var codekeyword12 = "hidekey";
+                    var codekeyword13 = "ide";
+                    var codekeyword14 = "hideide";
+                    // Check if the entered keyword matches the target keyword
+                    if (keyword === targetKeyword) {
+                        myDiv.classList.add('animation-status6');
+                        myDiv.style.display = 'flex'; // Display the div
+                    } else if (keyword === targetKeyword2) {
+                        myDiv.classList.remove('animation-status6');
+                        myDiv.classList.add('animation-status7');
+                        setTimeout(function () {
+                            myDiv.display = "none";
+                        }, 300);
+                    }
+                    if (keyword === musickeyword) {
+                        myDiv2.classList.add('animation-status6');
+                        myDiv2.style.display = 'flex'; // Display the div
+                    } else if (keyword === musickeyword2) {
+                        myDiv2.classList.remove('animation-status6');
+                        myDiv2.classList.add('animation-status7');
+                        setTimeout(function () {
+                            myDiv2.display = "none";
+                        }, 300);
+                    }
+
+                    if (keyword === codekeyword) {
+                        myDiv3.classList.add('animation-status6');
+                        myDiv3.style.display = 'flex'; // Display the div
+                    } else if (keyword === codekeyword2) {
+                        myDiv3.classList.remove('animation-status6');
+                        myDiv3.classList.add('animation-status7');
+                        setTimeout(function () {
+                            myDiv3.display = "none";
+                        }, 300);
+                    }
+                    if (keyword === codekeyword3) {
+                        myDiv4.classList.add('animation-status6');
+                        myDiv4.style.display = 'block';
+                    } // Display the div
+                    if (keyword === codekeyword4) {
+                        myDiv5.classList.add('animation-status6');
+                        myDiv5.style.display = 'flex'; // Display the div
+                    } else if (keyword === codekeyword5) {
+                        myDiv5.classList.remove('animation-status6');
+                        myDiv5.classList.add('animation-status7');
+                        setTimeout(function () {
+                            myDiv5.style.display = "none";
+                        }, 300);
+                    }
+                    if (keyword === codekeyword9) {
+                        myDiv8.classList.add('animation-status6');
+                        myDiv8.style.display = 'flex'; // Display the div
+                    } else if (keyword === codekeyword10) {
+                        myDiv8.classList.remove('animation-status6');
+                        myDiv8.classList.add('animation-status7');
+                        setTimeout(function () {
+                            myDiv8.style.display = "none";
+                        }, 300);
+                    }
+                    if (keyword === codekeyword11) {
+                        myDiv9.classList.add('animation-status6');
+                        myDiv9.style.display = 'flex'; // Display the div
+                    } else if (keyword === codekeyword12) {
+                        myDiv9.classList.remove('animation-status6');
+                        myDiv9.classList.add('animation-status7');
+                        setTimeout(function () {
+                            myDiv9.style.display = "none";
+                        }, 300);
+                    }
+                    if (keyword === codekeyword13) {
+                        myDiv10.classList.add('animation-status6');
+                        myDiv10.style.display = 'flex'; // Display the div
+                    } else if (keyword === codekeyword14) {
+                        myDiv10.classList.remove('animation-status6');
+                        myDiv10.classList.add('animation-status7');
+                        setTimeout(function () {
+                            myDiv10.style.display = "none";
+                        }, 300);
+                    }
+                    if (keyword === codekeyword6) {
+                        document.querySelector('.quiz_time').classList.remove('animation-status11'); // Remove any previous animation class
+                        document.querySelector('.quiz_box').classList.remove('animation-status9');
+                        document.querySelector('.quiz_box').classList.add('animation-status8');
+                        document.querySelector('.quiz_box').style.display = "flex";
+                        document.querySelector('.quiz_box').style.opacity = "1";
+                        document.querySelector('.quiz_time').classList.add('animation-status10');
+                    }
+                    if (keyword === codekeyword7) {
+                        myDiv7.classList.add('animation-status6');
+                        myDiv7.style.display = 'block'; // Display the div
+                    } else if (keyword === codekeyword8) {
+                        myDiv7.classList.remove('animation-status6');
+                        myDiv7.classList.add('animation-status7');
+                        setTimeout(function () {
+                            myDiv5.style.display = "none";
+                        }, 300);
+                    }
+
+                });
+            </script>
+            <script>
+                var a = 45
+                var duration = 2700
+                // var number5 = document.getElementById('nt_text');
+                // function handleKeyPress(event) {
+                //     // Kiểm tra xem phím đã ấn có phải là phím Enter không
+                //     if (event.key === 'Enter') {
+                //         a = parseFloat(number5.value)
+                //         duration = a * 60;
+                //         number5.style.display = "none";
+                //     }
+                // }
+                var timerElement = document.getElementById("timer");
+
+                function displayTimeLeft() {
+                    var durationafter;
+                    var minutes = Math.floor(duration / 60);
+                    var seconds = duration % 60;
+
+                    timerElement.textContent = minutes + ":" + seconds;
+                    if (duration > 0) {
+                        duration--;
+                        setTimeout(displayTimeLeft, 1000); // Update every second
+                    }
+                    else if (duration == 0) {
+                        // When the timer reaches zero, play the audio
+                        var audio = document.getElementById("song-time-out");
+                        audio.play();
+                    }
+                }
+                displayTimeLeft();
+            </script>
+            <script>
+                let progress = document.getElementById("progress");
+                let progress1 = document.getElementById("progress1");
+                let song = document.getElementById("song");
+                let ctrlIcon = document.getElementById("ctrlIcon");
+
+                song.onloadeddata = function () {
+                    progress.max = song.duration;
+                    progress.value = song.currentTime;
+
+                }
+                function playPause() {
+                    if (ctrlIcon.classList.contains("fa-pause")) {
+                        song.pause();
+                        ctrlIcon.classList.remove("fa-pause");
+                        ctrlIcon.classList.add("fa-play");
+                    }
+                    else {
+                        song.play();
+                        ctrlIcon.classList.add("fa-pause");
+                        ctrlIcon.classList.remove("fa-play");
+                    }
+                }
+                if (song.play()) {
+                    setInterval(() => {
+                        progress.value = song.currentTime
+                    }, 500);
+                }
+                progress.onchange = function () {
+                    song.play();
+                    song.currentTime = progress.value;
+                    ctrlIcon.classList.add("fa-pause");
+                    ctrlIcon.classList.remove("fa-play");
+
+                }
+            </script>
+            <script>
+                // Retrieve the audio element and volume slider
+                var audio = document.getElementById("song");
+                var volumeSlider = document.getElementById("progress1");
+
+                // Attach an event listener to the volume slider
+                volumeSlider.addEventListener("input", function () {
+                    // Update the audio volume based on the slider value
+                    audio.volume = volumeSlider.value;
+                });
+                audio.play();
+            </script>
+            <audio id="song-time-out">
+                <source src="/static/audio/timeout.mp3" type="audio/mpeg">
+            </audio>
+            <script>
+                var myDiv = document.getElementById('myDiv');
+                function Mydivclick() {
+
+                }
+            </script>
+            <script src="/static/js/draggable.js"></script>
+            <script src="/static/js/draggable2.js"></script>
 
             <div class="start_full" id="start_full">
                 <div class="ct_full">
@@ -555,6 +908,41 @@
                     </div>
                 </div>
             </div>
+
+            <div class="theo_doi_box" style="display: none;">
+                {% for filename in filenamesimg %}
+                    {% if filename[4] is none %}
+                        <div class="theo_doi_mini_box" title="{{ filename[3] }}">
+                            <img src="{{ filename[2] }}" alt="Screenshot">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="tailieu_down" onclick="open_theo_doi()">
+                <p id="tai_ve">Xem Ảnh</p>
+            </div>
+            <div class="tailieu_up" style="display: none;" onclick="close_theo_doi()">
+                <p id="tai_ve">Xen Webcam</p>
+            </div>
+
+            <script>
+                function open_theo_doi() {
+                    document.querySelector('.theo_doi_box').classList.remove('animation-status7'); // Remove any previous animation class
+                    document.querySelector('.theo_doi_box').classList.add('animation-status6');
+                    document.querySelector('.theo_doi_box').style.display = "flex";
+                    document.querySelector('.tailieu_down').style.display = "none";
+                    document.querySelector('.tailieu_up').style.display = "flex";
+                }
+                function close_theo_doi() {
+                    document.querySelector('.theo_doi_box').classList.remove('animation-status6');
+                    document.querySelector('.theo_doi_box').classList.add('animation-status7'); // Remove any previous animation class
+                    document.querySelector('.theo_doi_box').style.display = "none";
+                    document.querySelector('.tailieu_down').style.display = "flex";
+                    document.querySelector('.tailieu_up').style.display = "none";
+                }
+            </script>
+
             <script>
                 function btn_full2() {
                     document.querySelector('.ct_full').classList.add('animation-status7');
@@ -722,8 +1110,8 @@
         const roomID = getUrlParams(window.location.href)['roomID'] || (Math.floor(Math.random() * 10000) + "");
         const userID = Math.floor(Math.random() * 10000) + "";
         const userName = "{{username}}";
-        const appID = 157371176;
-        const serverSecret = "55a270f35689efc551ad40aa416ba0a8";
+        const appID = 284896310;
+        const serverSecret = "34fabdda538aac588b1285467fcbdb0b";
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
 
 
@@ -755,6 +1143,7 @@
 </script>
 <script>
     if (window.location.href.includes('?roomID')) {
+        document.querySelector(".tailieu_down").style.display = "none";
         document.querySelector("#root").style.zIndex = "-1";
         document.querySelector(".btn_full").addEventListener("click", function () {
             var buttons = document.querySelectorAll("button");

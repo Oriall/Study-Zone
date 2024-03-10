@@ -1200,3 +1200,384 @@ select {
     height: 100vh;
 }
 
+.time-box {
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Standard syntax */
+    position: absolute;
+    width: 258px;
+    z-index: 997;
+    height: 135px;
+    border-radius: 5px;
+    background: rgba(18, 18, 26, 0.57);
+    box-shadow: 0px 0px 10px 0px rgba(18, 18, 26, 0.25);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.25;
+}
+
+.time-box:hover {
+    cursor: pointer;
+    border: 2px solid #B3ADDD;
+}
+
+.time-box:active {
+    cursor: pointer;
+    border: 2px solid #B3ADDD;
+}
+
+.time-box #day {
+    color: #A7E3A2;
+    font-family: Fira Code;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+
+#timer {
+    color: #A7E3A2;
+    font-family: "square deal Regular";
+    font-size: 90px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 4px;
+    font-display: none;
+
+}
+
+.music-box {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 19px;
+    width: 224px;
+    height: 377px;
+    z-index: 10;
+    border-radius: 11px;
+    border: 1px solid rgba(248, 248, 248, 0.19);
+    background: #1E1E2E;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+}
+
+.music-box #img {
+    background: url('/static/img/music_bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 115px;
+    height: 116px;
+    border-radius: 8px;
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 5px;
+}
+
+.name #name_music {
+    color: #FFF;
+    font-family: Fira Code;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.name #nameauthor {
+    color: rgba(255, 255, 255, 0.86);
+    font-family: Fira Code;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+    letter-spacing: 0.2px;
+}
+
+.name #name_music_mini {
+    color: rgba(255, 255, 255, 0.86);
+    font-family: Fira Code;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+    letter-spacing: 0.2px;
+}
+
+.music-box .btn_play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 15px;
+}
+
+.btn_play div {
+    width: 23px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 23px;
+    background: #303041;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn_play div:hover {
+    transform: scale(0.95);
+}
+
+.set_sound {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+/*---------Rage---------*/
+.music-box input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 124px;
+    accent-color: #CAA6F9;
+}
+
+.music-box input[type="range"]::-webkit-slider-runnable-track {
+    background: rgba(255, 255, 255, 0.30);
+    accent-color: #CAA6F9;
+    border-radius: 2px;
+    height: 1.5px;
+}
+
+/******** Firefox ********/
+.music-box input[type="range"]::-moz-range-track {
+    background: rgba(255, 255, 255, 0.30);
+    border-radius: 2px;
+    height: 1.5px;
+}
+
+.music-box input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
+    appearance: none;
+    margin-top: -5px;
+    border-radius: 11px;
+    border: 1px solid #CAA6F9;
+    background: #1E1E2E;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    /* Centers thumb on the track */
+}
+
+.music-box input[type=range]::range-progress {
+    background-color: #CAA6F9;
+    border-radius: 2px;
+    height: 1.5px;
+}
+
+/*--------------------*/
+.set_btn {
+    width: 152px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.set_btn .right {
+    display: flex;
+    column-gap: 9px;
+}
+
+.set_btn .right div {
+    width: 21px;
+    height: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    background: #303041;
+}
+
+.set_btn .left {
+    display: flex;
+    column-gap: 9px;
+
+}
+
+.set_btn .left div {
+    width: 21px;
+    height: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    background: #303041;
+}
+
+.music-box:hover {
+    cursor: pointer;
+    border: 1.5px solid #B3ADDD;
+}
+
+.music-box:active {
+    cursor: pointer;
+    border: 1.5px solid #B3ADDD;
+}
+#item_time{
+    cursor: pointer;
+}
+
+.theo_doi_box {
+    background-color: #181623;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: flex;
+    column-gap: 42px;
+    flex-wrap: wrap;
+    padding: 25px;
+    overflow: auto;
+    width: 100%;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+
+.theo_doi_box::-webkit-scrollbar {
+    display: none;
+}
+.theo_doi_mini_box{
+    background-color: #1A1825;
+    width: 259px;
+    height: 172px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    transform: scale(1);
+    user-select: none;
+}
+.theo_doi_mini_box:hover {
+    border-radius: 3px;
+    transform: scale(1.02);
+    outline: 1px solid #CAA6F9;
+    box-shadow: 0px 0px 20px 0px rgba(111, 78, 154, 0.56);
+}
+.tailieu_down {
+    position: absolute;
+    z-index: 1000;
+    bottom: 20px;
+    left: 20px;
+    width: 88px;
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #7289DA;
+    background-color: transparent;
+    transition: 0.25s;
+    -webkit-user-select: none;
+    /* Webkit browsers (Chrome, Safari, etc.) */
+    -moz-user-select: none;
+    /* Mozilla Firefox */
+    -ms-user-select: none;
+    /* Microsoft Internet Explorer/Edge */
+    user-select: none;
+}
+
+
+
+.tailieu_down #tai_ve {
+    color: #7289DA;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.36px;
+}
+#tai_ve {
+    color: #7289DA;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.36px;
+}
+.tailieu_down:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.tailieu_down:active {
+    cursor: pointer;
+    transform: scale(0.9);
+}
+
+.tailieu_up {
+    position: absolute;
+    z-index: 1000;
+    bottom: 20px;
+    left: 20px;
+    width: 88px;
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #7289DA;
+    background-color: transparent;
+    transition: 0.25s;
+    -webkit-user-select: none;
+    /* Webkit browsers (Chrome, Safari, etc.) */
+    -moz-user-select: none;
+    /* Mozilla Firefox */
+    -ms-user-select: none;
+    /* Microsoft Internet Explorer/Edge */
+    user-select: none;
+}
+
+
+
+.tailieu_up #tai_ve {
+    color: #7289DA;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.36px;
+}
+
+.tailieu_up:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.tailieu_up:active {
+    cursor: pointer;
+    transform: scale(0.9);
+}
+.theo_doi_box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

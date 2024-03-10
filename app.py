@@ -8,7 +8,7 @@ from flask import (
     Response,
 )
 from pathlib import Path
-from flask import session
+from flask import session, send_from_directory
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -576,8 +576,10 @@ def get_result(class_id):
         data = response.json()
         learner_average_times[data['learner_id']] = data['average_completion_time']
 
+    mycursor.execute("SELECT * FROM screenshots WHERE LearnerId = %s", ("2",))
+    filenamesimg = mycursor.fetchall()
 
-    return render_template('control2.html', results=results, result=result, emails=emails, fullnames=fullnames, learner_ids=learner_ids, learner_type_1_counts=learner_type_1_counts, teacher_name=teacher_name, learner_type_0_counts= learner_type_0_counts, learner_average_times=learner_average_times)
+    return render_template('control2.html', results=results, result=result, emails=emails, fullnames=fullnames, learner_ids=learner_ids, learner_type_1_counts=learner_type_1_counts, teacher_name=teacher_name, learner_type_0_counts= learner_type_0_counts, learner_average_times=learner_average_times, filenamesimg= filenamesimg, class_id= class_id)
 
 
 def get_result2():
@@ -621,6 +623,8 @@ def check_for_file_jdoodle(result):
 @app.route("/it_mode", methods=['GET', 'POST'])
 def it_mode():
     learner_id_2 = session.get('acc', '')
+    mycursor.execute("SELECT * FROM screenshots WHERE LearnerId = %s", ("2",))
+    filenamesimg = mycursor.fetchall()
     sql_get_code = "SELECT ID, Message FROM code_results WHERE LearnerId = %s AND Type = 0"
     mycursor.execute(sql_get_code, (learner_id_2,))
     files = mycursor.fetchall()
@@ -663,7 +667,7 @@ def it_mode():
         else:
             save_to_database(learner_id_2,problem_statement,code, now, result_type)
      
-    return render_template("it-mode.html",files=files, username= username)
+    return render_template("it-mode.html",files=files, username= username, filenamesimg= filenamesimg)
 
 @app.route('/open/<int:file_id>')
 def open_file(file_id):
@@ -1234,9 +1238,9 @@ def control():
     return render_template("control.html", filenames=filenames)
 
 
-# @app.route('/screenshots/<filename>')
-# def get_screenshot(filename):
-#     return send_from_directory(app.config['UPLOAD_FOLDER2'], filename)
+@app.route('/screenshots/<filename>')
+def get_screenshot(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER2'], filename)
 
 # def auto_capture():
 #     while True:
@@ -1298,17 +1302,17 @@ def get_messages():
                 messagess.pop()
     return Response(generate(), content_type='text/event-stream')
 
-BASE_DIR = Path(__file__).resolve().parent
+# BASE_DIR = Path(__file__).resolve().parent
 
-URL = 'http://localhost:5000/api/upload_image'
+# URL = 'http://localhost:5000/api/upload_image'
 
-SCREENSHOT = BASE_DIR / 'screenshots'
+# SCREENSHOT = BASE_DIR / 'screenshots'
 
-def get_image(url, directory):
-    screenshot_files = os.listdir(directory)
-    for filename in screenshot_files:
-        with open(directory / filename, 'rb') as img:
-            response = requests.post(url, files={'image': img})
+# def get_image(url, directory):
+#     screenshot_files = os.listdir(directory)
+#     for filename in screenshot_files:
+#         with open(directory / filename, 'rb') as img:
+#             response = requests.post(url, files={'image': img})
 
 @app.route("/join", methods=["GET", "POST"])
 def join():
@@ -1342,7 +1346,7 @@ def get_image():
     screenshot_path = os.path.join(app.config['UPLOAD_FOLDER2'], filename)
     img.save(screenshot_path)
     timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-    cursor.execute("INSERT INTO screenshots (image_path, capture_time) VALUES (%s, %s)", (screenshot_path, timestamp))
+    cursor.execute("INSERT INTO screenshots (learnerID, image_path, capture_time) VALUES (%s, %s, %s)", ("2", screenshot_path, timestamp))
     db.commit()
 
 

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <link rel="stylesheet" href="{{ url_for('static', filename='control.css') }}">
     <link rel="shortcut icon" href="{{url_for('static',filename='img/logo.png')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}">
@@ -129,7 +130,11 @@
                     {% for filename in filenames %}
                     <div class="item_img_box2"
                         style="{% if loop.index is even and filename[4] is none %}background: linear-gradient(180deg, #181825 54.17%, rgba(24, 24, 37, 0.00) 99.96%);{% elif loop.index is even and filename[4] is not none %}background: rgba(30, 30, 46, 0.89);{% elif filename[4] is not none %}background: rgba(75, 192, 192, 0.2);{% endif %}">
+                        {% if filename[4] is none %}
                         <img src="{{ filename[2] }}" alt="Screenshot">
+                        {% else %}
+                        <img src="/static/img/it_mode_run.svg" alt="Screenshot">
+                        {% endif %}
                         <div class="item_text">
                             {% if filename[4] is none %}
                             <p class="item_text1">Ảnh {{ loop.index }}.png</p>

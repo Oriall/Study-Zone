@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='control2.css') }}">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <link rel="shortcut icon" href="{{url_for('static',filename='img/logo.png')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -30,7 +31,7 @@
         <div class="it" onclick="thong_ke()">
             <p>Phân Tích</p>
         </div>
-        <a href="/it_mode">
+        <a href="https://gs.tmath.vn/it_mode">
             <div class="it">
                 <p>Xem Cam</p>
             </div>
@@ -146,6 +147,10 @@
                         <img src="/static/img/thong_ke.svg" alt="">
                         <p>Theo Dõi</p>
                     </div>
+                    <div class="theo_doi" onclick="theo_doi()">
+                        <img src="/static/img/it_mode_open.svg" alt="">
+                        <p>Hình ảnh</p>
+                    </div>
                 </div>
                 <div class="box_find3">
                     <p class="title_find">TIN NHẮN TRỰC TIẾP</p>
@@ -232,6 +237,17 @@
                     <div class="thong_ke1">Lịch Sử Bài Làm:</div>
                     <ul id="resultsHistory"></ul>
                 </div>
+            </div>
+
+
+            <div class="theo_doi_box" style="display: none;">
+                {% for filename in filenamesimg %}
+                    {% if filename[4] is none %}
+                        <div class="theo_doi_mini_box" title="{{ filename[3] }}">
+                            <img src="/{{ filename[2] }}" alt="Screenshot">
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
 
             <div class="phong_chung_right" style="display: none;">
@@ -529,7 +545,7 @@
                                     Số bài nộp
                                 </div>
                             </div>
-                            <form action="/control2" class="pcr2_text_part3" method="post">
+                            <form action="/control2/{{ class_id }}" class="pcr2_text_part3" method="post">
                                 <div class="from_box">
                                     <p>Từ:</p>
                                     <input type="text" class="from_mn2" placeholder="Y - M - D" name="fromdate">
