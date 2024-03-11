@@ -62,7 +62,7 @@ function createToast2(type, icon, title, text) {
 //     let text = 'This is a info toast.';
 //     createToast(type, icon, title, text);
 // }
-const eventSource = new EventSource("http://gs.tmath.vn/get_messages");
+const eventSource = new EventSource("https://gs.tmath.vn/get_messages");
 eventSource.onmessage = function (event) {
     let type = 'error';
     let icon = 'fa-solid fa-circle-exclamation';

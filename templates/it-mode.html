@@ -346,7 +346,7 @@
             </script> -->
             <script>
                 $(document).ready(function () {
-                    var socket = io.connect('http://' + document.domain + ':' + location.port);
+                    var socket = io.connect('https://' + document.domain + ':' + location.port);
 
                     $("#vs_btn").click(function () {
                         var code = $("#vs-code").val();
