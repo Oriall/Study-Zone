@@ -131,15 +131,16 @@ def create_db_connection():
     return mydb
 
 mydb = create_db_connection()
+mycursor = mydb.cursor()
 
 def reconnect_db():
-    global db_connection
+    global mydb
     try:
-        db_connection.ping(reconnect=True)
+        mydb.ping(reconnect=True)
         print("Kết nối đến cơ sở dữ liệu được thiết lập lại thành công")
     except Error as e:
         print(f"Lỗi '{e}' xảy ra khi kết nối lại đến MySQL")
-        db_connection = create_db_connection()
+        mydb = create_db_connection()
 
 # ####### DATABSE ############
 # mydb = mysql.connector.connect(
@@ -149,8 +150,6 @@ def reconnect_db():
 #     database=os.environ.get('DATABASE'),
 # )
 # Tạo cursor
-mycursor = mydb.cursor()
-
 # code_results Table
 mycursor.execute("SHOW TABLES LIKE 'code_results'")
 result = mycursor.fetchone()
