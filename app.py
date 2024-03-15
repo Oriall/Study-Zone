@@ -129,7 +129,7 @@ def create_db_connection():
     )
     print("Kết nối đến MySQL DB thành công")
     return mydb
-
+    
 mydb = create_db_connection()
 mycursor = mydb.cursor()
 
@@ -516,7 +516,7 @@ def download_report():
 ####### DATABSE ############
 app.config['SECRET_KEY'] = 'khanhtoan123'
 openai.api_key = os.environ.get('OPEN_AI_KEY')
-socketio = SocketIO(app)
+# socketio = SocketIO(app)
 results = []
 
 def get_result(class_id):
@@ -541,7 +541,7 @@ def get_result(class_id):
     results.append({'code': code, 'problem_statement': problem_statement, 'result':result})
 
      # Gửi kết quả đến tất cả các clients đang kết nối
-    socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
+    # socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
 
     session['problem_statement'] = problem_statement
 
@@ -636,7 +636,7 @@ def get_result2():
     results.append({'code': code, 'problem_statement': problem_statement, 'result':result})
 
     # Gửi kết quả đến tất cả các clients đang kết nối
-    socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
+    # socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
 
     session['problem_statement'] = problem_statement
 
@@ -671,11 +671,11 @@ def it_mode():
         problem_statement = session.get('problem_statement', '')
 
 
-        socketio.emit('update_result', {'code': code,  'result': result})
+        # socketio.emit('update_result', {'code': code,  'result': result})
         result_type = check_for_file_jdoodle(result)
 
         now = datetime.now()
-        socketio.emit('update_datetime', {'date': now.strftime('%d/%m/%Y'), 'time': now.strftime('%H:%M:%S')})
+        # socketio.emit('update_datetime', {'date': now.strftime('%d/%m/%Y'), 'time': now.strftime('%H:%M:%S')})
         
         prompt = f"Phân tích ra đề bài của code sau (chỉ 1 dòng) (bằng tiếng việt):\n\n{code}\n\n"
 
@@ -690,7 +690,7 @@ def it_mode():
         problem_statement = response.choices[0].message.content.strip()
 
     # Gửi kết quả đến tất cả các clients đang kết nối
-        socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
+        # socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
 
         session['problem_statement'] = problem_statement
 
@@ -862,11 +862,11 @@ def main():
 
         problem_statement = session.get('problem_statement', '')
 
-        socketio.emit('update_result', {'code': code,  'result': result})
+        # socketio.emit('update_result', {'code': code,  'result': result})
         result_type = check_for_file_jdoodle(result)
 
         now = datetime.now()
-        socketio.emit('update_datetime', {'date': now.strftime('%d/%m/%Y'), 'time': now.strftime('%H:%M:%S')})
+        # socketio.emit('update_datetime', {'date': now.strftime('%d/%m/%Y'), 'time': now.strftime('%H:%M:%S')})
         if "File \"jdoodle.py\"" in result or "main.c" in result:
             save_to_database(learner_id_2,result, now, result_type)
         else:
