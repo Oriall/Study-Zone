@@ -294,7 +294,7 @@
                 function sendMessage() {
                     const inputText = document.getElementById("inputText").value;
                     // Sử dụng Fetch API để gửi dữ liệu lên máy chủ Flask
-                    fetch("https://gs.tmath.vn/send_message", {
+                    fetch("http://127.0.0.1:5000/send_message", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

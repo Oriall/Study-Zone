@@ -23,16 +23,12 @@
                 <p>Phòng Học</p>
             </div>
         </a>
-        <a href="">
-            <div class="it">
-                <p>Đổi Chương</p>
-            </div>
-        </a>
-        <a href="">
-            <div class="it">
-                <p>Chuyển Bài</p>
-            </div>
-        </a>
+        <div class="it" onclick="dlmess()">
+            <p>Đóng Tin</p>
+        </div>
+        <div class="it" onclick="xhmess()">
+            <p>Mở Tin Nhắn</p>
+        </div>
         <a href="login">
             <div class="it">
                 <p>Rời Phòng</p>
@@ -1019,7 +1015,7 @@
                 //     let text = 'This is a info toast.';
                 //     createToast(type, icon, title, text);
                 // }
-                const eventSource = new EventSource("https://gs.tmath.vn/get_messages");
+                const eventSource = new EventSource("http://127.0.0.1:5000/get_messages");
                 eventSource.onmessage = function (event) {
                     let type = 'error';
                     let icon = 'fa-solid fa-circle-exclamation';
@@ -1266,6 +1262,31 @@
                 }
             });
         });
+        function xhmess() {
+            document.querySelector("#root").style.zIndex = "998";
+            var targetDivs = document.querySelectorAll('div');
+            targetDivs.forEach(function (div) {
+                if (window.getComputedStyle(div).backgroundImage.includes('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAAXNSR0IArs4c6QAAAdpQTFRFAAAA////////////////////////3///4+Pj5ubm6Ojo6urq6+vr7e3t3+/v4+Pj5OTk5ubm5+fn6Ojo6enp3+rq4ODr4uLr4+Pj5OTk5eXl3+fn4eHn3+Tk4ODl4uLm4uLi4+Pj4eHm4+Pj4OTk4ODk4eHk4eHl4uLm3+Pj4OPj4ODk4eHl4uLl3+Li4OPj4OPj4eHk4uLl4OPj4ODj4eHk4eHk3+Lk3+Li4OLi4ODj4eHj4eHj4eHk3+Lk4OLi4ODi4eHj4eHj4eHj3+Lk4OLk4ODi4eHj4eHj3+Hj4OLk4ODi4OLk4eHi3+Hj3+Hj4OHj4OLj4ODk4ODi4ODi3+Hj3+Hj4OHj4OLj4OLj4ODi3+Hi3+Hj4OHj4ODk4eHi3+Hi3+Hi4OHj4OHj4ODj4ODj3+Hi4OHj4ODj3+Hi3+Hi4OHj4OHj4ODj4ODj3+Hj4OHj4OHj4ODj4ODj3+Dj3+Hi4OHi4OHj3+Hj4OHi4OHi4ODj3+Dj3+Hj4OHj4OHi4OHi3+Dj3+Hj4OHj4OHi4OHi4OHi3+Dj3+Dj3+Hj4OHj4OHi4ODi3+Dj3+Dj4OHj4OHj4OHi4ODi3+Di3+Dj4OHj4ODi3+Di3+Di3+Di4OHj4OHj4OHj3+DiQPkBXgAAAJ10Uk5TAAECAwQFBwgJCgsMDQ4QEhMUFRYXGBkaGxwdICswMjQ1Njw/QUJDRUZISktNT1BRUlRXWlteX2BhYmNlZmdoamttbm9xcnR2d3h7fIKGiImKi4yNjpCRkpOUlpiZmp6foKGipKWmqKyvsLKztLW2uLy9vr/AwsPFysvNz9DS09TV2Nrb3N3e4OHi4+bn6err7e7v8PL19/j5+vv8/lmQa1UAAAJbSURBVBgZ7cFpX0xhAMbh+yQ0pURlSbIv0YJ2oUJZskTZSiqRUam0UtkiIZQsRfP/rp4zv17MTGfOyVtcl/77qyVnZhVWVxdmZSZr+XxZV8cCLAqMXc3yaTlSL84SYfZiqryk3Z7DNj/S3VJb29I9Mo/tR2OaXOVMY7y6tN+nRb79l15hTOcoOl8TxmC2pTBW9iBGk09RxPUD7/bKwd53QH+cHK3qAVoT5SixFehZJSd+oFpRVQN+OSgFzsrFWaBUS6R8gXq5qoeZFEVqg/E4uYp7DW2KkLZAYJc87AqwkKZwp6FPnvrgtMKNQJE8FcGIwqTC9wR5SvgOqQq1A54q6OT45IVYGda5iYlzlozYC5PjlQp6CjsU6jA8kK0Ao0ZGBUaFjBqMAtkewGGFqoI62R5hvJQxjDEs4yVGl2x1UKVQZ+CGbH6MURn9GP0yRjH8sl2HUwp1DDplO4BRLiMfI19GOcYB2R5CnkLtgxcKyu0dKlNQwcBAgYLKhnpzFTQKmQq1DuaS5GntPIG1CjMGlfJUDkMKVwPP5OkJHFO4DfNwUB7yYC5JERrh4zq5SpqCm4qU9AH8cmO1wYc1WmJPAK5Yiu4WkCMHdUBLrKKwrgENcrKyHeiMlaP0x0CrJUcxN4FDchBT/BVoX6FoOqBUS/gq3gC/alYoqjtQIiM+c5MWbTl6fwZjfLtcNEOJtPnyLMwMd91r73v+maBP5+PlphmKt93/RYTXJ1bLXQNMYXs/y6JvHacy5KmcoL5sS+k7D+Yf2Z2xPkbLkfAWft7dqj+XeLxoo/77h/wGqPYL+71NBhYAAAAASUVORK5CYII=')) {
+                    div.click();
+                    setTimeout(function () {
+                        document.querySelector('input[placeholder="Send a message to everyone"]').parentNode.parentNode.parentNode.parentNode.style.width = "100%";
+                    }, 300);
+
+                }
+                if (window.getComputedStyle(div).backgroundImage.includes('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAAXNSR0IArs4c6QAAAchQTFRFAAAA////////////////////////3///4+Pj5ubm6Ojo6+vr7e3t7u7u5OTk6Ojo6enp5OTk5ubm5ubm3+fn4eHo5OTk4Obm4eHn4eHn4+Pj5OTk4OXl4ODl4uLm4+Pj4+Pj3+Tk4ODl4eHl4eHm4uLm4+Pj3+Pj4OTk4eHk4eHl4eHl4OPj4eHk4eHl4OPj4ODj4eHk3+Li3+Li4ODj4eHk3+Lk4OLi4ODj4ODj3+Lk3+Lk4OLi4ODi4ODj4eHj4eHj3+Hk4ODi4ODj3+Hj4OLk4ODi4eHj4eHj4OLk4uLm4OLk4eLi3+Hj4ODi4OLj4OLj4ODk4ODi4eHi3+Hi4OHj4ODj4ODk4eHi3+Hi3+Hi4OHj4OHj4ODj4ODj4ODk3+Hi3+Hi4OHj4OHj4ODj4ODj4ODj3+Hi3+Hi4OHj4ODj4ODj3+Hj3+Hi3+Hi4OHj4ODj4ODj3+Hj3+Hi4OHi4ODj4ODj4OHi4OHi4OHi3+Dj4OHj4ODj3+Dj4OHj3+Dj4ODj39/j4OHi3+Dj4OHj4OHi4ODi3+Di3+Dj4OHj4OHj4OHj4ODi4OHj4OHj4OHj4ODi3+Di3+Di3+Di4OHj4OHj4OHj3+DiLexmVQAAAJd0Uk5TAAECAwQFBwgJCgsNDg8TFhccHh8gIiYpKisuLzEyNDY3ODo7PD0/QEFDREVKTE1SU1RYWVtfYGJjZGhpamtsbW9wdHV4e31+gYKCg4aJjpOUlZaXmJudnp+goaOkpaanqKmqrK2ur7Cxs7a3uLm6vb6/wcLExsfLzM3R09fY2NnZ2t7g4+bn6Orr7O3v9PX29/j5+vv8/qiVac0AAAIQSURBVEjH7dbnV9NQHMbxJ62KYMGBIsu9xeIWRRERFS3FiRYcqODAijiIdYBbpIriaOn33/WFpU3T0/aWlx6eV/nl5HOS+7tJ7pXm4ooVCHoLX7VgnvuM9wME86PSw48mSUwM7PW6HKfzun3jJDO2JdO9tfK5s6QTbzZ3pwCGmjZtbX0BJPymbn0Cvu2RJHmO/4LviyVZhZ1G4HfNTNEIdJq5KuBEugxBWNb7wk5tMOmYwTqe+4yczsOgo/SEDZ36odtZewyd7sKFjPfT0LmhsXNBc5cJi3AZsBjnhEnnaywSzrhIpxG8AxczHWeMYAjuO8f3FNqM4En4ZKVdJbDLCK4DGtL9bIfpigJk+euxpZJGnN9D1RQ8lLTmy3B5TngOhiRtdrhV7yCxWvJ+hOac8CBQJ6kk6Rb6u2NAl6TdwIbcf+BxeGI55wHglkcqeQMv8wyyHdif6WIdlqQuYGceOP9Vui++CPD18gpJOgCE8/Z15eNUXzyV27ZXeyRJh+IQXVZoPcr6HnyXgD8bzVxZaYodnQCmdpg5X+TnvSP++vqGYwM/AD6vNXU4k+gpNxxfze2YY7Xqr5V5X5a09I5OQ3y0r6lCKrKffXDFaF/gnocbEJqN03XomY3TNegtytU+sG3btu0oRP8dDVbnhAHH/Z6RleGcMOh4zpvZ8GpO6A0GUuNb1NrhSkvZ3Gb0f81f26s8m6eV1WEAAAAASUVORK5CYII=')) {
+                    div.parentNode.parentNode.style.opacity = "0";
+                }
+            });
+        }
+        function dlmess(){
+            document.querySelector("#root").style.zIndex = "-1";
+            var targetDivs = document.querySelectorAll('div');
+            targetDivs.forEach(function (div) {
+                if (window.getComputedStyle(div).backgroundImage.includes('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAAXNSR0IArs4c6QAAAdpQTFRFAAAA////////////////////////3///4+Pj5ubm6Ojo6urq6+vr7e3t3+/v4+Pj5OTk5ubm5+fn6Ojo6enp3+rq4ODr4uLr4+Pj5OTk5eXl3+fn4eHn3+Tk4ODl4uLm4uLi4+Pj4eHm4+Pj4OTk4ODk4eHk4eHl4uLm3+Pj4OPj4ODk4eHl4uLl3+Li4OPj4OPj4eHk4uLl4OPj4ODj4eHk4eHk3+Lk3+Li4OLi4ODj4eHj4eHj4eHk3+Lk4OLi4ODi4eHj4eHj4eHj3+Lk4OLk4ODi4eHj4eHj3+Hj4OLk4ODi4OLk4eHi3+Hj3+Hj4OHj4OLj4ODk4ODi4ODi3+Hj3+Hj4OHj4OLj4OLj4ODi3+Hi3+Hj4OHj4ODk4eHi3+Hi3+Hi4OHj4OHj4ODj4ODj3+Hi4OHj4ODj3+Hi3+Hi4OHj4OHj4ODj4ODj3+Hj4OHj4OHj4ODj4ODj3+Dj3+Hi4OHi4OHj3+Hj4OHi4OHi4ODj3+Dj3+Hj4OHj4OHi4OHi3+Dj3+Hj4OHj4OHi4OHi4OHi3+Dj3+Dj3+Hj4OHj4OHi4ODi3+Dj3+Dj4OHj4OHj4OHi4ODi3+Di3+Dj4OHj4ODi3+Di3+Di3+Di4OHj4OHj4OHj3+DiQPkBXgAAAJ10Uk5TAAECAwQFBwgJCgsMDQ4QEhMUFRYXGBkaGxwdICswMjQ1Njw/QUJDRUZISktNT1BRUlRXWlteX2BhYmNlZmdoamttbm9xcnR2d3h7fIKGiImKi4yNjpCRkpOUlpiZmp6foKGipKWmqKyvsLKztLW2uLy9vr/AwsPFysvNz9DS09TV2Nrb3N3e4OHi4+bn6err7e7v8PL19/j5+vv8/lmQa1UAAAJbSURBVBgZ7cFpX0xhAMbh+yQ0pURlSbIv0YJ2oUJZskTZSiqRUam0UtkiIZQsRfP/rp4zv17MTGfOyVtcl/77qyVnZhVWVxdmZSZr+XxZV8cCLAqMXc3yaTlSL84SYfZiqryk3Z7DNj/S3VJb29I9Mo/tR2OaXOVMY7y6tN+nRb79l15hTOcoOl8TxmC2pTBW9iBGk09RxPUD7/bKwd53QH+cHK3qAVoT5SixFehZJSd+oFpRVQN+OSgFzsrFWaBUS6R8gXq5qoeZFEVqg/E4uYp7DW2KkLZAYJc87AqwkKZwp6FPnvrgtMKNQJE8FcGIwqTC9wR5SvgOqQq1A54q6OT45IVYGda5iYlzlozYC5PjlQp6CjsU6jA8kK0Ao0ZGBUaFjBqMAtkewGGFqoI62R5hvJQxjDEs4yVGl2x1UKVQZ+CGbH6MURn9GP0yRjH8sl2HUwp1DDplO4BRLiMfI19GOcYB2R5CnkLtgxcKyu0dKlNQwcBAgYLKhnpzFTQKmQq1DuaS5GntPIG1CjMGlfJUDkMKVwPP5OkJHFO4DfNwUB7yYC5JERrh4zq5SpqCm4qU9AH8cmO1wYc1WmJPAK5Yiu4WkCMHdUBLrKKwrgENcrKyHeiMlaP0x0CrJUcxN4FDchBT/BVoX6FoOqBUS/gq3gC/alYoqjtQIiM+c5MWbTl6fwZjfLtcNEOJtPnyLMwMd91r73v+maBP5+PlphmKt93/RYTXJ1bLXQNMYXs/y6JvHacy5KmcoL5sS+k7D+Yf2Z2xPkbLkfAWft7dqj+XeLxoo/77h/wGqPYL+71NBhYAAAAASUVORK5CYII=')) {
+                    div.click();
+                }
+            });
+        }
     }
 </script>
 

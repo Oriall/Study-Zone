@@ -120,36 +120,18 @@ def logup():
 def download():
     return render_template("download.html")
 
-def create_db_connection():
-    mydb = mysql.connector.connect(
-        host=os.environ.get('DATABASE_HOST'),
-        user=os.environ.get('DATABASE_USER'),
-        password=os.environ.get('DATABASE_PASS'),
-        database=os.environ.get('DATABASE'),
-    )
-    print("Kết nối đến MySQL DB thành công")
-    return mydb
-    
-mydb = create_db_connection()
+
+####### DATABSE ############
+mydb = mysql.connector.connect(
+    host=os.environ.get('DATABASE_HOST'),
+    user=os.environ.get('DATABASE_USER'),
+    password=os.environ.get('DATABASE_PASS'),
+    database=os.environ.get('DATABASE'),
+)
+
+# Tạo cursor
 mycursor = mydb.cursor()
 
-def reconnect_db():
-    global mydb
-    try:
-        mydb.ping(reconnect=True)
-        print("Kết nối đến cơ sở dữ liệu được thiết lập lại thành công")
-    except Error as e:
-        print(f"Lỗi '{e}' xảy ra khi kết nối lại đến MySQL")
-        mydb = create_db_connection()
-
-# ####### DATABSE ############
-# mydb = mysql.connector.connect(
-#     host=os.environ.get('DATABASE_HOST'),
-#     user=os.environ.get('DATABASE_USER'),
-#     password=os.environ.get('DATABASE_PASS'),
-#     database=os.environ.get('DATABASE'),
-# )
-# Tạo cursor
 # code_results Table
 mycursor.execute("SHOW TABLES LIKE 'code_results'")
 result = mycursor.fetchone()
@@ -220,65 +202,55 @@ else:
     print("Table 'Teachers' already exists.")
 @app.route('/submit3', methods=['POST'])
 def submit3():
-    try:
-        if request.method == 'POST':
-            fullname = request.form['username']
-            email = request.form['email']
-            password = request.form['password']
+    if request.method == 'POST':
+        fullname = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
 
-            # Lưu thông tin vào cơ sở dữ liệu
-            sql = "INSERT INTO Teachers (Fullname, Email, Password) VALUES (%s, %s, %s)"
-            val = (fullname, email, password)
-            mycursor.execute(sql, val)
-            mydb.commit()
+        # Lưu thông tin vào cơ sở dữ liệu
+        sql = "INSERT INTO Teachers (Fullname, Email, Password) VALUES (%s, %s, %s)"
+        val = (fullname, email, password)
+        mycursor.execute(sql, val)
+        mydb.commit()
 
-            return 'Đã lưu thông tin thành công!' 
-    except Error:
-        # Nếu mất kết nối, cố gắng kết nối lại
-        reconnect_db()
-        return "Đang cố gắng kết nối lại với cơ sở dữ liệu"
+        return 'Đã lưu thông tin thành công!' 
 
 
 mycursor.execute("CREATE TABLE IF NOT EXISTS Learners (LearnerID INT AUTO_INCREMENT PRIMARY KEY, ClassID INT, Fullname VARCHAR(255), Email VARCHAR(255), Password VARCHAR(255), ParentName VARCHAR(255), ParentEmail VARCHAR(255), ParentPsw VARCHAR(255), Status INT)")
 @app.route('/submit2', methods=['POST'])
 def submit2():
-    try:
-        if request.method == 'POST':
-            class_name = request.form['class_name']
-            fullname = request.form['fullname']
-            email = request.form['email']
-            password = request.form['password']
-            parent_name = request.form['parent_name']
-            parent_email = request.form['parent_email']
-            parent_psw = request.form['parent_password']
+    if request.method == 'POST':
+        class_name = request.form['class_name']
+        fullname = request.form['fullname']
+        email = request.form['email']
+        password = request.form['password']
+        parent_name = request.form['parent_name']
+        parent_email = request.form['parent_email']
+        parent_psw = request.form['parent_password']
 
-            # Xác định ClassID
-            if '10A1' in class_name:
-                class_id = 1
-            elif '10A2' in class_name:
-                class_id = 2
-            elif '10A3' in class_name:
-                class_id = 3
-            elif '11A1' in class_name:
-                class_id = 4
-            elif '11A2' in class_name:
-                class_id = 5
-            elif '11A3' in class_name:
-                class_id = 6
-            else:
-                class_id = 0  # Nếu không tìm thấy số lớp, gán 0
+        # Xác định ClassID
+        if '10A1' in class_name:
+            class_id = 1
+        elif '10A2' in class_name:
+            class_id = 2
+        elif '10A3' in class_name:
+            class_id = 3
+        elif '11A1' in class_name:
+            class_id = 4
+        elif '11A2' in class_name:
+            class_id = 5
+        elif '11A3' in class_name:
+            class_id = 6
+        else:
+            class_id = 0  # Nếu không tìm thấy số lớp, gán 0
 
-            # Lưu thông tin vào cơ sở dữ liệu
-            sql = "INSERT INTO Learners (ClassID, Fullname, Email, Password, ParentName, ParentEmail, ParentPsw, Status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-            val = (class_id, fullname, email, password, parent_name, parent_email, parent_psw, 0)
-            mycursor.execute(sql, val)
-            mydb.commit()
+        # Lưu thông tin vào cơ sở dữ liệu
+        sql = "INSERT INTO Learners (ClassID, Fullname, Email, Password, ParentName, ParentEmail, ParentPsw, Status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        val = (class_id, fullname, email, password, parent_name, parent_email, parent_psw, 0)
+        mycursor.execute(sql, val)
+        mydb.commit()
 
-            return 'Đã lưu thông tin thành công!'
-    except Error:
-        # Nếu mất kết nối, cố gắng kết nối lại
-        reconnect_db()
-        return "Đang cố gắng kết nối lại với cơ sở dữ liệu"
+        return 'Đã lưu thông tin thành công!'
     
 def login_required(f):
     @wraps(f)
@@ -291,52 +263,48 @@ def login_required(f):
     return decorated_function
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    try:
-        if request.method == 'POST':
-            email = request.form['email']
-            password = request.form['password']
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
 
-            # HỌC SINH
-            sql = "SELECT * FROM Learners WHERE Email = %s AND Password = %s"
-            val = (email, password)
-            mycursor.execute(sql, val)
-            account = mycursor.fetchone()
-            global learner_id_2
-            if account:
-                session['email2'] = email
-                session['fullname'] = account[2]
-                session['acc'] = account[0]
-                return redirect(url_for('join'))
-            #PHỤ HUYNH
-            sql_parent = "SELECT * FROM Learners WHERE ParentEmail = %s AND ParentPsw = %s"
-            val_parent = (email, password)
-            mycursor.execute(sql_parent, val_parent)
-            parent_account = mycursor.fetchone()
+        # HỌC SINH
+        sql = "SELECT * FROM Learners WHERE Email = %s AND Password = %s"
+        val = (email, password)
+        mycursor.execute(sql, val)
+        account = mycursor.fetchone()
+        global learner_id_2
+        if account:
+            session['email2'] = email
+            session['fullname'] = account[2]
+            session['acc'] = account[0]
+            return redirect(url_for('join'))
+        #PHỤ HUYNH
+        sql_parent = "SELECT * FROM Learners WHERE ParentEmail = %s AND ParentPsw = %s"
+        val_parent = (email, password)
+        mycursor.execute(sql_parent, val_parent)
+        parent_account = mycursor.fetchone()
 
-            if parent_account:
-                session['email3'] = email
-                session['fullname'] = parent_account[5]
-                session['acc'] = parent_account[0]
-                return redirect(url_for('control'))
-            #THẦY CO GIÁO
-            sql_teacher = "SELECT * FROM Teachers WHERE Email = %s AND Password = %s"
-            val_teacher = (email, password)
-            mycursor.execute(sql_teacher, val_teacher)
-            teacher_account = mycursor.fetchone()
+        if parent_account:
+            session['email3'] = email
+            session['fullname'] = parent_account[5]
+            session['acc'] = parent_account[0]
+            return redirect(url_for('control'))
+        #THẦY CO GIÁO
+        sql_teacher = "SELECT * FROM Teachers WHERE Email = %s AND Password = %s"
+        val_teacher = (email, password)
+        mycursor.execute(sql_teacher, val_teacher)
+        teacher_account = mycursor.fetchone()
 
-            if teacher_account:
-                session['email'] = email
-                session['fullname'] = teacher_account[1]
-                session['acc'] = teacher_account[0]
-                return redirect(url_for('teacher_classes'))
-            
-            return 'Email hoặc mật khẩu không chính xác!'
+        if teacher_account:
+            session['email'] = email
+            session['fullname'] = teacher_account[1]
+            session['acc'] = teacher_account[0]
+            return redirect(url_for('teacher_classes'))
         
-        return render_template("login.html")
-    except Error:
-        # Nếu mất kết nối, cố gắng kết nối lại
-        reconnect_db()
-        return "Đang cố gắng kết nối lại với cơ sở dữ liệu"
+        return 'Email hoặc mật khẩu không chính xác!'
+    
+    return render_template("login.html")
+
 
 # Route để lấy email của học sinh tương ứng với giáo viên đang đăng nhập
 @app.route('/get_teacher_emails', methods=['GET'])
@@ -516,7 +484,7 @@ def download_report():
 ####### DATABSE ############
 app.config['SECRET_KEY'] = 'khanhtoan123'
 openai.api_key = os.environ.get('OPEN_AI_KEY')
-# socketio = SocketIO(app)
+socketio = SocketIO(app)
 results = []
 
 def get_result(class_id):
@@ -541,7 +509,7 @@ def get_result(class_id):
     results.append({'code': code, 'problem_statement': problem_statement, 'result':result})
 
      # Gửi kết quả đến tất cả các clients đang kết nối
-    # socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
+    socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
 
     session['problem_statement'] = problem_statement
 
@@ -611,7 +579,7 @@ def get_result(class_id):
     mycursor.execute("SELECT * FROM screenshots WHERE LearnerId = %s", ("2",))
     filenamesimg = mycursor.fetchall()
 
-    return render_template('control2.html', results=results, result=result, emails=emails, fullnames=fullnames, learner_ids=learner_ids, learner_type_1_counts=learner_type_1_counts, teacher_name=teacher_name, learner_type_0_counts= learner_type_0_counts, learner_average_times=learner_average_times, filenamesimg= filenamesimg, class_id= class_id)
+    return render_template('control2.html', results=results, result=result, emails=emails, fullnames=fullnames, learner_ids=learner_ids, learner_type_1_counts=learner_type_1_counts, teacher_name=teacher_name, learner_type_0_counts= learner_type_0_counts, learner_average_times=learner_average_times, filenamesimg= filenamesimg)
 
 
 def get_result2():
@@ -636,7 +604,7 @@ def get_result2():
     results.append({'code': code, 'problem_statement': problem_statement, 'result':result})
 
     # Gửi kết quả đến tất cả các clients đang kết nối
-    # socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
+    socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
 
     session['problem_statement'] = problem_statement
 
@@ -671,11 +639,11 @@ def it_mode():
         problem_statement = session.get('problem_statement', '')
 
 
-        # socketio.emit('update_result', {'code': code,  'result': result})
+        socketio.emit('update_result', {'code': code,  'result': result})
         result_type = check_for_file_jdoodle(result)
 
         now = datetime.now()
-        # socketio.emit('update_datetime', {'date': now.strftime('%d/%m/%Y'), 'time': now.strftime('%H:%M:%S')})
+        socketio.emit('update_datetime', {'date': now.strftime('%d/%m/%Y'), 'time': now.strftime('%H:%M:%S')})
         
         prompt = f"Phân tích ra đề bài của code sau (chỉ 1 dòng) (bằng tiếng việt):\n\n{code}\n\n"
 
@@ -690,7 +658,7 @@ def it_mode():
         problem_statement = response.choices[0].message.content.strip()
 
     # Gửi kết quả đến tất cả các clients đang kết nối
-        # socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
+        socketio.emit('update_result', {'code': code, 'problem_statement': problem_statement, 'result': result})
 
         session['problem_statement'] = problem_statement
 
@@ -862,11 +830,11 @@ def main():
 
         problem_statement = session.get('problem_statement', '')
 
-        # socketio.emit('update_result', {'code': code,  'result': result})
+        socketio.emit('update_result', {'code': code,  'result': result})
         result_type = check_for_file_jdoodle(result)
 
         now = datetime.now()
-        # socketio.emit('update_datetime', {'date': now.strftime('%d/%m/%Y'), 'time': now.strftime('%H:%M:%S')})
+        socketio.emit('update_datetime', {'date': now.strftime('%d/%m/%Y'), 'time': now.strftime('%H:%M:%S')})
         if "File \"jdoodle.py\"" in result or "main.c" in result:
             save_to_database(learner_id_2,result, now, result_type)
         else:
@@ -1265,8 +1233,8 @@ def test2():
 @login_required
 def control():
     learner_id_2 = session.get('acc', '')
-    mycursor.execute("SELECT * FROM screenshots WHERE LearnerId = %s", (learner_id_2,))
-    filenames = mycursor.fetchall()
+    cursor.execute("SELECT * FROM screenshots WHERE LearnerId = %s", (learner_id_2,))
+    filenames = cursor.fetchall()
     return render_template("control.html", filenames=filenames)
 
 
@@ -1282,16 +1250,16 @@ def get_screenshot(filename):
 CORS(app)
 
 
-# ########### DATABASE ##############
-# db = mysql.connector.connect(
-#     host=os.environ.get('DATABASE_HOST'),
-#     user=os.environ.get('DATABASE_USER'),
-#     password=os.environ.get('DATABASE_PASS'),
-#     database=os.environ.get('DATABASE'),
-# )
-# cursor = db.cursor()
+########### DATABASE ##############
+db = mysql.connector.connect(
+    host=os.environ.get('DATABASE_HOST'),
+    user=os.environ.get('DATABASE_USER'),
+    password=os.environ.get('DATABASE_PASS'),
+    database=os.environ.get('DATABASE'),
+)
+cursor = db.cursor()
 
-mycursor.execute("""
+cursor.execute("""
     CREATE TABLE IF NOT EXISTS message (
         id INT AUTO_INCREMENT PRIMARY KEY,
         content VARCHAR(200) NOT NULL,
@@ -1302,8 +1270,8 @@ mycursor.execute("""
 @app.route('/get_messages2', methods=['GET'])
 def get_messages2():
     class_id = session.get('classid', '')
-    mycursor.execute("SELECT content FROM message WHERE ClassID = %s", (class_id,))
-    messages = mycursor.fetchall()
+    cursor.execute("SELECT content FROM message WHERE ClassID = %s", (class_id,))
+    messages = cursor.fetchall()
     messages_list = [{'content': message[0]} for message in messages]
     return jsonify({'messages': messages_list})
 
@@ -1311,8 +1279,8 @@ def get_messages2():
 def send_message2():
     class_id = session.get('classid', '')
     content = request.json['content']
-    mycursor.execute("INSERT INTO message (content,classID) VALUES (%s, %s)", (content, class_id))
-    mydb.commit()
+    cursor.execute("INSERT INTO message (content,classID) VALUES (%s, %s)", (content, class_id))
+    db.commit()
     return jsonify({'status': 'Message sent successfully'})
 
 
@@ -1353,8 +1321,8 @@ def join():
     learner_id_2 = session.get('acc', '')
     if request.method == "POST":
         room_id = request.form.get("roomID")
-        mycursor.execute("INSERT INTO screenshots (learnerID, roomID) VALUES (%s, %s)", (learner_id_2, room_id,))
-        mydb.commit()
+        cursor.execute("INSERT INTO screenshots (learnerID, roomID) VALUES (%s, %s)", (learner_id_2, room_id,))
+        db.commit()
         return redirect(f"/it_mode?roomID={room_id}")
     return render_template("join.html")
 
@@ -1378,8 +1346,8 @@ def get_image():
     screenshot_path = os.path.join(app.config['UPLOAD_FOLDER2'], filename)
     img.save(screenshot_path)
     timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-    mycursor.execute("INSERT INTO screenshots (learnerID, image_path, capture_time) VALUES (%s, %s, %s)", ("2", screenshot_path, timestamp))
-    mydb.commit()
+    cursor.execute("INSERT INTO screenshots (learnerID, image_path, capture_time) VALUES (%s, %s, %s)", ("2", screenshot_path, timestamp))
+    db.commit()
 
 
 if __name__ == '__main__':
