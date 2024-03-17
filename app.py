@@ -579,7 +579,7 @@ def get_result(class_id):
     mycursor.execute("SELECT * FROM screenshots WHERE LearnerId = %s", ("2",))
     filenamesimg = mycursor.fetchall()
 
-    return render_template('control2.html', results=results, result=result, emails=emails, fullnames=fullnames, learner_ids=learner_ids, learner_type_1_counts=learner_type_1_counts, teacher_name=teacher_name, learner_type_0_counts= learner_type_0_counts, learner_average_times=learner_average_times, filenamesimg= filenamesimg)
+    return render_template('control2.html', results=results, result=result, emails=emails, fullnames=fullnames, learner_ids=learner_ids, learner_type_1_counts=learner_type_1_counts, teacher_name=teacher_name, learner_type_0_counts= learner_type_0_counts, learner_average_times=learner_average_times, filenamesimg= filenamesimg, class_id= class_id)
 
 
 def get_result2():
