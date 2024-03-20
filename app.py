@@ -1348,6 +1348,7 @@ def get_image():
     timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
     cursor.execute("INSERT INTO screenshots (learnerID, image_path, capture_time) VALUES (%s, %s, %s)", ("2", screenshot_path, timestamp))
     db.commit()
+    return "Success"
 
 
 if __name__ == '__main__':
