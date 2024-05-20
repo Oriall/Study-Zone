@@ -31,6 +31,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 app = Flask(__name__)
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE_PATH2 = BASE_DIR / 'Capture_Folder(StudyZone)'
 # # Define the website to block (e.g., Facebook)
 # website_to_block = "www.facebook.com"
 
@@ -53,7 +55,16 @@ app = Flask(__name__)
 #                 hosts_file.write(line)
 #         hosts_file.truncate()
 #     return f"{website} is unblocked."
+# Đường dẫn đến thư mục cần tạo
+directory = "data_get"
 
+# Kiểm tra nếu thư mục chưa tồn tại, thì tạo mới
+if not os.path.exists(directory):
+    os.makedirs(directory)
+    print(f'Thư mục "{directory}" đã được tạo.')
+else:
+    print(f'Thư mục "{directory}" đã tồn tại.')
+    
 @app.route("/")
 @app.route("/home")
 def home():
@@ -68,7 +79,6 @@ def info_page():
     return render_template("info_page.html")
 
 
-
 @app.route("/landing")
 def landing():
     return render_template("landing.html")
@@ -81,6 +91,20 @@ def setting2_result():
 def wait():
     return render_template("wait.html")
 
+
+
+UPLOAD_FOLDER3 = 'data_get'
+app.config['UPLOAD_FOLDER3'] = UPLOAD_FOLDER3
+
+@app.route("/library_parent")
+def library_parent():
+    learner_id_2 = session.get('acc', '')
+    cursor.execute("SELECT * FROM screenshots WHERE LearnerId = %s", (learner_id_2,))
+    filenames = cursor.fetchall()
+    data_file_path = os.path.join(app.config['UPLOAD_FOLDER3'], 'data.txt')
+    with open(data_file_path, 'r') as file:
+        data = file.read()
+    return render_template("library_parent.html", filenames=filenames, data=data)
 
 @app.route("/setting4")
 def setting4():
@@ -109,6 +133,10 @@ def static_page():
 @app.route("/setting3")
 def setting3():
     return render_template("setting3.html")
+
+@app.route("/add_teacher")
+def add_teacher():
+    return render_template("add_teacher.html")
 
 
 
@@ -215,6 +243,30 @@ def submit3():
 
         return 'Đã lưu thông tin thành công!' 
 
+@app.route('/submit4', methods=['POST'])
+def submit4():
+    if request.method == 'POST':
+        class_name = request.form['class_name']
+        fullname = request.form['fullname']
+        note = request.form['note']
+
+        # Tìm TeacherID tương ứng với Fullname
+        cursor = mydb.cursor()
+        cursor.execute("SELECT TeacherID FROM teachers WHERE Fullname = %s", (fullname,))
+        teacher_id = cursor.fetchone()
+
+        if teacher_id:
+            teacher_id = teacher_id[0]
+
+            # Chèn dữ liệu vào bảng Classes
+            cursor.execute("INSERT INTO classes (ClassName, TeacherID, Note) VALUES (%s, %s, %s)",
+                           (class_name, teacher_id, note))
+            mydb.commit()
+            cursor.close()
+            return 'Đăng ký thành công!'
+        else:
+            return 'Không tìm thấy giáo viên có tên này!'
+
 
 mycursor.execute("CREATE TABLE IF NOT EXISTS Learners (LearnerID INT AUTO_INCREMENT PRIMARY KEY, ClassID INT, Fullname VARCHAR(255), Email VARCHAR(255), Password VARCHAR(255), ParentName VARCHAR(255), ParentEmail VARCHAR(255), ParentPsw VARCHAR(255), Status INT)")
 @app.route('/submit2', methods=['POST'])
@@ -288,7 +340,7 @@ def login():
             session['email3'] = email
             session['fullname'] = parent_account[5]
             session['acc'] = parent_account[0]
-            return redirect(url_for('control'))
+            return redirect(url_for('gs_parent'))
         #THẦY CO GIÁO
         sql_teacher = "SELECT * FROM Teachers WHERE Email = %s AND Password = %s"
         val_teacher = (email, password)
@@ -470,6 +522,45 @@ def average_completion_time(learner_id):
         return jsonify({'learner_id': learner_id, 'average_completion_time': average_completion_time})
     except Exception as e:
         return str(e)
+
+
+@app.route("/gs_parent")
+@login_required
+def gs_parent():
+    learner_id_2 = session.get('acc', '')
+    mycursor.execute("SELECT * FROM Learners WHERE LearnerId = %s", (learner_id_2,))
+    filename = mycursor.fetchone()
+    sql_count_type_1 = """
+        SELECT COUNT(*) AS Type1Count
+        FROM code_results
+        WHERE LearnerID = %s AND Type = 1 
+    """
+    mycursor.execute(sql_count_type_1, (learner_id_2,))
+    learner_type_1_counts = mycursor.fetchone()[0]
+
+    sql_count_type_0 = """
+        SELECT COUNT(*) AS Type0Count
+        FROM code_results
+        WHERE LearnerID = %s AND Type = 0 
+    """
+    mycursor.execute(sql_count_type_0, (learner_id_2,))
+    learner_type_0_counts = mycursor.fetchone()[0]
+    response = requests.get(url_for('average_completion_time', learner_id=learner_id_2, _external=True))
+    learner_average_times = response.json()['average_completion_time']
+    return render_template("gs_parent.html", filename=filename, learner_type_1_counts=learner_type_1_counts, learner_type_0_counts=learner_type_0_counts, learner_average_times=learner_average_times)
+
+@app.route("/admin_page")
+def admin_page():
+    mycursor.execute("SELECT * FROM Learners")
+    learners = mycursor.fetchall()
+    mycursor.execute("SELECT COUNT(learnerID) FROM learners")
+    dem_hs = mycursor.fetchone()[0]
+    mycursor.execute("SELECT COUNT(TeacherID) FROM teachers")
+    dem_gv = mycursor.fetchone()[0]
+    mycursor.execute("SELECT COUNT(ClassID) FROM classes")
+    dem_lop = mycursor.fetchone()[0]
+    return render_template("admin_page.html", learners=learners, dem_hs=dem_hs, dem_gv=dem_gv, dem_lop=dem_lop)
+
 
 @app.route('/download_report')
 def download_report():
@@ -803,7 +894,27 @@ def get_advice2():
     type0Count = data['type0Count']
     averageTime = data['averageTime']
 
-    prompt =  f"Đưa ra lời nhận xét với học viên '{fullname}' với số bài làm được là '{type0Count}' cùng số lỗi nhận được là '{type1Count}', cùng với tốc độ trung bình để hoàn thành là '{averageTime}'"
+    prompt =  f"Đưa ra lời nhận xét học tập lập trình với học viên '{fullname}' với số bài làm được là '{type0Count}' cùng số lỗi nhận được là '{type1Count}', cùng với tốc độ trung bình để hoàn thành là '{averageTime}', lời nhận xét có độ dài khá dài"
+
+    # Use the OpenAI ChatGPT API to get a response
+    response = openai.chat.completions.create(
+        model="gpt-3.5-turbo", 
+        messages=[
+			{"role": "system", "content": prompt},
+		],
+        max_tokens=1024
+    )
+
+    advice = response.choices[0].message.content.strip()
+
+    return jsonify({'advice': advice})
+
+@app.route('/get_advice3', methods=['POST'])
+def get_advice3():
+    data = request.json
+    fullname = data['fullname']
+
+    prompt =  f"tôi có một file data.txt để ghi lại những sự kiện được gõ trên bàn phím người dùng, Yêu cầu: phân tích nội dụng file dưới đây và cho biết người dùng đã làm những việc gì trong hoạt động file ghi lại ( có thể đưa ra một số dự đoán kết hợp dự đoán trang web người dùng sẽ vào. Nếu thấy địa chỉ hay tên trang của một trò chơi hay một trang web không liên quan trực tiếp tới việc học tập như facebook youtube,... thì cảnh báo học sinh). Nội dung file như sau: '{fullname}', (No Yapping)"
 
     # Use the OpenAI ChatGPT API to get a response
     response = openai.chat.completions.create(
@@ -1242,6 +1353,10 @@ def control():
 def get_screenshot(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER2'], filename)
 
+@app.route('/data_get/<filename>')
+def get_screenshot2(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER3'], filename)
+
 # def auto_capture():
 #     while True:
 #         time.sleep(30)
@@ -1348,6 +1463,14 @@ def get_image():
     timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
     cursor.execute("INSERT INTO screenshots (learnerID, image_path, capture_time) VALUES (%s, %s, %s)", ("2", screenshot_path, timestamp))
     db.commit()
+    return "Success"
+
+@app.route('/api/upload_data_key', methods=['POST'])
+def data_key():
+    data_key = request.files.get('file')
+    filename=data_key.filename
+    data_path = os.path.join(app.config['UPLOAD_FOLDER3'], filename)
+    data_key.save(data_path)
     return "Success"
 
 

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Study Zone</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Chart.js 2.x -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
@@ -211,41 +212,146 @@
 
 
             <div class="thong_ke_right" style="display: none;">
-                <div class="key_item">
-                    <div class="thong_ke1">Code:</div>
-                    <div class="code_moi">
-                        <pre id="codeContainer" class="thong_ke3"></pre>
+                <p class="main_title">
+                    Phòng Học
+                </p>
+                <div class="search_thong_ke_right">
+                    <input type="search" placeholder="Tìm kiếm ..." id="search_tk">
+                    <button class="icon_search_tk">
+                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17.375 15.625L12.125 10.875M1.625 6.91667C1.625 7.64441 1.78343 8.36503 2.09124 9.03737C2.39905 9.70972 2.85021 10.3206 3.41897 10.8352C3.98773 11.3498 4.66294 11.758 5.40606 12.0365C6.14918 12.315 6.94565 12.4583 7.75 12.4583C8.55435 12.4583 9.35082 12.315 10.0939 12.0365C10.8371 11.758 11.5123 11.3498 12.081 10.8352C12.6498 10.3206 13.101 9.70972 13.4088 9.03737C13.7166 8.36503 13.875 7.64441 13.875 6.91667C13.875 6.18892 13.7166 5.46831 13.4088 4.79596C13.101 4.12362 12.6498 3.51271 12.081 2.99812C11.5123 2.48353 10.8371 2.07533 10.0939 1.79683C9.35082 1.51834 8.55435 1.375 7.75 1.375C6.94565 1.375 6.14918 1.51834 5.40606 1.79683C4.66294 2.07533 3.98773 2.48353 3.41897 2.99812C2.85021 3.51271 2.39905 4.12362 2.09124 4.79596C1.78343 5.46831 1.625 6.18892 1.625 6.91667Z"
+                                stroke="#6E5FB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="box_code_language_info">
+                    <div class="item_info_code">
+                        <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5.54925 0.761719H10.9562V12.1873H0.00537109V1.19278L5.54925 6.38624V0.761719ZM6.64434 11.1486H9.86115V10.4564H8.13639V9.41766H9.86115V8.72486H8.13639V7.68616H9.86115V6.99388H8.13639V5.95518H9.86115V5.26289H8.13639V4.2242H9.86115V3.53139H8.13639V2.4927H9.86115V1.80041H6.64434V11.1486ZM5.54925 11.1486V7.8456L1.10046 3.67785V11.1486H5.54925Z"
+                                fill="#978EBF" fill-opacity="0.83" />
+                        </svg>
+                        <p>Html</p>
+                    </div>
+                    <div class="item_info_code">
+                        <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10.648 9.26486L7.33364 5.00357V0.857143H8.25034V0H2.75012V0.857143H3.66682V5.00357L0.352485 9.26486C0.152568 9.52176 0.0325612 9.82538 0.00574494 10.1421C-0.0210714 10.4588 0.0463479 10.7763 0.200543 11.0594C0.354738 11.3425 0.589696 11.5803 0.87942 11.7463C1.16914 11.9123 1.50234 12.0001 1.84213 12H9.15787C9.49767 12.0001 9.83086 11.9123 10.1206 11.7463C10.4103 11.5803 10.6453 11.3425 10.7995 11.0594C10.9537 10.7763 11.0211 10.4588 10.9943 10.1421C10.9674 9.82538 10.8474 9.52176 10.6475 9.26486H10.648ZM4.58353 5.28214V0.857143H6.41693V5.28214L7.64211 6.85714H3.35835L4.58353 5.28214ZM9.15833 11.1429H1.84259C1.67198 11.1427 1.50475 11.0984 1.35934 11.015C1.21393 10.9316 1.096 10.8122 1.01857 10.6701C0.941139 10.5279 0.907215 10.3685 0.920543 10.2095C0.93387 10.0505 0.993932 9.89799 1.0941 9.76886L2.69191 7.71429H8.30855L9.90682 9.76886C10.007 9.89799 10.067 10.0505 10.0804 10.2095C10.0937 10.3685 10.0598 10.5279 9.98235 10.6701C9.90491 10.8122 9.78699 10.9316 9.64158 11.015C9.49617 11.0984 9.32893 11.1427 9.15833 11.1429Z"
+                                fill="#978EBF" />
+                        </svg>
+                        <p>Css</p>
+                    </div>
+                    <div class="item_info_code">
+                        <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_2149_383)">
+                                <path
+                                    d="M10.1 3.62181C11.18 4.05037 12.3947 4.08354 13.5 3.71467M4 12.5361C4.3969 11.5065 4.36119 10.3759 3.9 9.36967C3.53902 8.56849 3.44135 7.68606 3.6193 6.83346C3.79724 5.98085 4.24284 5.19619 4.9 4.57824C5.57367 3.95916 6.42964 3.53912 7.36 3.37109"
+                                    stroke="#978EBF" stroke-opacity="0.83" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M6.6 9.62984C7.53488 9.46041 8.39454 9.03705 9.07 8.41342M9.07 8.41342C9.72831 7.79613 10.1747 7.01143 10.3527 6.15855C10.5307 5.30568 10.4323 4.42294 10.07 3.62199C9.61821 2.61556 9.59321 1.48768 10 0.464844M9.07 8.41342L4.94 4.57842M0.5 9.28627C1.60575 8.91565 2.82236 8.9522 3.9 9.38842"
+                                    stroke="#978EBF" stroke-opacity="0.83" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2149_383">
+                                    <rect width="14" height="13" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p>C++</p>
+                    </div>
+                    <div class="item_info_code">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 0.909091C3.91503 0.909091 2.87449 1.3401 2.10729 2.10729C1.3401 2.87448 0.909095 3.91502 0.909095 5C0.909095 6.08955 1.33409 7.07864 2.02864 7.81182L2.25773 8.05364L1.68182 9.09091H5C5.53723 9.09091 6.06919 8.9851 6.56552 8.77951C7.06186 8.57392 7.51283 8.27259 7.89271 7.89271C8.27259 7.51283 8.57392 7.06186 8.77951 6.56552C8.9851 6.06919 9.09091 5.53723 9.09091 5C9.09091 4.46277 8.9851 3.93081 8.77951 3.43448C8.57392 2.93814 8.27259 2.48717 7.89271 2.10729C7.51283 1.72741 7.06186 1.42608 6.56552 1.22049C6.06919 1.01491 5.53723 0.909091 5 0.909091ZM4.27643e-06 5C4.27643e-06 2.23864 2.23864 0 5 0C7.76136 0 10 2.23864 10 5C10 7.76136 7.76136 10 5 10H0.136368L1.14546 8.18455C0.4037 7.28924 -0.00151853 6.16266 4.27643e-06 5ZM5.45455 2.04545V4.81182L7.00636 6.36364L6.36364 7.00636L4.54546 5.18818V2.04545H5.45455Z"
+                                fill="#978EBF" fill-opacity="0.83" />
+                        </svg>
+                        <p>Pascal</p>
+                    </div>
+                    <div class="item_info_code">
+                        <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g opacity="0.83" clip-path="url(#clip0_2149_388)">
+                                <path
+                                    d="M4.26514 6.91745V2.80078H5.48897C5.826 2.80078 6.14924 2.9251 6.38756 3.1464C6.62587 3.3677 6.75976 3.66784 6.75976 3.9808C6.75976 4.29376 6.62587 4.59391 6.38756 4.8152C6.14924 5.0365 5.826 5.16082 5.48897 5.16082H4.26514M6.63726 6.66611L7.57847 10.1626L8.51968 6.66611L9.46118 10.1626L10.4024 6.66611"
+                                    stroke="#978EBF" stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M0.839844 5.0665C1.0931 4.18919 1.56028 3.37773 2.20526 2.69487C2.85024 2.01202 3.65573 1.47608 4.55942 1.1285C5.46312 0.780924 6.44081 0.631027 7.41687 0.690402C8.39293 0.749778 9.3412 1.01684 10.1883 1.47092M3.81105 11.5297C4.65821 11.9839 5.60654 12.251 6.58267 12.3104C7.5588 12.3699 8.53657 12.22 9.44035 11.8724C10.3441 11.5248 11.1497 10.9888 11.7947 10.3059C12.4397 9.62302 12.9069 8.81148 13.1601 7.93409"
+                                    stroke="#978EBF" stroke-linecap="round" stroke-linejoin="round" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2149_388">
+                                    <rect width="14" height="13" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p>Python</p>
+                    </div>
+                    <div class="item_info_code">
+                        <img src="/static/img/javas.svg" alt="">
+                        <p>Javas</p>
+                    </div>
+                    <div class="item_info_code">
+                        <img src="/static/img/it.svg" alt="">
+                        <p>Tin Học</p>
                     </div>
                 </div>
-                <div class="key_item">
-                    <div class="thong_ke1">Đề Bài:</div>
-                    <p id="problemStatementContainer" class="thong_ke2"></p>
+                <p class="main_title_tk2">
+                    Tạo Phòng Học
+                </p>
+                <div class="phong_hoc_mh_box">
+                    <div class="mh1">
+                        <img src="/static/img/control2_cam_tho.svg" alt="">
+                    </div>
+                    <div class="mh2">
+                        <img src="/static/img/mh2_control2.svg" alt="">
+                    </div>
                 </div>
+                <p class="main_title_tk3">
+                    Giám Sát WebCam
+                </p>
+                <p class="mini_title_tk3">
+                    Phòng Học cho phép giáo viên giám sát Học Sinh theo thời gian thực ...
+                </p>
+                <div class="box_rom_info_tk">
+                    <div class="room_tk_item">
+                        <img src="/static/img/img_control21.png" alt="">
+                    </div>
+                    <div class="room_tk_item">
+                        <img src="/static/img/control2_img2.png" alt="">
+                    </div>
+                    <div class="room_tk_item">
+                        <img src="/static/img/control2_img3.png" alt="">
+                    </div>
+                    <div class="add_room">
+                        <div class="add_room_mn">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M17.648 32.7564C17.648 33.3952 17.9068 34.0079 18.3675 34.4596C18.8283 34.9114 19.4531 35.1651 20.1047 35.1651C20.7563 35.1651 21.3812 34.9114 21.8419 34.4596C22.3026 34.0079 22.5614 33.3952 22.5614 32.7564V22.3185H33.2073C33.8588 22.3185 34.4837 22.0647 34.9444 21.613C35.4052 21.1612 35.664 20.5486 35.664 19.9097C35.664 19.2709 35.4052 18.6582 34.9444 18.2065C34.4837 17.7547 33.8588 17.501 33.2073 17.501H22.5614V7.06305C22.5614 6.42421 22.3026 5.81153 21.8419 5.3598C21.3812 4.90808 20.7563 4.6543 20.1047 4.6543C19.4531 4.6543 18.8283 4.90808 18.3675 5.3598C17.9068 5.81153 17.648 6.42421 17.648 7.06305V17.501H7.00214C6.35058 17.501 5.7257 17.7547 5.26497 18.2065C4.80424 18.6582 4.54541 19.2709 4.54541 19.9097C4.54541 20.5486 4.80424 21.1612 5.26497 21.613C5.7257 22.0647 6.35058 22.3185 7.00214 22.3185H17.648V32.7564Z"
+                                    fill="#9783F5" />
+                            </svg>
+                        </div>
 
-                <div class="key_item">
-                    <div class="thong_ke1">Thời gian:</div>
-                    <p id="datetimeContainer" class="thong_ke2"></p>
+                    </div>
                 </div>
+                <a href="/it_mode">
+                    <div class="click_tao_phong">
+                        <img src="/static/img/ani.svg" alt="">
+                    </div>
+                </a>
 
-                <div class="key_item">
-                    <div class="thong_ke1">Lỗi:</div>
-                    <pre id="errorContainer" class="thong_ke2"></pre>
-                </div>
-
-                <div>
-                    <div class="thong_ke1">Lịch Sử Bài Làm:</div>
-                    <ul id="resultsHistory"></ul>
-                </div>
             </div>
 
 
             <div class="theo_doi_box" style="display: none;">
                 {% for filename in filenamesimg %}
-                    {% if filename[4] is none %}
-                        <div class="theo_doi_mini_box" title="{{ filename[3] }}">
-                            <img src="/{{ filename[2] }}" alt="Screenshot">
-                        </div>
-                    {% endif %}
+                {% if filename[4] is none %}
+                <div class="theo_doi_mini_box" title="{{ filename[3] }}">
+                    <img src="/{{ filename[2] }}" alt="Screenshot">
+                </div>
+                {% endif %}
                 {% endfor %}
             </div>
 
@@ -881,7 +987,7 @@
             }
         </script>
         <script src="/static/js/color_text_control2.js"></script>
-        <!-- <script>
+        <script>
             $(document).ready(function () {
                 var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -900,7 +1006,7 @@
                     $("#datetimeContainer").text("Date: " + data.date + " - Time: " + data.time);
                 });
             });
-        </script> -->
+        </script>
         <script src="/static/js/click_control2.js"></script>
     </div>
     </div>

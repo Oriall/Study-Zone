@@ -20,8 +20,8 @@ function dt_w_b1() {
         document.querySelector('.video_tailieu_box').style.display = 'flex'; // Display the div
     }, 300);
     var iframe = document.getElementById('tailieu_yt');
-    iframe.src = 'https://www.youtube.com/embed/rwulnTJldC8';
-    document.querySelector('.khoa_hoc_mini_ted').textContent = "Sau khi hoàn thành khóa học về front-end, học viên sẽ có khả năng thiết kế và phát triển giao diện người dùng website một cách chuyên nghiệp. Học viên sẽ trang bị cho bản thân kiến thức vững về HTML, CSS và JavaScript, cùng các framework phổ biến như React, Angular, hoặc Vue để tối ưu hóa quá trình phát triển. Không chỉ làm chủ các ngôn ngữ và công cụ, học viên cũng sẽ hiểu rõ về trải nghiệm người dùng và thiết kế responsively để đảm bảo website hoạt động mượt mà trên mọi thiết bị. Bằng cách này, học viên sẽ trở thành một lập trình viên front-end đa năng, có khả năng hợp tác tốt với đội ngũ phát triển và thiết kế, đồng thời đáp ứng được các yêu cầu của khách hàng với giao diện thân thiện và chất lượng cao. Điều này sẽ mở ra nhiều cơ hội nghề nghiệp trong lĩnh vực phát triển web, từ việc làm freelancer cho đến tham gia vào các dự án lớn trong các công ty công nghệ đổi mới.";
+    iframe.src = 'https://youtu.be/_WHp7XZ9B1g';
+    document.querySelector('.khoa_hoc_mini_ted').textContent = "Công cụ giám sát của Study Zone được tích hợp với các tính năng thông minh như theo dõi màn hình người dùng, phân tích hoạt động trên trang web và đánh giá hiệu suất học tập theo thời gian thực dựa trên các tiêu chí như sự chủ động, sự tập trung và sự tiến triển. Nó cung cấp thông tin chi tiết và phản hồi linh hoạt để giúp người học điều chỉnh phương pháp học tập của mình và đạt được kết quả tốt nhất. Lưu ý rằng: Nếu gặp bật kỳ lỗi gì khi không thể theo dõi, giáo viên có thể yêu cầu học sinh ấn F12 và khởi động lại App";
 }
 
 function dt_w_b2() {

@@ -2,5 +2,6 @@
 .vscode
 static/uploads
 screenshots
+data_get
 *.py[co]
 venv

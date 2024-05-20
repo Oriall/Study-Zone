@@ -30,7 +30,7 @@ function tro_chuyen() {
     document.querySelector(".end_right").style.display = "flex";
     document.querySelector(".camera_box_bg").style.display = "none";
     document.querySelector(".phong_chung_right").style.display = "none";
-    document.querySelector(".thong_ke_chung").style.display = "block";
+    document.querySelector(".thong_ke_chung").style.display = "none";
     document.querySelector(".theo_doi_box").style.display = "none";
 }
 function phong_chung(){

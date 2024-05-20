@@ -596,9 +596,13 @@ a {
 }
 
 .thong_ke_right {
-    padding: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 25px;
+    padding-left: 49px;
     overflow: auto;
     width: calc(100% - 50px);
+    position: relative;
 }
 
 .thong_ke_right::-webkit-scrollbar {
@@ -1016,9 +1020,10 @@ a {
 
 .pcr2_head2 {
     padding-top: 2px;
-    
+
 }
-.box_from_to{
+
+.box_from_to {
     display: flex;
     align-items: end;
     column-gap: 8px;
@@ -1033,6 +1038,7 @@ a {
     line-height: normal;
     letter-spacing: 1.08px;
 }
+
 #pcr2_text11 {
     color: #FFF;
     font-family: Inter;
@@ -1110,6 +1116,7 @@ a {
     line-height: normal;
     letter-spacing: 0.78px;
 }
+
 .pcr32_text22 {
     color: rgba(255, 255, 255);
     font-family: Inter;
@@ -1119,6 +1126,7 @@ a {
     line-height: normal;
     letter-spacing: 0.78px;
 }
+
 .pcr3_chart {
     width: 100%;
     height: 210px;
@@ -1467,8 +1475,9 @@ a {
 }
 
 .next_up {
-    border:none;
-    outline: none;;
+    border: none;
+    outline: none;
+    ;
     width: 23px;
     height: 23px;
     border-radius: 50%;
@@ -1497,6 +1506,7 @@ a {
     overflow: auto;
     width: calc(100% - 50px);
 }
+
 .pcr3_1_chung {
     background-color: #181623;
     padding-left: 16px;
@@ -1506,6 +1516,7 @@ a {
     height: 270px;
     border-radius: 2px;
 }
+
 .pop_up_ad {
     position: absolute;
     top: 0;
@@ -1560,6 +1571,7 @@ a {
     left: 50%;
     transform: translateX(-50%);
 }
+
 @-webkit-keyframes ZoomIn {
     from {
 
@@ -1578,6 +1590,7 @@ a {
 .animation-status6 {
     animation: ZoomIn 0.3s ease-out forwards;
 }
+
 @-webkit-keyframes ZoomOut {
     from {
 
@@ -1597,6 +1610,7 @@ a {
 .animation-status7 {
     animation: ZoomOut 0.29s ease-out forwards;
 }
+
 @-webkit-keyframes ZoomIn2 {
     from {
         opacity: 0;
@@ -1648,6 +1662,7 @@ a {
     background-color: #1F1C2D;
     opacity: 0.9;
 }
+
 .theo_doi_box {
     display: flex;
     column-gap: 42px;
@@ -1662,7 +1677,8 @@ a {
 .theo_doi_box::-webkit-scrollbar {
     display: none;
 }
-.theo_doi_mini_box{
+
+.theo_doi_mini_box {
     background-color: #1A1825;
     width: 259px;
     height: 172px;
@@ -1671,14 +1687,219 @@ a {
     transform: scale(1);
     user-select: none;
 }
+
 .theo_doi_mini_box:hover {
     border-radius: 3px;
     transform: scale(1.02);
     outline: 1px solid #CAA6F9;
     box-shadow: 0px 0px 20px 0px rgba(111, 78, 154, 0.56);
 }
-.theo_doi_mini_box img{
+
+.theo_doi_mini_box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
+.main_title {
+    color: rgba(255, 255, 255, 0.87);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    word-spacing: 3px;
+}
+
+.search_thong_ke_right {
+    padding-top: 24px;
+    width: 819px;
+    position: relative;
+    
+}
+
+#search_tk {
+    width: 819px;
+    height: 33px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    background-color: #201E2F;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    color: rgba(151, 142, 191, 0.70);
+    font-family: Fira Code;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    word-spacing: 3px;
+}
+
+#search_tk::placeholder {
+    color: rgba(151, 142, 191, 0.70);
+    font-family: Fira Code;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    word-spacing: 3px;
+}
+
+.icon_search_tk {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    position: absolute;
+    right: 13px;
+    top: 51%;
+}
+
+.box_code_language_info {
+    padding-top: 17px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+
+}
+
+.item_info_code {
+    height: 26.12px;
+    width: 84.24px;
+    display: flex;
+    align-items: center;
+    background-color: #201E2F;
+    border-radius: 8px;
+    justify-content: center;
+    column-gap: 5px;
+}
+
+.item_info_code p {
+    color: rgba(151, 142, 191, 0.83);
+    font-family: Fira Code;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    word-spacing: 3px;
+}
+
+.main_title_tk2 {
+    padding-top: 17px;
+    color: #FFFFFF;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.phong_hoc_mh_box {
+    padding-top: 19px;
+    display: flex;
+    align-items: center;
+    column-gap: 11px;
+}
+
+.mh1 {
+    width: 477.63px;
+    height: 256.26px;
+    border-radius: 11px;
+    border: solid #282B30 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 11px;
+    user-select: none;
+}
+
+.main_title_tk3{
+    padding-top: 34px;
+    color: #E0E0E1;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.mini_title_tk3{
+    padding-top: 5px;
+    color: rgba(255, 255, 255, 0.65);
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+    word-spacing: 3px;
+}
+.box_rom_info_tk{
+    padding-top: 27px;
+    display: flex;
+    align-items: center;
+    column-gap: 22px;
+    user-select: none;
+}
+.room_tk_item{
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    width: 231.09px;
+    height: 123.53px;
+    border-radius: 5px;
+    border: #282B30 solid 1px;
+    background-color: #191624;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1);
+}
+.room_tk_item:hover{
+    transform: scale(1.1);
+    border: #9783F5 solid 1px;
+}
+.room_tk_item:active{
+    transform: scale(1);
+}
+.room_tk_item img{
+    width: 208.92px;
+    height: 104.59px;
+    object-fit: cover;
+
+}
+.add_room{
+    width: 73px;
+    height: 123.53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #201D2D;
+    user-select: none;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    border-radius: 5px;
+    transform: scale(1);
+}
+.add_room:hover{
+    transform: scale(1.1);
+    border: #9783F5 solid 1px;
+}
+.add_room:active{
+    transform: scale(1);
+}
+.add_room_mn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56.96px;
+    height: 104.14px;
+    border-radius: 5px;
+    background-color: #252238;
+}
+.click_tao_phong {
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+}
+
