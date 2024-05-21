@@ -57,6 +57,7 @@ DATA_FILE_PATH2 = BASE_DIR / 'Capture_Folder(StudyZone)'
 #     return f"{website} is unblocked."
 # Đường dẫn đến thư mục cần tạo
 directory = "data_get"
+file_path_data = os.path.join(directory, "data.txt")
 
 # Kiểm tra nếu thư mục chưa tồn tại, thì tạo mới
 if not os.path.exists(directory):
@@ -64,6 +65,14 @@ if not os.path.exists(directory):
     print(f'Thư mục "{directory}" đã được tạo.')
 else:
     print(f'Thư mục "{directory}" đã tồn tại.')
+
+# Kiểm tra và tạo file nếu chưa tồn tại
+if not os.path.exists(file_path_data):
+    with open(file_path_data, 'w') as file:
+        file.write('')  # Tạo file rỗng
+    print(f'File "{file_path_data}" đã được tạo.')
+else:
+    print(f'File "{file_path_data}" đã tồn tại.')
     
 @app.route("/")
 @app.route("/home")
