@@ -28,6 +28,7 @@ from functools import wraps
 import datetime
 from datetime import datetime
 from dotenv import load_dotenv
+import re
 
 load_dotenv()
 app = Flask(__name__)
@@ -935,8 +936,20 @@ def get_advice3():
     )
 
     advice = response.choices[0].message.content.strip()
+    session['advice'] = advice
 
     return jsonify({'advice': advice})
+
+@app.route('/piechart')
+def piechart():
+    try:
+        input_text = session.get('advice', '')
+        percentages_int = re.findall(r'(\d+(?:\.\d+)?)%', input_text)
+        percentages = percentages_int[:2]  # Only take the first two percentages
+        percentages = [float(percentage.replace('%', '')) for percentage in percentages]
+        return jsonify({'percentages': percentages})
+    except Exception as e:
+        return str(e)
 
 @app.route("/main", methods=['GET', 'POST'])
 def main():
