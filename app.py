@@ -1026,7 +1026,7 @@ def send_notification_with_image():
         # Gửi thông báo qua email
         from_email = "fluxiolmorax@gmail.com"
         to_email = "fluxiolmorax@gmail.com"
-        app_password = "ydgs ohmo pklq ppfv"  # Sử dụng Mật khẩu Ứng dụng của bạn
+        app_password = ""  # Sử dụng Mật khẩu Ứng dụng của bạn
         
         message = MIMEMultipart()
         message["From"] = from_email
@@ -1052,14 +1052,14 @@ def test():
     return render_template("test.html")
 
 # Twilio setup
-account_sid = 'ACa0f31501e024b519906f9c22f8948d11'
-auth_token = '03c258a540eb0436dc9b2ca95d8c5797'
+account_sid = ''
+auth_token = ''
 client = Client(account_sid, auth_token)
 
 # Email setup
 from_email = "fluxiolmorax@gmail.com"
 to_email = "fluxiolmorax@gmail.com"
-app_password = "ydgs ohmo pklq ppfv"  # Use your App Password
+app_password = ""  # Use your App Password
 message_sent = False
 
 message_sent = False
@@ -1091,7 +1091,7 @@ def focus():
             server.quit()
 
             # Send Twilio SMS
-            to_phone_number = '+84866139890'  # Replace with your actual phone number
+            to_phone_number = '+12345678'  # Replace with your actual phone number
             from_phone_number = '+12512902672'  # Replace with your Twilio phone number
 
             twilio_message = client.messages.create(
@@ -1222,8 +1222,8 @@ def query_view():
 jdoodle_api_url = 'https://api.jdoodle.com/v1/execute'
 
 # JDoodle API credentials
-client_id = '43c5e090725047f84652f38e3151160f'
-client_secret = '6f6f43c340c0f3350f5b45a294cb5ac21aee63cc5ac40c4a0bac39256e93632a'
+client_id = os.getenv('CLIENT_ID')
+client_secret = os.getenv('CLIENT_SECRET')
 @app.route('/compile', methods=['POST'])
 def compile_code():
     try:
